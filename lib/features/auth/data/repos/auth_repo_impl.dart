@@ -52,6 +52,30 @@ class AuthRepoImpl implements AuthRepo {
       return right(userModel);
     } on CustomExceptions catch (e) {
       return left(ServerFailure(errMeesage: e.errMessage));
+    } catch (e) {
+      log(
+        'Exception in AuthRepoImpl.signInWithEmailAndPassword: ${e.toString()}',
+      );
+      return left(
+        ServerFailure(errMeesage: 'Something went wrong. Please try again.'),
+      );
+    }
+  }
+
+  // google impl
+  @override
+  Future<Either<Failure, UserEntity>> signInWithGoogle() async {
+    try {
+      var user = await firebaseAuthService.signInWithGoogle();
+      var userModel = UserModel.fromFirebase(user);
+      return right(userModel);
+    } on CustomExceptions catch (e) {
+      return left(ServerFailure(errMeesage: e.errMessage));
+    } catch (e) {
+      log('Exception in AuthRepoImpl.signInWithGoogle: ${e.toString()}');
+      return left(
+        ServerFailure(errMeesage: 'Something went wrong. Please try again.'),
+      );
     }
   }
 }
