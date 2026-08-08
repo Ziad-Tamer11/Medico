@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:medico/core/services/get_it_service.dart';
 import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/firebase_options.dart';
 
 void main() async {
+  setUpGetIt();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const Medico());
