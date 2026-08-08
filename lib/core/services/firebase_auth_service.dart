@@ -30,7 +30,7 @@ class FirebaseAuthService {
         );
       } else {
         throw CustomExceptions(
-          errMessage: 'لقد حدث خطأ ما. الرجاء المحاولة مرة اخرى.',
+          errMessage: 'Something went wrong. Please try again.',
         );
       }
     } catch (e) {

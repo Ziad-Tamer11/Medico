@@ -9,12 +9,14 @@ class AuthUsecase {
   AuthUsecase({required this.authRepo});
 
   Future<Either<Failure, UserEntity>> createUserWithEmailAndPassword({
+    required String name,
     required String email,
     required String password,
-  }) async {
-    return await authRepo.createUserWithEmailAndPassword(
+  }) {
+    return authRepo.createUserWithEmailAndPassword(
       email: email,
       password: password,
+      name: name,
     );
   }
 }
