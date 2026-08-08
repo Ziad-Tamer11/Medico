@@ -8,25 +8,37 @@ class CustomTextFormField extends StatelessWidget {
     required this.hintText,
     this.suffixIcon,
     required this.keyboardType,
+    this.onSaved,
+    this.obscureText = false,
   });
 
   final String hintText;
   final Widget? suffixIcon;
   final TextInputType keyboardType;
+  final void Function(String?)? onSaved;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Enter text here';
+        }
+        return null;
+      },
       keyboardType: keyboardType,
+      onSaved: onSaved,
+      obscureText: obscureText,
       decoration: InputDecoration(
         filled: true,
         fillColor: Color(0xFFF9FAFB),
         hintText: hintText,
-        suffixIcon: suffixIcon,
-
         hintStyle: TextStyles.font16Regular.copyWith(
           color: const Color(0xFFB2BCC8),
         ),
+        errorStyle: TextStyles.font16Regular.copyWith(color: AppColor.red),
+        suffixIcon: suffixIcon,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: const BorderSide(color: Color(0xFFF4F4F6)),
