@@ -7,7 +7,7 @@ class AuthUsecase {
   final AuthRepo authRepo;
 
   AuthUsecase({required this.authRepo});
-  //create user userCase
+  //create user useCase
   Future<Either<Failure, UserEntity>> createUserWithEmailAndPassword({
     required String name,
     required String email,
@@ -20,7 +20,7 @@ class AuthUsecase {
     );
   }
 
-  //sign in with emailk and password userCase
+  //sign in with email and password useCase
   Future<Either<Failure, UserEntity>> signInWithEmailAndPassword({
     required String email,
     required String password,
