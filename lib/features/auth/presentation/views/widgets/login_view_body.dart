@@ -6,6 +6,7 @@ import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/custom_text_form_field.dart';
 import 'package:medico/features/auth/presentation/views/widgets/custom_text.dart';
 import 'package:medico/features/auth/presentation/views/widgets/dont_have_account.dart';
+import 'package:medico/core/widgets/or_divider.dart';
 
 class LoginViewBody extends StatelessWidget {
   const LoginViewBody({super.key});
@@ -37,6 +38,9 @@ class LoginViewBody extends StatelessWidget {
             CustomButton(onPressed: () {}, text: 'Sign In'),
             SizedBox(height: 32),
             DontHaveAccount(),
+            SizedBox(height: 32),
+            OrDivider(),
+            SizedBox(height: 32),
           ],
         ),
       ),
