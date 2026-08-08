@@ -1,19 +1,19 @@
 import 'package:bloc/bloc.dart';
 import 'package:medico/features/auth/domain/entities/user_entity.dart';
-import 'package:medico/features/auth/domain/repos/auth_repo.dart';
+import 'package:medico/features/auth/domain/usecases/auth_usecase.dart';
 import 'package:meta/meta.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit({required this.authRepo}) : super(LoginInitial());
-  final AuthRepo authRepo;
+  LoginCubit({required this.authUsecase}) : super(LoginInitial());
+  final AuthUsecase authUsecase;
   Future<void> signInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
     emit(LoginLoading());
-    var result = await authRepo.signInWithEmailAndPassword(
+    var result = await authUsecase.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
