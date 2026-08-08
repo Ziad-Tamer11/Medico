@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:medico/core/utils/app_images.dart';
+import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/core/widgets/build_app_bar.dart';
 import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/custom_text_form_field.dart';
@@ -61,6 +63,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               PromptText(
                 text1: "Don't have an account?",
                 text2: ' Create Account',
+                onTap: () {
+                  GoRouter.of(context).push(AppRoute.kSignUpView);
+                },
               ),
               SizedBox(height: 32),
               OrDivider(),

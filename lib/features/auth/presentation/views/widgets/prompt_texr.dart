@@ -1,10 +1,17 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class PromptText extends StatelessWidget {
-  const PromptText({super.key, required this.text1, required this.text2});
+  const PromptText({
+    super.key,
+    required this.text1,
+    required this.text2,
+    this.onTap,
+  });
 
   final String text1;
   final String text2;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +30,7 @@ class PromptText extends StatelessWidget {
           ),
           TextSpan(
             text: text2,
+            recognizer: TapGestureRecognizer()..onTap = onTap,
             style: TextStyle(
               color: const Color(0xFF32384B),
               fontSize: 14,
