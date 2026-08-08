@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_route.dart';
@@ -7,6 +8,7 @@ import 'package:medico/core/widgets/build_page_title.dart';
 import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/custom_text_form_field.dart';
 import 'package:medico/core/widgets/password_field.dart';
+import 'package:medico/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:medico/features/auth/presentation/views/widgets/social_login_button.dart';
 import 'package:medico/features/auth/presentation/views/widgets/custom_text.dart';
 import 'package:medico/features/auth/presentation/views/widgets/prompt_texr.dart';
@@ -58,6 +60,10 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
+                    context.read<LoginCubit>().signInWithEmailAndPassword(
+                      email: email,
+                      password: password,
+                    );
                   } else {
                     setState(() {
                       autovalidateMode = AutovalidateMode.always;
