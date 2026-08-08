@@ -39,23 +39,22 @@ class CustomTextFormField extends StatelessWidget {
         ),
         errorStyle: TextStyles.font16Regular.copyWith(color: AppColor.red),
         suffixIcon: suffixIcon,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: Color(0xFFF4F4F6)),
+        border: buildBorder(),
+        enabledBorder: buildBorder(),
+        focusedBorder: buildBorder().copyWith(
+          borderSide: BorderSide(color: AppColor.primary),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Color(0xFFF4F4F6)),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: AppColor.primary),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: AppColor.red),
-          borderRadius: BorderRadius.circular(16),
+        errorBorder: buildBorder().copyWith(
+          borderSide: BorderSide(color: AppColor.red),
         ),
       ),
+    );
+  }
+
+  OutlineInputBorder buildBorder() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: const BorderSide(color: Color(0xFFF4F4F6)),
     );
   }
 }

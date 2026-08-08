@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class DontHaveAccount extends StatelessWidget {
-  const DontHaveAccount({super.key});
+class PromptText extends StatelessWidget {
+  const PromptText({super.key});
 
   @override
   Widget build(BuildContext context) {
