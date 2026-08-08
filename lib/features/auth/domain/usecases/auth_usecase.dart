@@ -30,4 +30,9 @@ class AuthUsecase {
       password: password,
     );
   }
+
+  //sign in with google useCase
+  Future<Either<Failure, UserEntity>> signInWithGoogle() {
+    return authRepo.signInWithGoogle();
+  }
 }
