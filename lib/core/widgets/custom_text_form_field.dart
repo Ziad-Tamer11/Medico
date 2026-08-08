@@ -7,19 +7,23 @@ class CustomTextFormField extends StatelessWidget {
     super.key,
     required this.hintText,
     this.suffixIcon,
+    required this.keyboardType,
   });
 
   final String hintText;
   final Widget? suffixIcon;
+  final TextInputType keyboardType;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: keyboardType,
       decoration: InputDecoration(
         filled: true,
         fillColor: Color(0xFFF9FAFB),
         hintText: hintText,
         suffixIcon: suffixIcon,
+
         hintStyle: TextStyles.font16Regular.copyWith(
           color: const Color(0xFFB2BCC8),
         ),

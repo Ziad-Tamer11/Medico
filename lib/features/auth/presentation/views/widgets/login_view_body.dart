@@ -26,12 +26,16 @@ class LoginViewBody extends StatelessWidget {
             SizedBox(height: 80),
             CustomText(text: 'Email Address'),
             SizedBox(height: 12),
-            CustomTextFormField(hintText: 'Enter email address'),
+            CustomTextFormField(
+              hintText: 'Enter email address',
+              keyboardType: TextInputType.emailAddress,
+            ),
             SizedBox(height: 12),
             CustomText(text: 'Password'),
             SizedBox(height: 12),
             CustomTextFormField(
               hintText: 'Enter password',
+              keyboardType: TextInputType.visiblePassword,
               suffixIcon: IconButton(
                 onPressed: () {},
                 icon: SvgPicture.asset(Assets.imagesVisible),
