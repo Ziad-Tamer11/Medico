@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/widgets/build_app_bar.dart';
+import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/custom_text_form_field.dart';
 import 'package:medico/features/auth/presentation/views/widgets/custom_text.dart';
 
@@ -31,6 +32,8 @@ class LoginViewBody extends StatelessWidget {
                 icon: SvgPicture.asset(Assets.imagesVisible),
               ),
             ),
+            SizedBox(height: 32),
+            CustomButton(onPressed: () {}, text: 'Sign In'),
           ],
         ),
       ),
