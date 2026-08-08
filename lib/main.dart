@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medico/features/splash/presentation/view/splash_view.dart';
+import 'package:medico/core/utils/app_route.dart';
 
 void main() {
   runApp(const Medico());
@@ -8,9 +8,11 @@ void main() {
 class Medico extends StatelessWidget {
   const Medico({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: SplashView());
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      routerConfig: AppRoute.router,
+    );
   }
 }
