@@ -7,7 +7,7 @@ import 'package:medico/core/widgets/custom_text_form_field.dart';
 import 'package:medico/core/widgets/password_field.dart';
 import 'package:medico/features/auth/presentation/views/widgets/social_login_button.dart';
 import 'package:medico/features/auth/presentation/views/widgets/custom_text.dart';
-import 'package:medico/features/auth/presentation/views/widgets/dont_have_account.dart';
+import 'package:medico/features/auth/presentation/views/widgets/prompt_texr.dart';
 import 'package:medico/core/widgets/or_divider.dart';
 
 class LoginViewBody extends StatefulWidget {
@@ -58,7 +58,10 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 text: 'Sign In',
               ),
               SizedBox(height: 32),
-              PromptText(),
+              PromptText(
+                text1: "Don't have an account?",
+                text2: ' Create Account',
+              ),
               SizedBox(height: 32),
               OrDivider(),
               SizedBox(height: 32),

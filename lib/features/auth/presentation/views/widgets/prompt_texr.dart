@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class PromptText extends StatelessWidget {
-  const PromptText({super.key});
+  const PromptText({super.key, required this.text1, required this.text2});
+
+  final String text1;
+  final String text2;
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +12,7 @@ class PromptText extends StatelessWidget {
       TextSpan(
         children: [
           TextSpan(
-            text: "Don't have an account?",
+            text: text1,
             style: TextStyle(
               color: const Color(0xFF7D8994),
               fontSize: 14,
@@ -19,7 +22,7 @@ class PromptText extends StatelessWidget {
             ),
           ),
           TextSpan(
-            text: ' Create Account',
+            text: text2,
             style: TextStyle(
               color: const Color(0xFF32384B),
               fontSize: 14,
