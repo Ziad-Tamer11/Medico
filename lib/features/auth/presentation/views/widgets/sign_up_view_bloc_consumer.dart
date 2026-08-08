@@ -14,10 +14,10 @@ class SignUpViewBlocConsumer extends StatelessWidget {
     return BlocConsumer<SignUpCubit, SignUpState>(
       listener: (context, state) {
         if (state is SignUpSuccess) {
-          showMessageBar(context, 'Login Successful', Colors.green);
+          showMessageBar(context, 'Account created successfully', Colors.green);
         }
         if (state is SignUpFailure) {
-          showMessageBar(context, 'Login Failed', AppColor.red);
+          showMessageBar(context, 'Failed to create account', AppColor.red);
         }
       },
       builder: (context, state) {
