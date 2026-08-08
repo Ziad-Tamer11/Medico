@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_route.dart';
-import 'package:medico/core/widgets/build_app_bar.dart';
+import 'package:medico/core/widgets/build_page_title.dart';
 import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/custom_text_form_field.dart';
 import 'package:medico/core/widgets/password_field.dart';
@@ -27,13 +27,14 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
+      autovalidateMode: autovalidateMode,
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
               SizedBox(height: 93),
-              CustomAppBar(title: 'Sign In'),
+              CustomPageTitle(title: 'Sign In'),
               SizedBox(height: 80),
               CustomText(text: 'Email Address'),
               SizedBox(height: 12),
@@ -47,14 +48,20 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               SizedBox(height: 12),
               CustomText(text: 'Password'),
               SizedBox(height: 12),
-              PasswordField(),
+              PasswordField(
+                onSaved: (value) {
+                  password = value!;
+                },
+              ),
               SizedBox(height: 32),
               CustomButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
                   } else {
-                    autovalidateMode = AutovalidateMode.always;
+                    setState(() {
+                      autovalidateMode = AutovalidateMode.always;
+                    });
                   }
                 },
                 text: 'Sign In',

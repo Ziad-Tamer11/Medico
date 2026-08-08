@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medico/core/utils/app_images.dart';
-import 'package:medico/core/widgets/build_app_bar.dart';
+import 'package:medico/core/widgets/build_page_title.dart';
 import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/custom_text_form_field.dart';
 import 'package:medico/core/widgets/or_divider.dart';
@@ -26,6 +26,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
+      autovalidateMode: autovalidateMode,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: SingleChildScrollView(
@@ -33,7 +34,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 93),
-              const CustomAppBar(title: 'Sign Up'),
+              const CustomPageTitle(title: 'Sign Up'),
               const SizedBox(height: 56),
               const CustomText(text: 'Full Name'),
               const SizedBox(height: 12),
@@ -69,7 +70,9 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
                   } else {
-                    autovalidateMode = AutovalidateMode.always;
+                    setState(() {
+                      autovalidateMode = AutovalidateMode.always;
+                    });
                   }
                 },
               ),

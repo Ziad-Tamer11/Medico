@@ -8,7 +8,7 @@ class OrDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: Divider(color: Color(0xFFF4F4F6), thickness: 1)),
+        Expanded(child: Divider(color: Color(0xFFF4F4F6), thickness: 2)),
         SizedBox(width: 16),
         Text(
           'Or',
@@ -16,7 +16,7 @@ class OrDivider extends StatelessWidget {
           style: TextStyles.font14Regular,
         ),
         SizedBox(width: 16),
-        Expanded(child: Divider(color: Color(0xFFF4F4F6), thickness: 1)),
+        Expanded(child: Divider(color: Color(0xFFF4F4F6), thickness: 2)),
       ],
     );
   }
