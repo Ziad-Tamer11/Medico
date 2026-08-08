@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:medico/core/errors/exceptions.dart';
 
 class FirebaseAuthService {
@@ -78,5 +79,18 @@ class FirebaseAuthService {
         errMessage: 'Something went wrong. Please try again.',
       );
     }
+  }
+
+  //sign in with google
+  Future<User> signInWithGoogle() async {
+    final googleUser = await GoogleSignIn.instance.authenticate();
+    final googleAuth = googleUser.authentication;
+    final credential = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,
+    );
+    final userCredential = await FirebaseAuth.instance.signInWithCredential(
+      credential,
+    );
+    return userCredential.user!;
   }
 }
