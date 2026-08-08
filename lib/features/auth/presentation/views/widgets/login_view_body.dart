@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/widgets/build_app_bar.dart';
 import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/custom_text_form_field.dart';
+import 'package:medico/features/auth/presentation/views/widgets/social_login_button.dart';
 import 'package:medico/features/auth/presentation/views/widgets/custom_text.dart';
 import 'package:medico/features/auth/presentation/views/widgets/dont_have_account.dart';
 import 'package:medico/core/widgets/or_divider.dart';
@@ -41,6 +44,16 @@ class LoginViewBody extends StatelessWidget {
             SizedBox(height: 32),
             OrDivider(),
             SizedBox(height: 32),
+            Row(
+              spacing: 24,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SocialLoginButton(image: Assets.imagesGoogle),
+                if (Platform.isIOS)
+                  SocialLoginButton(image: Assets.imagesApple),
+                SocialLoginButton(image: Assets.imagesFacebook),
+              ],
+            ),
           ],
         ),
       ),
