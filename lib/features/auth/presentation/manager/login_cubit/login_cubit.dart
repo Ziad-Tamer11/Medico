@@ -8,6 +8,7 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit({required this.authUsecase}) : super(LoginInitial());
   final AuthUsecase authUsecase;
+  //sign in cubit
   Future<void> signInWithEmailAndPassword({
     required String email,
     required String password,
@@ -17,6 +18,16 @@ class LoginCubit extends Cubit<LoginState> {
       email: email,
       password: password,
     );
+    result.fold(
+      (failure) => emit(LoginFailure(errMessage: failure.errMeesage)),
+      (userEntity) => emit(LoginSuccess(userEntity: userEntity)),
+    );
+  }
+  //google cubit
+
+  Future<void> signInWithGoogle() async {
+    emit(LoginLoading());
+    var result = await authUsecase.signInWithGoogle();
     result.fold(
       (failure) => emit(LoginFailure(errMessage: failure.errMeesage)),
       (userEntity) => emit(LoginSuccess(userEntity: userEntity)),

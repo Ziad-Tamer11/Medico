@@ -9,6 +9,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit({required this.authUsecase}) : super(SignUpInitial());
   final AuthUsecase authUsecase;
 
+  //sign up cubit
   Future<void> createUserWithEmailAndPassword({
     required String name,
     required String email,
