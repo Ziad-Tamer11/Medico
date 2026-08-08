@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:medico/core/utils/app_images.dart';
+import 'package:medico/core/utils/app_route.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -30,7 +32,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
     _controller.forward();
     Future.delayed(const Duration(seconds: 2), () {
       if (!mounted) return;
-      // context.go('/auth');
+      GoRouter.of(context).pushReplacement(AppRoute.kLoginView);
     });
   }
 
