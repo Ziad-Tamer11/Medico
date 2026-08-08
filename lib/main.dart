@@ -11,6 +11,10 @@ class Medico extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: AppBarTheme(backgroundColor: Colors.white),
+      ),
       debugShowCheckedModeBanner: false,
       routerConfig: AppRoute.router,
     );
