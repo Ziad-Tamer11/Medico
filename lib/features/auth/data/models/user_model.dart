@@ -1,13 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:medico/features/auth/domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
   UserModel({required super.name, required super.email, required super.uId});
 
-  factory UserModel.fromFirebase(UserEntity userEntity) {
+  factory UserModel.fromFirebase(User user) {
     return UserModel(
-      name: userEntity.name,
-      email: userEntity.email,
-      uId: userEntity.uId,
+      name: user.displayName ?? '',
+      email: user.email ?? '',
+      uId: user.uid,
     );
   }
 }

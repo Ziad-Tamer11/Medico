@@ -11,7 +11,7 @@ class AuthRepoImpl implements AuthRepo {
   final FirebaseAuthService firebaseAuthService;
 
   AuthRepoImpl({required this.firebaseAuthService});
-
+  // create user impl
   @override
   Future<Either<Failure, UserEntity>> createUserWithEmailAndPassword({
     required String name,
@@ -23,7 +23,7 @@ class AuthRepoImpl implements AuthRepo {
         email: email,
         password: password,
       );
-      final userModel = UserModel(name: name, email: email, uId: user.uid);
+      final userModel = UserModel.fromFirebase(user);
       return right(userModel);
     } on CustomExceptions catch (e) {
       return left(ServerFailure(errMeesage: e.errMessage));
@@ -34,6 +34,24 @@ class AuthRepoImpl implements AuthRepo {
       return left(
         ServerFailure(errMeesage: 'Something went wrong. Please try again.'),
       );
+    }
+  }
+
+  // sign in impl
+  @override
+  Future<Either<Failure, UserEntity>> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      var user = await firebaseAuthService.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      var userModel = UserModel.fromFirebase(user);
+      return right(userModel);
+    } on CustomExceptions catch (e) {
+      return left(ServerFailure(errMeesage: e.errMessage));
     }
   }
 }

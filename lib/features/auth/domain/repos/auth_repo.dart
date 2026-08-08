@@ -3,8 +3,15 @@ import 'package:medico/core/errors/failure.dart';
 import 'package:medico/features/auth/domain/entities/user_entity.dart';
 
 abstract class AuthRepo {
+  //create user method
   Future<Either<Failure, UserEntity>> createUserWithEmailAndPassword({
     required String name,
+    required String email,
+    required String password,
+  });
+
+  //sign in method
+  Future<Either<Failure, UserEntity>> signInWithEmailAndPassword({
     required String email,
     required String password,
   });
