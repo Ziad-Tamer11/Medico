@@ -35,4 +35,9 @@ class AuthUsecase {
   Future<Either<Failure, UserEntity>> signInWithGoogle() {
     return authRepo.signInWithGoogle();
   }
+
+  //sign in with facebook useCase
+  Future<Either<Failure, UserEntity>> signInWithFacebook() {
+    return authRepo.signInWithFacebook();
+  }
 }
