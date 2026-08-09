@@ -40,4 +40,9 @@ class AuthUsecase {
   Future<Either<Failure, UserEntity>> signInWithFacebook() {
     return authRepo.signInWithFacebook();
   }
+
+  //add user data useCase
+  Future addUserData({required UserEntity userEntity}) {
+    return authRepo.addUserData(userEntity: userEntity);
+  }
 }
