@@ -87,7 +87,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 spacing: 24,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SocialLoginButton(image: Assets.imagesGoogle),
+                  SocialLoginButton(
+                    image: Assets.imagesGoogle,
+                    onTap: () {
+                      context.read<LoginCubit>().signInWithGoogle();
+                    },
+                  ),
                   if (Platform.isIOS)
                     SocialLoginButton(image: Assets.imagesApple),
                   SocialLoginButton(image: Assets.imagesFacebook),

@@ -12,7 +12,20 @@
           "package_name": "com.example.medico"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1005135440777-i0ogmpt505g1c6f4g5d8iaksffh40836.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.medico",
+            "certificate_hash": "26355c900fd8291ba8f27425f9481c570b5f1f1f"
+          }
+        },
+        {
+          "client_id": "1005135440777-7nv4d33vumht7l8mhrbk1jqocp1sgfb0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBLzAP8vX2rYruK4iL8e-30EV2BVj0nhv4"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1005135440777-7nv4d33vumht7l8mhrbk1jqocp1sgfb0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1005135440777-jji6j42ba3dmgp0rt3edlshmoontt2gf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.medico"
+              }
+            }
+          ]
         }
       }
     }

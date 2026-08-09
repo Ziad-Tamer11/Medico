@@ -12,8 +12,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = CustomBlocObserver();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  final googleSignIn = GoogleSignIn.instance;
-  await googleSignIn.initialize();
+  await GoogleSignIn.instance.initialize(
+    serverClientId:
+        '1005135440777-7nv4d33vumht7l8mhrbk1jqocp1sgfb0.apps.googleusercontent.com',
+  );
   setUpGetIt();
   runApp(const Medico());
 }
