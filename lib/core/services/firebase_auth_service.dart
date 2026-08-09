@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:medico/core/errors/exceptions.dart';
 
@@ -92,5 +93,18 @@ class FirebaseAuthService {
       credential,
     );
     return userCredential.user!;
+  }
+
+  //sign in with facebook
+  Future<UserCredential> signInWithFacebook() async {
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+    if (loginResult.accessToken == null) {
+      throw CustomExceptions(
+        errMessage: loginResult.message ?? 'Facebook sign in was cancelled.',
+      );
+    }
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
+    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
 }
