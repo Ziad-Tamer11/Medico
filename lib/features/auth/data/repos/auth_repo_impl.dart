@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:medico/core/errors/exceptions.dart';
 import 'package:medico/core/errors/failure.dart';
 import 'package:medico/core/services/database_service.dart';
@@ -24,8 +25,9 @@ class AuthRepoImpl implements AuthRepo {
     required String email,
     required String password,
   }) async {
+    User? user;
     try {
-      var user = await firebaseAuthService.createUserWithEmailAndPassword(
+      user = await firebaseAuthService.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -33,8 +35,14 @@ class AuthRepoImpl implements AuthRepo {
       await addUserData(userEntity: userEntity);
       return right(userEntity);
     } on CustomExceptions catch (e) {
+      if (user != null) {
+        await firebaseAuthService.deleteUser();
+      }
       return left(ServerFailure(errMeesage: e.errMessage));
     } catch (e) {
+      if (user != null) {
+        await firebaseAuthService.deleteUser();
+      }
       log(
         'Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}',
       );
