@@ -95,7 +95,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   ),
                   if (Platform.isIOS)
                     SocialLoginButton(image: Assets.imagesApple),
-                  SocialLoginButton(image: Assets.imagesFacebook),
+                  SocialLoginButton(
+                    image: Assets.imagesFacebook,
+                    onTap: () {
+                      context.read<LoginCubit>().signInWithFacebook();
+                    },
+                  ),
                 ],
               ),
             ],
