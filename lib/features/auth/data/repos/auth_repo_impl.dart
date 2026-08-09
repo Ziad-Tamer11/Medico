@@ -35,20 +35,24 @@ class AuthRepoImpl implements AuthRepo {
       await addUserData(userEntity: userEntity);
       return right(userEntity);
     } on CustomExceptions catch (e) {
-      if (user != null) {
-        await firebaseAuthService.deleteUser();
-      }
+      await deleteUser(user);
       return left(ServerFailure(errMeesage: e.errMessage));
     } catch (e) {
-      if (user != null) {
-        await firebaseAuthService.deleteUser();
-      }
+      await deleteUser(user);
+
       log(
         'Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}',
       );
       return left(
         ServerFailure(errMeesage: 'Something went wrong. Please try again.'),
       );
+    }
+  }
+
+  //delete user
+  Future<void> deleteUser(User? user) async {
+    if (user != null) {
+      await firebaseAuthService.deleteUser();
     }
   }
 
@@ -63,8 +67,8 @@ class AuthRepoImpl implements AuthRepo {
         email: email,
         password: password,
       );
-      var userModel = UserModel.fromFirebase(user);
-      return right(userModel);
+      var userEntity = UserModel.fromFirebase(user);
+      return right(userEntity);
     } on CustomExceptions catch (e) {
       return left(ServerFailure(errMeesage: e.errMessage));
     } catch (e) {
@@ -80,13 +84,17 @@ class AuthRepoImpl implements AuthRepo {
   // google impl
   @override
   Future<Either<Failure, UserEntity>> signInWithGoogle() async {
+    User? user;
     try {
-      var user = await firebaseAuthService.signInWithGoogle();
-      var userModel = UserModel.fromFirebase(user);
-      return right(userModel);
+      user = await firebaseAuthService.signInWithGoogle();
+      var userEntity = UserModel.fromFirebase(user);
+      await addUserData(userEntity: userEntity);
+      return right(userEntity);
     } on CustomExceptions catch (e) {
+      await deleteUser(user);
       return left(ServerFailure(errMeesage: e.errMessage));
     } catch (e) {
+      await deleteUser(user);
       log('Exception in AuthRepoImpl.signInWithGoogle: ${e.toString()}');
       return left(
         ServerFailure(errMeesage: 'Something went wrong. Please try again.'),
@@ -94,12 +102,33 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
-  // google impl
+  // facebook impl
   @override
   Future<Either<Failure, UserEntity>> signInWithFacebook() async {
-    var user = await firebaseAuthService.signInWithFacebook();
-    var userModel = UserModel.fromFirebase(user.user!);
-    return right(userModel);
+    User? user;
+    try {
+      var userCredential = await firebaseAuthService.signInWithFacebook();
+      user = userCredential.user;
+      if (user == null) {
+        return left(
+          ServerFailure(
+            errMeesage: 'Facebook sign-in failed. Please try again.',
+          ),
+        );
+      }
+      var userEntity = UserModel.fromFirebase(user);
+      await addUserData(userEntity: userEntity);
+      return right(userEntity);
+    } on CustomExceptions catch (e) {
+      await deleteUser(user);
+      return left(ServerFailure(errMeesage: e.errMessage));
+    } catch (e) {
+      await deleteUser(user);
+      log('Exception in AuthRepoImpl.signInWithFacebook: ${e.toString()}');
+      return left(
+        ServerFailure(errMeesage: 'Something went wrong. Please try again.'),
+      );
+    }
   }
 
   //add user impl
