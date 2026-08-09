@@ -45,4 +45,9 @@ class AuthUsecase {
   Future addUserData({required UserEntity userEntity}) {
     return authRepo.addUserData(userEntity: userEntity);
   }
+
+  //read user data useCase
+  Future getUserData({required String uId}) {
+    return authRepo.getUserData(uId: uId);
+  }
 }
