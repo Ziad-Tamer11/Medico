@@ -8,6 +8,7 @@ import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/custom_text_form_field.dart';
 import 'package:medico/core/widgets/or_divider.dart';
 import 'package:medico/core/widgets/password_field.dart';
+import 'package:medico/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:medico/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:medico/features/auth/presentation/views/widgets/custom_text.dart';
 import 'package:medico/features/auth/presentation/views/widgets/prompt_texr.dart';
@@ -98,10 +99,20 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 spacing: 24,
                 children: [
-                  const SocialLoginButton(image: Assets.imagesGoogle),
+                  SocialLoginButton(
+                    image: Assets.imagesGoogle,
+                    onTap: () {
+                      context.read<LoginCubit>().signInWithGoogle();
+                    },
+                  ),
                   if (Platform.isIOS)
                     const SocialLoginButton(image: Assets.imagesApple),
-                  SocialLoginButton(image: Assets.imagesFacebook),
+                  SocialLoginButton(
+                    image: Assets.imagesFacebook,
+                    onTap: () {
+                      context.read<LoginCubit>().signInWithFacebook();
+                    },
+                  ),
                 ],
               ),
             ],
