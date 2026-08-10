@@ -4,9 +4,9 @@ import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
 
 class CustomHeader extends StatelessWidget {
-  const CustomHeader({super.key, required this.title1, required this.title2});
+  const CustomHeader({super.key, required this.title1, this.onTap});
   final String title1;
-  final String title2;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,9 +18,12 @@ class CustomHeader extends StatelessWidget {
             style: TextStyles.font18Bold.copyWith(color: AppColor.black),
           ),
           Spacer(),
-          Text(
-            title2,
-            style: TextStyles.font16Medium.copyWith(color: AppColor.primary),
+          GestureDetector(
+            onTap: onTap,
+            child: Text(
+              'See all',
+              style: TextStyles.font16Medium.copyWith(color: AppColor.primary),
+            ),
           ),
         ],
       ),

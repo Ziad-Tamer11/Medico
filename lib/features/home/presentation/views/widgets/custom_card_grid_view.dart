@@ -8,6 +8,7 @@ class CustomCardGridview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+      shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       padding: EdgeInsets.symmetric(horizontal: kHorizontalPadding),
       itemCount: 6,
