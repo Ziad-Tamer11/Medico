@@ -34,3 +34,14 @@ class ActiveItem extends StatelessWidget {
     return SvgPicture.asset(image);
   }
 }
+
+class NavigationBarItem extends StatelessWidget {
+  const NavigationBarItem({super.key, required this.isSelected});
+  final bool isSelected;
+  @override
+  Widget build(BuildContext context) {
+    return isSelected
+        ? ActiveItem(image: Assets.imagesHomeSelected)
+        : InActiveItem(image: Assets.imagesHome);
+  }
+}
