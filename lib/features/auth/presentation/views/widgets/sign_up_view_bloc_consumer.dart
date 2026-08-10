@@ -27,7 +27,7 @@ class SignUpViewBlocConsumer extends StatelessWidget {
               GoRouter.of(context).push(AppRoute.kHomeView);
             }
             if (state is SignUpFailure) {
-              showMessageBar(context, 'Failed to create account', AppColor.red);
+              showMessageBar(context, state.errMessage, AppColor.red);
             }
           },
         ),
@@ -39,7 +39,7 @@ class SignUpViewBlocConsumer extends StatelessWidget {
               GoRouter.of(context).push(AppRoute.kHomeView);
             }
             if (state is LoginFailure) {
-              showMessageBar(context, 'Login Failed', AppColor.red);
+              showMessageBar(context, state.errMessage, AppColor.red);
             }
           },
         ),
