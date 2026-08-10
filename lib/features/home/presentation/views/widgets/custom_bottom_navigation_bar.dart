@@ -3,9 +3,17 @@ import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/features/home/domain/entities/buttom_navigation_bar_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/navigation_bar_item.dart';
 
-class CustomBottomNavigationBar extends StatelessWidget {
-  const CustomBottomNavigationBar({super.key});
+class CustomBottomNavigationBar extends StatefulWidget {
+  const CustomBottomNavigationBar({super.key, required this.onItemTapped});
+  final ValueChanged<int> onItemTapped;
 
+  @override
+  State<CustomBottomNavigationBar> createState() =>
+      _CustomBottomNavigationBarState();
+}
+
+class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,10 +23,20 @@ class CustomBottomNavigationBar extends StatelessWidget {
       decoration: BoxDecoration(color: AppColor.primary),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: bottomNavigationBarItems.map((e) {
-          return NavigationBarItem(
-            isSelected: false,
-            bottomNavigationBarEntity: e,
+        children: bottomNavigationBarItems.asMap().entries.map((e) {
+          var index = e.key;
+          var entity = e.value;
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                selectedIndex = index;
+                widget.onItemTapped(index);
+              });
+            },
+            child: NavigationBarItem(
+              isSelected: selectedIndex == index,
+              bottomNavigationBarEntity: entity,
+            ),
           );
         }).toList(),
       ),
