@@ -20,7 +20,7 @@ class Assets {
 
   /// Assets for imagesHeart
   /// assets/images/heart.svg
-  static const String imagesHeartTest = "assets/images/heart_test.svg";
+  static const String imagesHeart = "assets/images/heart.svg";
 
   /// Assets for imagesInVisible
   /// assets/images/in_visible.svg

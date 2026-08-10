@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:medico/constants.dart';
 import 'package:medico/core/utils/app_images.dart';
 
 class CustomCard extends StatelessWidget {
@@ -8,6 +9,7 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: kHorizontalPadding),
       width: 72,
       height: 72,
       decoration: ShapeDecoration(
@@ -16,7 +18,7 @@ class CustomCard extends StatelessWidget {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [SvgPicture.asset(Assets.imagesHeartTest), Text('Heart')],
+        children: [SvgPicture.asset(Assets.imagesHeart), Text('Heart')],
       ),
     );
   }
