@@ -4,8 +4,8 @@ import 'package:medico/features/home/presentation/views/widgets/custom_card_grid
 import 'package:medico/features/home/presentation/views/widgets/custom_header.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_card_list_view.dart';
 
-class HomeViewBody extends StatelessWidget {
-  const HomeViewBody({super.key});
+class MainViewBody extends StatelessWidget {
+  const MainViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
