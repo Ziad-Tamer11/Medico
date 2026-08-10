@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:medico/constants.dart';
 import 'package:medico/core/utils/app_images.dart';
 
 class CustomCard extends StatelessWidget {
@@ -9,9 +8,6 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: kHorizontalPadding),
-      width: 72,
-      height: 72,
       decoration: ShapeDecoration(
         color: const Color(0xFFF0F4FB),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

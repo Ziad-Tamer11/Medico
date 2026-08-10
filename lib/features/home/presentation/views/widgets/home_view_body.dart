@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medico/features/home/presentation/views/widgets/custom_app_bar.dart';
-import 'package:medico/features/home/presentation/views/widgets/custom_card.dart';
+import 'package:medico/features/home/presentation/views/widgets/custom_card_grid_view.dart';
 import 'package:medico/features/home/presentation/views/widgets/custom_header.dart';
 
 class HomeViewBody extends StatelessWidget {
@@ -16,7 +16,7 @@ class HomeViewBody extends StatelessWidget {
         SizedBox(height: 40),
         CustomHeader(title1: 'Categories', title2: 'See all'),
         SizedBox(height: 24),
-        CustomCard(),
+        Expanded(child: CustomCardGridview()),
       ],
     );
   }
