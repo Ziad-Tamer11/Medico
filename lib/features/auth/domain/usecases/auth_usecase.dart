@@ -50,4 +50,9 @@ class AuthUsecase {
   Future getUserData({required String uId}) {
     return authRepo.getUserData(uId: uId);
   }
+
+  //save user data useCase
+  Future saveUserData({required UserEntity userEntity}) {
+    return authRepo.saveUserData(userEntity: userEntity);
+  }
 }

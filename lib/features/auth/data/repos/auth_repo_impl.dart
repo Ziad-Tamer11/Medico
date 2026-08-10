@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -5,6 +6,7 @@ import 'package:medico/core/errors/exceptions.dart';
 import 'package:medico/core/errors/failure.dart';
 import 'package:medico/core/services/database_service.dart';
 import 'package:medico/core/services/firebase_auth_service.dart';
+import 'package:medico/core/services/shared_preferences.dart';
 import 'package:medico/core/utils/backend_endpoints.dart';
 import 'package:medico/features/auth/data/models/user_model.dart';
 import 'package:medico/features/auth/domain/entities/user_entity.dart';
@@ -33,6 +35,7 @@ class AuthRepoImpl implements AuthRepo {
       );
       var userEntity = UserEntity(name: name, email: email, uId: user.uid);
       await addUserData(userEntity: userEntity);
+      await saveUserData(userEntity: userEntity);
       return right(userEntity);
     } on CustomExceptions catch (e) {
       await deleteUser(user);
@@ -56,6 +59,13 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
+  //should delete user
+  Future<void> deleteUserIfNeeded(bool shouldDeleteUser, User? user) async {
+    if (shouldDeleteUser) {
+      await deleteUser(user);
+    }
+  }
+
   // sign in impl
   @override
   Future<Either<Failure, UserEntity>> signInWithEmailAndPassword({
@@ -68,6 +78,7 @@ class AuthRepoImpl implements AuthRepo {
         password: password,
       );
       var userEntity = await getUserData(uId: user.uid);
+      await saveUserData(userEntity: userEntity);
       return right(userEntity);
     } on CustomExceptions catch (e) {
       return left(ServerFailure(errMeesage: e.errMessage));
@@ -85,6 +96,7 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<Either<Failure, UserEntity>> signInWithGoogle() async {
     User? user;
+    bool shouldDeleteUser = false;
     try {
       user = await firebaseAuthService.signInWithGoogle();
       UserEntity userEntity;
@@ -96,14 +108,16 @@ class AuthRepoImpl implements AuthRepo {
       if (isUserExist) {
         userEntity = await getUserData(uId: user.uid);
       } else {
+        shouldDeleteUser = true;
         await addUserData(userEntity: userEntity);
       }
+      await saveUserData(userEntity: userEntity);
       return right(userEntity);
     } on CustomExceptions catch (e) {
-      await deleteUser(user);
+      await deleteUserIfNeeded(shouldDeleteUser, user);
       return left(ServerFailure(errMeesage: e.errMessage));
     } catch (e) {
-      await deleteUser(user);
+      await deleteUserIfNeeded(shouldDeleteUser, user);
       log('Exception in AuthRepoImpl.signInWithGoogle: ${e.toString()}');
       return left(
         ServerFailure(errMeesage: 'Something went wrong. Please try again.'),
@@ -115,6 +129,7 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<Either<Failure, UserEntity>> signInWithFacebook() async {
     User? user;
+    bool shouldDeleteUser = false;
     try {
       var userCredential = await firebaseAuthService.signInWithFacebook();
       user = userCredential.user;
@@ -134,14 +149,16 @@ class AuthRepoImpl implements AuthRepo {
       if (isUserExist) {
         userEntity = await getUserData(uId: user.uid);
       } else {
+        shouldDeleteUser = true;
         await addUserData(userEntity: userEntity);
       }
+      await saveUserData(userEntity: userEntity);
       return right(userEntity);
     } on CustomExceptions catch (e) {
-      await deleteUser(user);
+      await deleteUserIfNeeded(shouldDeleteUser, user);
       return left(ServerFailure(errMeesage: e.errMessage));
     } catch (e) {
-      await deleteUser(user);
+      await deleteUserIfNeeded(shouldDeleteUser, user);
       log('Exception in AuthRepoImpl.signInWithFacebook: ${e.toString()}');
       return left(
         ServerFailure(errMeesage: 'Something went wrong. Please try again.'),
@@ -160,7 +177,7 @@ class AuthRepoImpl implements AuthRepo {
     );
   }
 
-  //add user impl
+  //get user impl
   @override
   Future<UserEntity> getUserData({required String uId}) async {
     final userData = await databaseService.getData(
@@ -169,5 +186,12 @@ class AuthRepoImpl implements AuthRepo {
     );
     var userEntity = UserModel.fromJson(userData);
     return userEntity;
+  }
+
+  //save user data
+  @override
+  Future<dynamic> saveUserData({required UserEntity userEntity}) async {
+    var jsonData = jsonEncode(UserModel.fromEntity(userEntity).toMap());
+    await Prefs.setString('userData', jsonData);
   }
 }
