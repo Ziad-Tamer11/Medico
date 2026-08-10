@@ -46,7 +46,7 @@ class DoctorCard extends StatelessWidget {
                   ],
                 ),
               ),
-              SvgPicture.asset(Assets.imagesFavorite),
+              SvgPicture.asset(Assets.imagesFavorite, color: AppColor.red),
             ],
           ),
           SizedBox(height: 16),

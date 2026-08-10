@@ -7,20 +7,20 @@ class CustomCardGridview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.symmetric(horizontal: kHorizontalPadding),
-      itemCount: 6,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-        mainAxisExtent: 72,
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
+      sliver: SliverGrid.builder(
+        itemCount: 6,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          mainAxisExtent: 72,
+        ),
+        itemBuilder: (context, index) {
+          return const CustomCard();
+        },
       ),
-      itemBuilder: (context, index) {
-        return CustomCard();
-      },
     );
   }
 }

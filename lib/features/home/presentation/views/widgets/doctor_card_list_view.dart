@@ -1,0 +1,19 @@
+import 'package:flutter/material.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_card.dart';
+
+class DoctorCardListView extends StatelessWidget {
+  const DoctorCardListView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverList.builder(
+      itemCount: 5,
+      itemBuilder: (contexy, index) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 16),
+          child: const DoctorCard(),
+        );
+      },
+    );
+  }
+}
