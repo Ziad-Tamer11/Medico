@@ -23,6 +23,11 @@ List<BottomNavigationBarEntity> get bottomNavigationBarItems => [
     name: 'Booking',
   ),
   BottomNavigationBarEntity(
+    inActiveImage: Assets.imagesSearchNotselected,
+    activeImage: Assets.imagesSearchSelected,
+    name: 'Search',
+  ),
+  BottomNavigationBarEntity(
     inActiveImage: Assets.imagesProfile,
     activeImage: Assets.imagesProfileSelected,
     name: 'Profile',

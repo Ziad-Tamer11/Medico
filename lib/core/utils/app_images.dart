@@ -66,6 +66,14 @@ class Assets {
   /// assets/images/search.svg
   static const String imagesSearch = "assets/images/search.svg";
 
+  /// Assets for imagesSearchNotselected
+  /// assets/images/search_notselected.svg
+  static const String imagesSearchNotselected = "assets/images/search_notselected.svg";
+
+  /// Assets for imagesSearchSelected
+  /// assets/images/search_selected.svg
+  static const String imagesSearchSelected = "assets/images/search_selected.svg";
+
   /// Assets for imagesStar
   /// assets/images/star.svg
   static const String imagesStar = "assets/images/star.svg";

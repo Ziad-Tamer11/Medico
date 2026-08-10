@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:medico/core/utils/app_colors.dart';
-import 'package:medico/core/utils/app_images.dart';
+import 'package:medico/features/home/domain/entities/buttom_navigation_bar_entity.dart';
+import 'package:medico/features/home/presentation/views/widgets/navigation_bar_item.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   const CustomBottomNavigationBar({super.key});
@@ -10,38 +10,18 @@ class CustomBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 375,
+      height: 80,
       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
       decoration: BoxDecoration(color: AppColor.primary),
-      child: InActiveItem(image: Assets.imagesHome),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: bottomNavigationBarItems.map((e) {
+          return NavigationBarItem(
+            isSelected: false,
+            bottomNavigationBarEntity: e,
+          );
+        }).toList(),
+      ),
     );
-  }
-}
-
-class InActiveItem extends StatelessWidget {
-  const InActiveItem({super.key, required this.image});
-  final String image;
-  @override
-  Widget build(BuildContext context) {
-    return SvgPicture.asset(image);
-  }
-}
-
-class ActiveItem extends StatelessWidget {
-  const ActiveItem({super.key, required this.image});
-  final String image;
-  @override
-  Widget build(BuildContext context) {
-    return SvgPicture.asset(image);
-  }
-}
-
-class NavigationBarItem extends StatelessWidget {
-  const NavigationBarItem({super.key, required this.isSelected});
-  final bool isSelected;
-  @override
-  Widget build(BuildContext context) {
-    return isSelected
-        ? ActiveItem(image: Assets.imagesHomeSelected)
-        : InActiveItem(image: Assets.imagesHome);
   }
 }
