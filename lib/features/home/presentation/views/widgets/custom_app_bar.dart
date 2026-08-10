@@ -31,7 +31,7 @@ class CustomAppBar extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {},
-              child: SvgPicture.asset(Assets.imagesSearch),
+              child: SvgPicture.asset(Assets.imagesNotification),
             ),
             GestureDetector(
               onTap: () {},
