@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:medico/core/services/firebase_auth_service.dart';
+import 'package:medico/core/services/get_it_service.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_route.dart';
 
@@ -32,7 +34,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
     _controller.forward();
     Future.delayed(const Duration(seconds: 2), () {
       if (!mounted) return;
-      GoRouter.of(context).pushReplacement(AppRoute.kLoginView);
+      executeNavigation();
     });
   }
 
@@ -56,5 +58,14 @@ class _SplashViewBodyState extends State<SplashViewBody>
         ),
       ),
     );
+  }
+
+  void executeNavigation() {
+    var isLoggedIn = getIt<FirebaseAuthService>().isLoggedIn();
+    if (isLoggedIn) {
+      GoRouter.of(context).pushReplacement(AppRoute.kHomeView);
+    } else {
+      GoRouter.of(context).pushReplacement(AppRoute.kLoginView);
+    }
   }
 }
