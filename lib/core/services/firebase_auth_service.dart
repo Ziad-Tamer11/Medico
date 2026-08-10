@@ -1,8 +1,12 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:medico/core/errors/exceptions.dart';
+import 'package:medico/core/services/shared_preferences.dart';
+import 'package:medico/features/auth/data/models/user_model.dart';
+import 'package:medico/features/auth/domain/entities/user_entity.dart';
 
 class FirebaseAuthService {
   //create user with email and password
@@ -115,5 +119,10 @@ class FirebaseAuthService {
 
   bool isLoggedIn() {
     return FirebaseAuth.instance.currentUser != null;
+  }
+
+  Future saveUserData({required UserEntity userEntity}) async {
+    var jsonData = jsonEncode(UserModel.fromEntity(userEntity).toMap());
+    await Prefs.setString('userData', jsonData);
   }
 }
