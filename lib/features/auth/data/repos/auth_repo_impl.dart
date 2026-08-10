@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:medico/constants.dart';
 import 'package:medico/core/errors/exceptions.dart';
 import 'package:medico/core/errors/failure.dart';
 import 'package:medico/core/services/database_service.dart';
@@ -192,6 +193,6 @@ class AuthRepoImpl implements AuthRepo {
   @override
   Future<dynamic> saveUserData({required UserEntity userEntity}) async {
     var jsonData = jsonEncode(UserModel.fromEntity(userEntity).toMap());
-    await Prefs.setString('userData', jsonData);
+    await Prefs.setString(kUserData, jsonData);
   }
 }
