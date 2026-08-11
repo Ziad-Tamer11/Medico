@@ -3,8 +3,8 @@ import 'package:medico/constants.dart';
 import 'package:medico/core/widgets/result_header.dart';
 import 'package:medico/features/home/presentation/views/widgets/all_categories_list_view.dart';
 
-class CategoriesViewBody extends StatelessWidget {
-  const CategoriesViewBody({super.key});
+class AllCategoriesViewBody extends StatelessWidget {
+  const AllCategoriesViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {

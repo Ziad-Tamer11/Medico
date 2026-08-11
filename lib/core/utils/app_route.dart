@@ -1,8 +1,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:medico/features/auth/presentation/views/login_view.dart';
 import 'package:medico/features/auth/presentation/views/sign_up_view.dart';
+import 'package:medico/features/home/presentation/views/doctors_by_category_view.dart';
 import 'package:medico/features/home/presentation/views/main_view.dart';
-import 'package:medico/features/home/presentation/views/categories_view.dart';
+import 'package:medico/features/home/presentation/views/all_categories_view.dart';
 import 'package:medico/features/splash/presentation/view/splash_view.dart';
 
 class AppRoute {
@@ -10,6 +11,7 @@ class AppRoute {
   static const kSignUpView = '/signUpView';
   static const kHomeView = '/homeView';
   static const kCategoriesView = '/categoriesView';
+  static const kDoctorsByCategoryView = '/doctorsByCategotyView';
 
   static final router = GoRouter(
     routes: [
@@ -19,7 +21,11 @@ class AppRoute {
       GoRoute(path: kHomeView, builder: (context, state) => MainView()),
       GoRoute(
         path: kCategoriesView,
-        builder: (context, state) => CategoriesView(),
+        builder: (context, state) => AllCategoriesView(),
+      ),
+      GoRoute(
+        path: kDoctorsByCategoryView,
+        builder: (context, state) => DoctorsByCategoryView(),
       ),
     ],
   );
