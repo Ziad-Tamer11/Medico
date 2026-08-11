@@ -24,7 +24,7 @@ class HomeViewBody extends StatelessWidget {
               CustomHeader(
                 title1: 'Categories',
                 onTap: () {
-                  context.push(AppRoute.kCategoriesView);
+                  context.push(AppRoute.kAllCategoriesView);
                 },
               ),
               const SizedBox(height: 24),
@@ -36,7 +36,12 @@ class HomeViewBody extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 40),
-              const CustomHeader(title1: 'Find Doctors'),
+              CustomHeader(
+                title1: 'Find Doctors',
+                onTap: () {
+                  context.push(AppRoute.kAllDoctorsView);
+                },
+              ),
               const SizedBox(height: 24),
             ],
           ),
