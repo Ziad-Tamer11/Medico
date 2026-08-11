@@ -5,7 +5,7 @@ import 'package:medico/core/utils/app_text_styles.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard({super.key});
-
+  //category card home
   @override
   Widget build(BuildContext context) {
     return Container(
