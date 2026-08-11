@@ -4,8 +4,8 @@ import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
 
-class CategoryCard extends StatelessWidget {
-  const CategoryCard({super.key});
+class AllCategoriesCard extends StatelessWidget {
+  const AllCategoriesCard({super.key});
 
   //category card see all
   @override
