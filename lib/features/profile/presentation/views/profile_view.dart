@@ -25,7 +25,8 @@ class ProfileView extends StatelessWidget {
               CustomDialog.showConfirmationDialog(
                 context: context,
                 title: 'Edit Profile',
-                message: 'message',
+                message:
+                    'You Dont Have to Update The Password To Update the Account Information Just Update The Rest',
               );
             },
             child: SvgPicture.asset(Assets.imagesEditProfile, height: 28),
