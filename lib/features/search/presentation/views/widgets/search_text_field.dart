@@ -1,0 +1,74 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:medico/core/utils/app_colors.dart';
+import 'package:medico/core/utils/app_images.dart';
+import 'package:medico/core/utils/app_text_styles.dart';
+
+class SearchTextField extends StatelessWidget {
+  const SearchTextField({
+    super.key,
+    required TextEditingController searchController,
+    required bool showCloseIcon,
+    this.onChanged,
+  }) : _searchController = searchController,
+       _showCloseIcon = showCloseIcon;
+
+  final TextEditingController _searchController;
+  final bool _showCloseIcon;
+  final void Function(String)? onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: _searchController,
+      onChanged: onChanged,
+      decoration: InputDecoration(
+        hintText: 'Search By Doctor Name',
+        hintStyle: TextStyles.font16Medium.copyWith(color: AppColor.grey),
+        prefixIcon: Padding(
+          padding: const EdgeInsets.all(12),
+          child: SvgPicture.asset(
+            Assets.imagesSearch,
+            width: 20,
+            height: 20,
+            colorFilter: const ColorFilter.mode(AppColor.grey, BlendMode.srcIn),
+          ),
+        ),
+        suffixIcon: _showCloseIcon
+            ? InkWell(
+                onTap: () {
+                  _searchController.clear();
+                  onChanged?.call('');
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: SvgPicture.asset(
+                    Assets.imagesClose,
+                    width: 20,
+                    height: 20,
+                    colorFilter: const ColorFilter.mode(
+                      AppColor.grey,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
+              )
+            : null,
+        filled: true,
+        fillColor: AppColor.veryLightGrey,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: AppColor.grey),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: AppColor.grey),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: AppColor.primary, width: 1),
+        ),
+      ),
+    );
+  }
+}
