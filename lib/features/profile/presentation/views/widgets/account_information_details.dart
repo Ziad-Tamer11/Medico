@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:medico/core/utils/app_colors.dart';
+import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/features/profile/presentation/views/widgets/account_information_item.dart';
 
 class AccountInformationDetails extends StatelessWidget {
@@ -34,11 +36,15 @@ class AccountInformationDetails extends StatelessWidget {
         AccountInformationItem(
           icon: FaIcon(FontAwesomeIcons.marsAndVenus),
           title: 'My Favorites',
+          onTap: () {
+            context.push(AppRoute.kMyFavoritesView);
+          },
         ),
         AccountInformationItem(
           icon: FaIcon(FontAwesomeIcons.signOutAlt, color: AppColor.red),
           title: 'Sign Out',
           textColor: AppColor.red,
+          onTap: () {},
         ),
       ],
     );
