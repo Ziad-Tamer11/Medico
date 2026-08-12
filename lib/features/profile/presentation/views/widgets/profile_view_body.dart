@@ -7,6 +7,12 @@ class ProfileViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [UserImageAndName(), AccountInformation()]);
+    return Column(
+      children: [
+        SizedBox(height: 30),
+        UserImageAndName(),
+        AccountInformation(),
+      ],
+    );
   }
 }

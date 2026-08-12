@@ -9,7 +9,7 @@ class AccountInformationDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 26,
+      spacing: 30,
       children: [
         AccountInformationItem(
           icon: Icon(Icons.person, size: 28),
