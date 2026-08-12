@@ -62,6 +62,10 @@ class Assets {
   /// assets/images/logo.svg
   static const String imagesLogo = "assets/images/logo.svg";
 
+  /// Assets for imagesLottieEmptyResult
+  /// assets/images/lottie/empty_result.json
+  static const String imagesLottieEmptyResult = "assets/images/lottie/empty_result.json";
+
   /// Assets for imagesNotification
   /// assets/images/notification.svg
   static const String imagesNotification = "assets/images/notification.svg";

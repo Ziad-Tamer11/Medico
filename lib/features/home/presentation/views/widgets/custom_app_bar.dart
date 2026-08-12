@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:medico/constants.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
+import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -34,7 +36,9 @@ class CustomAppBar extends StatelessWidget {
               child: SvgPicture.asset(Assets.imagesNotification),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                context.push(AppRoute.kMyFavoritesView);
+              },
               child: SvgPicture.asset(Assets.imagesFavorite),
             ),
           ],
