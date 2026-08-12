@@ -6,6 +6,7 @@ import 'package:medico/features/home/presentation/views/doctors_by_category_view
 import 'package:medico/features/home/presentation/views/main_view.dart';
 import 'package:medico/features/home/presentation/views/all_categories_view.dart';
 import 'package:medico/features/home/presentation/views/my_favorites_view.dart';
+import 'package:medico/features/home/presentation/views/notifications_view.dart';
 import 'package:medico/features/splash/presentation/view/splash_view.dart';
 
 class AppRoute {
@@ -16,6 +17,7 @@ class AppRoute {
   static const kDoctorsByCategoryView = '/doctorsByCategotyView';
   static const kAllDoctorsView = '/allDoctorsView';
   static const kMyFavoritesView = '/myFavoritesView';
+  static const kNotificationsView = '/notificationsView';
 
   static final router = GoRouter(
     routes: [
@@ -38,6 +40,10 @@ class AppRoute {
       GoRoute(
         path: kMyFavoritesView,
         builder: (context, state) => MyFavoritesView(),
+      ),
+      GoRoute(
+        path: kNotificationsView,
+        builder: (context, state) => NotificationsView(),
       ),
     ],
   );

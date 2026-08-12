@@ -32,7 +32,9 @@ class CustomAppBar extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                context.push(AppRoute.kNotificationsView);
+              },
               child: SvgPicture.asset(Assets.imagesNotification),
             ),
             GestureDetector(
