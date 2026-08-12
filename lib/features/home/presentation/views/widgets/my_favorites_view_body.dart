@@ -31,8 +31,12 @@ class MyFavoritesViewBody extends StatelessWidget {
             ],
           ),
         ),
+        //emptyState
         NoResult(text: 'No favorit doctors found'),
       ],
     );
   }
 }
+
+//!       resultState
+//        Expanded(child: DoctorCardListView()),
