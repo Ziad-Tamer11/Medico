@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:medico/constants.dart';
+import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/features/home/presentation/views/widgets/custom_card.dart';
 
 class CustomCardGridview extends StatelessWidget {
@@ -18,7 +20,11 @@ class CustomCardGridview extends StatelessWidget {
           mainAxisExtent: 72,
         ),
         itemBuilder: (context, index) {
-          return const CustomCard();
+          return CustomCard(
+            onTap: () {
+              context.push(AppRoute.kDoctorsByCategoryView);
+            },
+          );
         },
       ),
     );
