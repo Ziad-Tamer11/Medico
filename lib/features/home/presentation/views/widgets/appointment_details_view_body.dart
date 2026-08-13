@@ -3,6 +3,7 @@ import 'package:medico/constants.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
+import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/doctor_name.dart';
 import 'package:medico/core/widgets/doctor_specialist.dart';
 import 'package:medico/features/home/presentation/views/widgets/appointment_schedule_section.dart';
@@ -47,7 +48,9 @@ class AppointmentDetailsViewBody extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24),
-          AppointmentScheduleSection(),
+          const AppointmentScheduleSection(),
+          const SizedBox(height: 100),
+          CustomButton(text: 'Next'),
         ],
       ),
     );
