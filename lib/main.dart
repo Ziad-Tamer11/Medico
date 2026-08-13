@@ -30,7 +30,7 @@ class Medico extends StatelessWidget {
     return MaterialApp.router(
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
-        appBarTheme: AppBarTheme(backgroundColor: Colors.white),
+        appBarTheme: AppBarTheme(backgroundColor: Colors.transparent),
       ),
       debugShowCheckedModeBanner: false,
       routerConfig: AppRoute.router,

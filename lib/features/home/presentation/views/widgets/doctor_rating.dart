@@ -10,12 +10,7 @@ class DoctorRating extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(
-          '4.8',
-          style: TextStyles.font14Medium.copyWith(
-            color: const Color(0xFF32384B),
-          ),
-        ),
+        Text('4.8', style: TextStyles.font14Medium),
         const SizedBox(width: 4),
         SvgPicture.asset(Assets.imagesStar),
       ],
