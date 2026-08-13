@@ -7,6 +7,7 @@ import 'package:medico/features/home/presentation/views/main_view.dart';
 import 'package:medico/features/home/presentation/views/all_categories_view.dart';
 import 'package:medico/features/home/presentation/views/my_favorites_view.dart';
 import 'package:medico/features/home/presentation/views/notifications_view.dart';
+import 'package:medico/features/profile/presentation/views/edit_profile_view.dart';
 import 'package:medico/features/profile/presentation/views/widgets/profile_view_body.dart';
 import 'package:medico/features/splash/presentation/view/splash_view.dart';
 
@@ -20,6 +21,7 @@ class AppRoute {
   static const kMyFavoritesView = '/myFavoritesView';
   static const kNotificationsView = '/notificationsView';
   static const kProfileViewBody = '/profileViewBody';
+  static const kEditProfileView = '/editProfileView';
 
   static final router = GoRouter(
     routes: [
@@ -50,6 +52,10 @@ class AppRoute {
       GoRoute(
         path: kProfileViewBody,
         builder: (context, state) => ProfileViewBody(),
+      ),
+      GoRoute(
+        path: kEditProfileView,
+        builder: (context, state) => EditProfileView(),
       ),
     ],
   );
