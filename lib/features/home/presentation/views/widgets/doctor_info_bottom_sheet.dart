@@ -11,7 +11,7 @@ class DoctorInfoBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 450,
+      height: 500,
       width: double.infinity,
       padding: const EdgeInsets.only(left: 24, right: 24),
       decoration: const BoxDecoration(

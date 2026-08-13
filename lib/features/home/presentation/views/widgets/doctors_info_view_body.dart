@@ -10,13 +10,13 @@ class DoctorDetailsViewBody extends StatelessWidget {
     return Stack(
       children: [
         Positioned(
-          top: 114,
+          top: 114 - 50,
           right: 0,
           left: 0,
           child: SvgPicture.asset(Assets.imagesHeartBeat),
         ),
         Positioned(
-          top: 45,
+          top: -40,
           right: 60,
           left: 60,
           child: Image.asset(Assets.imagesDoctorImage),
