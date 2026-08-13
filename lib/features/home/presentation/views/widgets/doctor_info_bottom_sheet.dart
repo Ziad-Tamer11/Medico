@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medico/core/utils/app_colors.dart';
+import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/drag_handle.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_info_section.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_overview_list.dart';
@@ -39,6 +40,9 @@ class DoctorInfoBottomSheet extends StatelessWidget {
                   SelectDateSection(),
                   SizedBox(height: 24),
                   ScheduleSection(),
+                  SizedBox(height: 40),
+                  CustomButton(text: 'Book Appointment'),
+                  SizedBox(height: 40),
                 ],
               ),
             ),
