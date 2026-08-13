@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:medico/core/utils/app_colors.dart';
+import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/drag_handle.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_info_section.dart';
@@ -31,18 +33,23 @@ class DoctorInfoBottomSheet extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 24),
-                  DoctorOverviewSection(),
-                  SizedBox(height: 24),
-                  SelectDateSection(),
-                  SizedBox(height: 24),
-                  ScheduleSection(),
-                  SizedBox(height: 40),
-                  CustomButton(text: 'Book Appointment'),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 24),
+                  const DoctorOverviewSection(),
+                  const SizedBox(height: 24),
+                  const SelectDateSection(),
+                  const SizedBox(height: 24),
+                  const ScheduleSection(),
+                  const SizedBox(height: 40),
+                  CustomButton(
+                    text: 'Book Appointment',
+                    onPressed: () {
+                      context.push(AppRoute.kAppointmentDetailsView);
+                    },
+                  ),
+                  const SizedBox(height: 40),
                 ],
               ),
             ),

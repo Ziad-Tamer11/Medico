@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:medico/features/auth/presentation/views/login_view.dart';
 import 'package:medico/features/auth/presentation/views/sign_up_view.dart';
 import 'package:medico/features/home/presentation/views/all_doctors_view.dart';
+import 'package:medico/features/home/presentation/views/appointment_details_view.dart';
 import 'package:medico/features/home/presentation/views/doctor_details_view.dart';
 import 'package:medico/features/home/presentation/views/doctors_by_category_view.dart';
 import 'package:medico/features/home/presentation/views/main_view.dart';
@@ -24,6 +25,7 @@ class AppRoute {
   static const kProfileViewBody = '/profileViewBody';
   static const kEditProfileView = '/editProfileView';
   static const kDoctorDetailsView = '/doctorDetailsView';
+  static const kAppointmentDetailsView = '/appointmentDetailsView';
 
   static final router = GoRouter(
     routes: [
@@ -62,6 +64,10 @@ class AppRoute {
       GoRoute(
         path: kDoctorDetailsView,
         builder: (context, state) => DoctorDetailsView(),
+      ),
+      GoRoute(
+        path: kAppointmentDetailsView,
+        builder: (context, state) => AppointmentDetailsView(),
       ),
     ],
   );
