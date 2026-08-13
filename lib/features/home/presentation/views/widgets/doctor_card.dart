@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:medico/constants.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
+import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/features/home/presentation/views/widgets/book_appointment_button.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_availability.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_info.dart';
@@ -50,7 +52,11 @@ class DoctorCard extends StatelessWidget {
             ],
           ),
           SizedBox(height: 16),
-          BookAppointmentButton(),
+          BookAppointmentButton(
+            onTap: () {
+              context.push(AppRoute.kDoctorDetailsView);
+            },
+          ),
         ],
       ),
     );
