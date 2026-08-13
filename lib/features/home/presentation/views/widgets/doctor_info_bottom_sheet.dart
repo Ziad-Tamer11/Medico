@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/widgets/drag_handle.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_info_section.dart';
 
@@ -21,6 +22,9 @@ class DoctorInfoBottomSheet extends StatelessWidget {
           // Drag handle
           DragHandle(),
           DoctorInfoSection(),
+          const SizedBox(height: 24),
+          Divider(color: AppColor.blueGrey),
+          const SizedBox(height: 24),
         ],
       ),
     );
