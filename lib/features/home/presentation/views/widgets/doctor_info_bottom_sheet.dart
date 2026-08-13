@@ -39,6 +39,7 @@ class DoctorInfoBottomSheet extends StatelessWidget {
                   DoctorRating(textStyle: TextStyles.font14SemiBold),
                 ],
               ),
+              DoctorAvailability(),
             ],
           ),
         ],
