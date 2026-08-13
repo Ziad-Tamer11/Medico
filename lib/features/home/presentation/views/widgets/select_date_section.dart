@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
 import 'package:medico/features/home/presentation/views/widgets/date_and_month_card.dart';
 import 'package:medico/features/home/presentation/views/widgets/day_picker_dialog.dart';
@@ -48,7 +49,7 @@ class _SelectDateSectionState extends State<SelectDateSection> {
             DateAndMonthCard(
               title: selectedMonth == null
                   ? 'Month'
-                  : '${selectedMonth!.month}',
+                  : DateFormat('MMMM').format(selectedMonth!),
               onTap: () async {
                 final selectedDate = await showDialog<DateTime>(
                   context: context,
@@ -60,10 +61,9 @@ class _SelectDateSectionState extends State<SelectDateSection> {
                     );
                   },
                 );
-
                 if (selectedDate != null) {
                   setState(() {
-                    selectedDay = selectedDate;
+                    selectedMonth = selectedDate;
                   });
                 }
               },
