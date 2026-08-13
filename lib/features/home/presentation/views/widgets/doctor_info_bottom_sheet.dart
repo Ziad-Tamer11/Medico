@@ -26,10 +26,18 @@ class DoctorInfoBottomSheet extends StatelessWidget {
           DoctorInfoSection(),
           const SizedBox(height: 24),
           Divider(color: AppColor.blueGrey),
-          const SizedBox(height: 24),
-          DoctorOverviewSection(),
-          const SizedBox(height: 24),
-          SelectDateSection(),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 24),
+                  DoctorOverviewSection(),
+                  const SizedBox(height: 24),
+                  SelectDateSection(),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
