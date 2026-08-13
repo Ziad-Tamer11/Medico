@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:medico/core/utils/app_colors.dart';
-import 'package:medico/core/utils/app_text_styles.dart';
-import 'package:medico/features/home/presentation/views/widgets/doctor_availability.dart';
-import 'package:medico/features/home/presentation/views/widgets/doctor_rating.dart';
+import 'package:medico/core/widgets/drag_handle.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_info_section.dart';
 
 class DoctorInfoBottomSheet extends StatelessWidget {
   const DoctorInfoBottomSheet({super.key});
@@ -21,27 +19,8 @@ class DoctorInfoBottomSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           // Drag handle
-          Container(
-            width: 64,
-            height: 8,
-            decoration: BoxDecoration(
-              color: AppColor.divider,
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          const SizedBox(height: 32),
-          Column(
-            children: [
-              Row(
-                children: [
-                  Text('David H. Brown', style: TextStyles.font18Bold),
-                  Spacer(),
-                  DoctorRating(textStyle: TextStyles.font14SemiBold),
-                ],
-              ),
-              DoctorAvailability(),
-            ],
-          ),
+          DragHandle(),
+          DoctorInfoSection(),
         ],
       ),
     );
