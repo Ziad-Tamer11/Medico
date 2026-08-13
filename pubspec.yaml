@@ -50,6 +50,7 @@ dependencies:
   shared_preferences: ^2.5.5
   lottie: ^3.5.1
   font_awesome_flutter: ^11.0.0
+  date_picker_plus: ^7.0.1
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.4

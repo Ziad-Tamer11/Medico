@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
 import 'package:medico/features/home/presentation/views/widgets/date_and_month_card.dart';
+import 'package:medico/features/home/presentation/views/widgets/day_picker_dialog.dart';
 
 class SelectDateSection extends StatefulWidget {
   const SelectDateSection({super.key});
@@ -23,7 +24,24 @@ class _SelectDateSectionState extends State<SelectDateSection> {
           children: [
             DateAndMonthCard(
               title: selectedDay == null ? 'Day' : '${selectedDay!.day}',
-              onTap: () {},
+              onTap: () async {
+                final selectedDate = await showDialog<DateTime>(
+                  context: context,
+                  builder: (context) {
+                    return DayPickerDialog(
+                      onDateSelected: (date) {
+                        Navigator.of(context).pop(date);
+                      },
+                    );
+                  },
+                );
+
+                if (selectedDate != null) {
+                  setState(() {
+                    selectedDay = selectedDate;
+                  });
+                }
+              },
             ),
             Spacer(),
             DateAndMonthCard(
