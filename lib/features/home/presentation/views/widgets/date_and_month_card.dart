@@ -5,38 +5,42 @@ import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
 
 class DateAndMonthCard extends StatelessWidget {
-  const DateAndMonthCard({super.key});
-
+  const DateAndMonthCard({super.key, required this.title, this.onTap});
+  final String title;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          padding: const EdgeInsets.only(
-            top: 16,
-            left: 16,
-            right: 8,
-            bottom: 16,
-          ),
-          decoration: ShapeDecoration(
-            color: AppColor.datePickerBorder,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(width: 1, color: AppColor.blueGrey),
-              borderRadius: BorderRadius.circular(8),
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            padding: const EdgeInsets.only(
+              top: 16,
+              left: 16,
+              right: 8,
+              bottom: 16,
             ),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            spacing: 8,
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.25,
-                child: Text('Day', style: TextStyles.font14Regular),
+            decoration: ShapeDecoration(
+              color: AppColor.datePickerBorder,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(width: 1, color: AppColor.blueGrey),
+                borderRadius: BorderRadius.circular(8),
               ),
-              SvgPicture.asset(Assets.imagesShowMore),
-            ],
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              spacing: 8,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  child: Text(title, style: TextStyles.font14Regular),
+                ),
+                SvgPicture.asset(Assets.imagesShowMore),
+              ],
+            ),
           ),
         ),
       ],
