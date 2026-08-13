@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medico/core/utils/app_colors.dart';
+import 'package:medico/core/utils/app_text_styles.dart';
 import 'package:medico/core/widgets/drag_handle.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_info_section.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_overview_list.dart';
@@ -10,7 +11,7 @@ class DoctorInfoBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: double.infinity,
+      height: 450,
       width: double.infinity,
       padding: const EdgeInsets.only(left: 24, right: 24),
       decoration: const BoxDecoration(
@@ -27,8 +28,25 @@ class DoctorInfoBottomSheet extends StatelessWidget {
           Divider(color: AppColor.blueGrey),
           const SizedBox(height: 24),
           DoctorOverviewSection(),
+          const SizedBox(height: 24),
+          SelectDateSection(),
         ],
       ),
+    );
+  }
+}
+
+class SelectDateSection extends StatelessWidget {
+  const SelectDateSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Select Date', style: TextStyles.font18Bold),
+        const SizedBox(height: 24),
+      ],
     );
   }
 }

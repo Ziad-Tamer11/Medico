@@ -6,9 +6,9 @@ class DoctorOverviewItemEntity {
 
   static List<DoctorOverviewItemEntity> getItems() {
     return const [
-      DoctorOverviewItemEntity(title: 'Experience', value: '8 Years'),
+      DoctorOverviewItemEntity(title: 'Experience', value: '15yr'),
       DoctorOverviewItemEntity(title: 'Treated', value: '50+'),
-      DoctorOverviewItemEntity(title: 'Hourly Rate', value: '\$50'),
+      DoctorOverviewItemEntity(title: 'Hourly Rate', value: '\$25.00'),
     ];
   }
 }
