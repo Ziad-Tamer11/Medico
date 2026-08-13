@@ -118,6 +118,10 @@ class Assets {
   /// assets/images/selected_check_box.svg
   static const String imagesSelectedCheckBox = "assets/images/selected_check_box.svg";
 
+  /// Assets for imagesShowMore
+  /// assets/images/show_more.svg
+  static const String imagesShowMore = "assets/images/show_more.svg";
+
   /// Assets for imagesStar
   /// assets/images/star.svg
   static const String imagesStar = "assets/images/star.svg";

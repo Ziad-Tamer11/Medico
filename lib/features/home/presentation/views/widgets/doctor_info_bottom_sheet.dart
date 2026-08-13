@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
 import 'package:medico/core/widgets/drag_handle.dart';
+import 'package:medico/features/home/presentation/views/widgets/date_and_month_card.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_info_section.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_overview_list.dart';
 
@@ -46,6 +47,7 @@ class SelectDateSection extends StatelessWidget {
       children: [
         Text('Select Date', style: TextStyles.font18Bold),
         const SizedBox(height: 24),
+        DateAndMonthCard(),
       ],
     );
   }
