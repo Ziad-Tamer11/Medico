@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/widgets/drag_handle.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_info_section.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_overview_list.dart';
 
 class DoctorInfoBottomSheet extends StatelessWidget {
   const DoctorInfoBottomSheet({super.key});
@@ -25,6 +26,7 @@ class DoctorInfoBottomSheet extends StatelessWidget {
           const SizedBox(height: 24),
           Divider(color: AppColor.blueGrey),
           const SizedBox(height: 24),
+          DoctorOverviewSection(),
         ],
       ),
     );
