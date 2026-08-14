@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medico/core/helpers/get_user.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
@@ -8,6 +9,7 @@ class UserImageAndName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = getUser();
     return Column(
       children: [
         Image.asset(
@@ -16,7 +18,7 @@ class UserImageAndName extends StatelessWidget {
         ),
         SizedBox(height: 8),
         Text(
-          'Ziad',
+          user.name,
           style: TextStyles.font18Bold.copyWith(color: AppColor.black),
         ),
         SizedBox(height: 42),

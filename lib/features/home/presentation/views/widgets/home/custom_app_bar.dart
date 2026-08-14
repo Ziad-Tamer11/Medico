@@ -13,6 +13,7 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = getUser();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
       child: ListTile(
@@ -25,7 +26,7 @@ class CustomAppBar extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          getUser().name,
+          user.name,
           style: TextStyles.font16Medium.copyWith(color: AppColor.black),
         ),
         trailing: Row(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:medico/core/helpers/get_user.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/features/profile/presentation/views/widgets/account_information_item.dart';
@@ -10,18 +11,19 @@ class AccountInformationDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = getUser();
     return Column(
       spacing: 30,
       children: [
         AccountInformationItem(
           icon: Icon(Icons.person, size: 28),
           title: 'Name',
-          value: 'Ziad',
+          value: user.name,
         ),
         AccountInformationItem(
           icon: Icon(Icons.mail, size: 28),
           title: 'Email',
-          value: 'ziad@gmail.com',
+          value: user.email,
         ),
         AccountInformationItem(
           icon: FaIcon(FontAwesomeIcons.phone),
