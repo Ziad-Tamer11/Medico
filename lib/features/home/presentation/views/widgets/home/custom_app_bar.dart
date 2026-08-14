@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medico/constants.dart';
+import 'package:medico/core/helpers/get_user.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_route.dart';
@@ -24,7 +25,7 @@ class CustomAppBar extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          'Andrew Smith',
+          getUser().name,
           style: TextStyles.font16Medium.copyWith(color: AppColor.black),
         ),
         trailing: Row(

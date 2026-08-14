@@ -10,4 +10,8 @@ class Prefs {
   static setString(String key, String value) async {
     return await _preferences.setString(key, value);
   }
+
+  static getString(String key) {
+    return _preferences.getString(key);
+  }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:medico/features/home/presentation/views/widgets/custom_bottom_navigation_bar.dart';
-import 'package:medico/features/home/presentation/views/widgets/main_view_body.dart';
+import 'package:medico/features/home/presentation/views/widgets/navigation/custom_bottom_navigation_bar.dart';
+import 'package:medico/features/home/presentation/views/widgets/navigation/main_view_body.dart';
 
 class MainView extends StatefulWidget {
   const MainView({super.key});
