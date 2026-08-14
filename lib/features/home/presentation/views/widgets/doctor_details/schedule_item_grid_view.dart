@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medico/features/home/presentation/views/widgets/schedule_available_item.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_details/schedule_available_item.dart';
 
 class ScheduleItemGridView extends StatefulWidget {
   const ScheduleItemGridView({super.key});

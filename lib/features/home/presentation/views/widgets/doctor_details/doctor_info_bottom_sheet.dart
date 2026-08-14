@@ -4,10 +4,10 @@ import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/drag_handle.dart';
-import 'package:medico/features/home/presentation/views/widgets/doctor_info_section.dart';
-import 'package:medico/features/home/presentation/views/widgets/doctor_overview_list.dart';
-import 'package:medico/features/home/presentation/views/widgets/schedule_section.dart';
-import 'package:medico/features/home/presentation/views/widgets/select_date_section.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_info_section.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_overview_list.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_details/schedule_section.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_details/select_date_section.dart';
 
 class DoctorInfoBottomSheet extends StatelessWidget {
   const DoctorInfoBottomSheet({super.key});

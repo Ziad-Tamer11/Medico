@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medico/constants.dart';
 import 'package:medico/core/widgets/result_header.dart';
-import 'package:medico/features/home/presentation/views/widgets/doctor_card_list_view.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_card_list_view.dart';
 
 class DoctorsByCategoryViewBody extends StatelessWidget {
   const DoctorsByCategoryViewBody({super.key});

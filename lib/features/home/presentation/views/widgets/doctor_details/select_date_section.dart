@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
-import 'package:medico/features/home/presentation/views/widgets/date_and_month_card.dart';
-import 'package:medico/features/home/presentation/views/widgets/day_picker_dialog.dart';
-import 'package:medico/features/home/presentation/views/widgets/month_picker_dialog.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_details/date_and_month_card.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_details/day_picker_dialog.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_details/month_picker_dialog.dart';
 
 class SelectDateSection extends StatefulWidget {
   const SelectDateSection({super.key});

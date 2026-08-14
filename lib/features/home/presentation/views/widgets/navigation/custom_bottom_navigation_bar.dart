@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/features/home/domain/entities/buttom_navigation_bar_entity.dart';
-import 'package:medico/features/home/presentation/views/widgets/navigation_bar_item.dart';
+import 'package:medico/features/home/presentation/views/widgets/navigation/navigation_bar_item.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({super.key, required this.onItemTapped});

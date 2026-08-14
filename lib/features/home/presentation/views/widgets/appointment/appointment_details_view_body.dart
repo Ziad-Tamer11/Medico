@@ -6,8 +6,8 @@ import 'package:medico/core/utils/app_text_styles.dart';
 import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/doctor_name.dart';
 import 'package:medico/core/widgets/doctor_specialist.dart';
-import 'package:medico/features/home/presentation/views/widgets/appointment_schedule_section.dart';
-import 'package:medico/features/home/presentation/views/widgets/doctor_rating.dart';
+import 'package:medico/features/home/presentation/views/widgets/appointment/appointment_schedule_section.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_rating.dart';
 
 class AppointmentDetailsViewBody extends StatelessWidget {
   const AppointmentDetailsViewBody({super.key});

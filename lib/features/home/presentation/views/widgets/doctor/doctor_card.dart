@@ -6,9 +6,9 @@ import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/features/home/presentation/views/widgets/book_appointment_button.dart';
-import 'package:medico/features/home/presentation/views/widgets/doctor_availability.dart';
-import 'package:medico/features/home/presentation/views/widgets/doctor_info.dart';
-import 'package:medico/features/home/presentation/views/widgets/doctor_rating.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_availability.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_info.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_rating.dart';
 
 class DoctorCard extends StatelessWidget {
   const DoctorCard({super.key});

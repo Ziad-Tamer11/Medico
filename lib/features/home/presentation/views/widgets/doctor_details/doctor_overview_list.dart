@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medico/features/home/domain/entities/doctor_overview_entity.dart';
-import 'package:medico/features/home/presentation/views/widgets/doctor_overview.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_overview.dart';
 
 class DoctorOverviewSection extends StatelessWidget {
   const DoctorOverviewSection({super.key});

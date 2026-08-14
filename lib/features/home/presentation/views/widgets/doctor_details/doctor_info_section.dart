@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
 import 'package:medico/core/widgets/doctor_name.dart';
 import 'package:medico/core/widgets/doctor_specialist.dart';
-import 'package:medico/features/home/presentation/views/widgets/doctor_availability.dart';
-import 'package:medico/features/home/presentation/views/widgets/doctor_rating.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_availability.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_rating.dart';
 
 class DoctorInfoSection extends StatelessWidget {
   const DoctorInfoSection({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medico/features/home/domain/entities/buttom_navigation_bar_entity.dart';
-import 'package:medico/features/home/presentation/views/widgets/active_items.dart';
-import 'package:medico/features/home/presentation/views/widgets/in_active_item.dart';
+import 'package:medico/features/home/presentation/views/widgets/navigation/active_items.dart';
+import 'package:medico/features/home/presentation/views/widgets/navigation/in_active_item.dart';
 
 class NavigationBarItem extends StatelessWidget {
   const NavigationBarItem({
