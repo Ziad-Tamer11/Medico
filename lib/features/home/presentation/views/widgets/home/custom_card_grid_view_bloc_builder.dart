@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medico/core/helpers/get_dummy_category.dart';
 import 'package:medico/features/home/presentation/manager/category_cubit/category_cubit.dart';
 import 'package:medico/features/home/presentation/views/widgets/home/custom_card_grid_view.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class CustomCardGridViewBlocBuilder extends StatelessWidget {
   const CustomCardGridViewBlocBuilder({super.key});
@@ -10,9 +12,9 @@ class CustomCardGridViewBlocBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CategoryCubit, CategoryState>(
       builder: (context, state) {
-        if (state is CategoryLoading) {
-          return const SliverToBoxAdapter(
-            child: Center(child: CircularProgressIndicator()),
+        if (state is CategorySuccess) {
+          return Skeletonizer.sliver(
+            child: CustomCardGridview(categories: getDummyCategories()),
           );
         }
 
