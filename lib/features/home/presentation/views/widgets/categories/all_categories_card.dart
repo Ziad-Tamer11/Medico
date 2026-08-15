@@ -5,10 +5,11 @@ import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
+import 'package:medico/features/home/domain/entities/category_entity.dart';
 
 class AllCategoriesCard extends StatelessWidget {
-  const AllCategoriesCard({super.key});
-
+  const AllCategoriesCard({super.key, required this.categoryEntity});
+  final CategoryEntity categoryEntity;
   //category card see all
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class AllCategoriesCard extends StatelessWidget {
             ),
             Spacer(flex: 2),
             Text(
-              'Heart',
+              categoryEntity.name,
               style: TextStyles.font16Medium.copyWith(color: AppColor.black),
             ),
             Spacer(flex: 6),
