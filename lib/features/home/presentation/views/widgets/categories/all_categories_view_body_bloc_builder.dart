@@ -12,7 +12,7 @@ class AllCategoriesViewBodyBlocBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CategoryCubit, CategoryState>(
       builder: (context, state) {
-        if (state is CategorySuccess) {
+        if (state is CategoryLoading) {
           return Skeletonizer(
             enabled: true,
             child: AllCategoriesListView(categories: getDummyCategories()),

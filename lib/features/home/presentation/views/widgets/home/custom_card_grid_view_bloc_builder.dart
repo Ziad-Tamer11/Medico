@@ -12,7 +12,7 @@ class CustomCardGridViewBlocBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CategoryCubit, CategoryState>(
       builder: (context, state) {
-        if (state is CategorySuccess) {
+        if (state is CategoryLoading) {
           return Skeletonizer.sliver(
             child: CustomCardGridview(categories: getDummyCategories()),
           );
