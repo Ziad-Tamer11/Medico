@@ -56,7 +56,7 @@ class DoctorCard extends StatelessWidget {
           SizedBox(height: 16),
           BookAppointmentButton(
             onTap: () {
-              context.push(AppRoute.kDoctorDetailsView);
+              context.push(AppRoute.kDoctorDetailsView, extra: doctorEntity);
             },
           ),
         ],

@@ -7,9 +7,12 @@ class ScheduleAvailableItem extends StatelessWidget {
     super.key,
     this.onTap,
     required this.isSelected,
+    required this.time,
   });
   final bool isSelected;
   final VoidCallback? onTap;
+  final String time;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -32,7 +35,7 @@ class ScheduleAvailableItem extends StatelessWidget {
           ),
         ),
         child: Text(
-          '10:30am - 11:30am',
+          time,
           style: TextStyles.font12SemiBold.copyWith(
             color: isSelected ? AppColor.primary : AppColor.black,
           ),

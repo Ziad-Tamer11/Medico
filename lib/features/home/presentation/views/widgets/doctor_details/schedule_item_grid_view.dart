@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/schedule_available_item.dart';
 
 class ScheduleItemGridView extends StatefulWidget {
-  const ScheduleItemGridView({super.key});
-
+  const ScheduleItemGridView({super.key, required this.doctorEntity});
+  final DoctorEntity doctorEntity;
   @override
   State<ScheduleItemGridView> createState() => _ScheduleItemGridViewState();
 }
@@ -16,7 +17,7 @@ class _ScheduleItemGridViewState extends State<ScheduleItemGridView> {
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: 6,
+      itemCount: widget.doctorEntity.availableHours.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 12,
@@ -24,7 +25,9 @@ class _ScheduleItemGridViewState extends State<ScheduleItemGridView> {
         mainAxisExtent: 44,
       ),
       itemBuilder: (context, index) {
+        final time = widget.doctorEntity.availableHours[index];
         return ScheduleAvailableItem(
+          time: time,
           isSelected: selectedIndex == index,
           onTap: () {
             setState(() {

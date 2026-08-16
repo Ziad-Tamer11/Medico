@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
+import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/schedule_item_grid_view.dart';
 
 class ScheduleSection extends StatelessWidget {
-  const ScheduleSection({super.key});
-
+  const ScheduleSection({super.key, required this.doctorEntity});
+  final DoctorEntity doctorEntity;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -12,7 +13,7 @@ class ScheduleSection extends StatelessWidget {
       children: [
         Text('Schedule', style: TextStyles.font18Bold),
         const SizedBox(height: 16),
-        ScheduleItemGridView(),
+        ScheduleItemGridView(doctorEntity: doctorEntity),
       ],
     );
   }

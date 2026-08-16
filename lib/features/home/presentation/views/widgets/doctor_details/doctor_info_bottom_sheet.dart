@@ -4,13 +4,15 @@ import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/drag_handle.dart';
+import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_info_section.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_overview_list.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/schedule_section.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/select_date_section.dart';
 
 class DoctorInfoBottomSheet extends StatelessWidget {
-  const DoctorInfoBottomSheet({super.key});
+  const DoctorInfoBottomSheet({super.key, required this.doctorEntity});
+  final DoctorEntity doctorEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class DoctorInfoBottomSheet extends StatelessWidget {
         children: [
           // Drag handle
           DragHandle(),
-          DoctorInfoSection(),
+          DoctorInfoSection(doctorEntity: doctorEntity),
           const SizedBox(height: 24),
           Divider(color: AppColor.blueGrey),
           Expanded(
@@ -37,11 +39,11 @@ class DoctorInfoBottomSheet extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 24),
-                  const DoctorOverviewSection(),
+                  DoctorOverviewSection(doctorEntity: doctorEntity),
                   const SizedBox(height: 24),
                   const SelectDateSection(),
                   const SizedBox(height: 24),
-                  const ScheduleSection(),
+                  ScheduleSection(doctorEntity: doctorEntity),
                   const SizedBox(height: 40),
                   CustomButton(
                     text: 'Book Appointment',

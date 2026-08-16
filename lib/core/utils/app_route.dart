@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:medico/features/auth/presentation/views/login_view.dart';
 import 'package:medico/features/auth/presentation/views/sign_up_view.dart';
+import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/all_doctors_view.dart';
 import 'package:medico/features/home/presentation/views/appointment_details_view.dart';
 import 'package:medico/features/home/presentation/views/doctor_details_view.dart';
@@ -63,7 +64,10 @@ class AppRoute {
       ),
       GoRoute(
         path: kDoctorDetailsView,
-        builder: (context, state) => DoctorDetailsView(),
+        builder: (context, state) {
+          final doctor = state.extra as DoctorEntity;
+          return DoctorDetailsView(doctorEntity: doctor);
+        },
       ),
       GoRoute(
         path: kAppointmentDetailsView,
