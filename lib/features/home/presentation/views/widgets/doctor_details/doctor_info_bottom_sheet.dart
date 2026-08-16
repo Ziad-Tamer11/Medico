@@ -48,7 +48,10 @@ class DoctorInfoBottomSheet extends StatelessWidget {
                   CustomButton(
                     text: 'Book Appointment',
                     onPressed: () {
-                      context.push(AppRoute.kAppointmentDetailsView);
+                      context.push(
+                        AppRoute.kAppointmentDetailsView,
+                        extra: doctorEntity,
+                      );
                     },
                   ),
                   const SizedBox(height: 40),

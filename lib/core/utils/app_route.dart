@@ -71,7 +71,10 @@ class AppRoute {
       ),
       GoRoute(
         path: kAppointmentDetailsView,
-        builder: (context, state) => AppointmentDetailsView(),
+        builder: (context, state) {
+          final doctor = state.extra as DoctorEntity;
+          return AppointmentDetailsView(doctorEntity: doctor);
+        },
       ),
     ],
   );

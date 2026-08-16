@@ -6,12 +6,13 @@ import 'package:medico/core/utils/app_text_styles.dart';
 import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/doctor_name.dart';
 import 'package:medico/core/widgets/doctor_specialist.dart';
+import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/appointment/appointment_schedule_section.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_rating.dart';
 
 class AppointmentDetailsViewBody extends StatelessWidget {
-  const AppointmentDetailsViewBody({super.key});
-
+  const AppointmentDetailsViewBody({super.key, required this.doctorEntity});
+  final DoctorEntity doctorEntity;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,10 +36,16 @@ class AppointmentDetailsViewBody extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Row(children: [DoctorName(), Spacer(), DoctorRating()]),
-                      // DoctorSpecialist(),
+                      Row(
+                        children: [
+                          DoctorName(doctorEntity: doctorEntity),
+                          Spacer(),
+                          DoctorRating(doctorEntity: doctorEntity),
+                        ],
+                      ),
+                      DoctorSpecialist(doctorEntity: doctorEntity),
                       Text(
-                        'Appointment Rate: \$300',
+                        'Appointment Rate: \$${doctorEntity.hourlyRate.toStringAsFixed(2)}',
                         style: TextStyles.font14SemiBold,
                       ),
                     ],
