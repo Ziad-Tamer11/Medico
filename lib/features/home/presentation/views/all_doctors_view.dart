@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medico/core/services/get_it_service.dart';
 import 'package:medico/core/widgets/build_custom_app_bar.dart';
+import 'package:medico/features/home/domain/usecases/doctor_usecase.dart';
+import 'package:medico/features/home/presentation/manager/cubit/doctor_cubit.dart';
 import 'package:medico/features/home/presentation/views/widgets/all_doctors_view_body.dart';
 
 class AllDoctorsView extends StatelessWidget {
@@ -9,7 +13,11 @@ class AllDoctorsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildCustomAppBar(context, title: 'All Doctors'),
-      body: AllDoctorsViewBody(),
+      body: BlocProvider(
+        create: (context) =>
+            DoctorCubit(doctorUsecase: getIt<DoctorUsecase>())..getDoctor(),
+        child: AllDoctorsViewBody(),
+      ),
     );
   }
 }

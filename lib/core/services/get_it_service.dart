@@ -6,8 +6,11 @@ import 'package:medico/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:medico/features/auth/domain/repos/auth_repo.dart';
 import 'package:medico/features/auth/domain/usecases/auth_usecase.dart';
 import 'package:medico/features/home/data/repos/category_repo_impl.dart';
+import 'package:medico/features/home/data/repos/doctor_repo_impl.dart';
 import 'package:medico/features/home/domain/repos/category_repo.dart';
+import 'package:medico/features/home/domain/repos/doctor_repo.dart';
 import 'package:medico/features/home/domain/usecases/category_usecase.dart';
+import 'package:medico/features/home/domain/usecases/doctor_usecase.dart';
 
 final getIt = GetIt.instance;
 
@@ -28,5 +31,11 @@ void setUpGetIt() {
   );
   getIt.registerSingleton<CategoryUsecase>(
     CategoryUsecase(categoryRepo: getIt<CategoryRepo>()),
+  );
+  getIt.registerSingleton<DoctorRepo>(
+    DoctorRepoImpl(databaseService: getIt<DatabaseService>()),
+  );
+  getIt.registerSingleton<DoctorUsecase>(
+    DoctorUsecase(doctorRepo: getIt<DoctorRepo>()),
   );
 }

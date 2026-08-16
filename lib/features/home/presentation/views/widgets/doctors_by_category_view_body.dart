@@ -15,7 +15,7 @@ class DoctorsByCategoryViewBody extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: kHorizontalPadding),
           child: ResultHeader(),
         ),
-        Expanded(child: DoctorCardListView()),
+        Expanded(child: DoctorCardListView(doctors: [])),
       ],
     );
   }

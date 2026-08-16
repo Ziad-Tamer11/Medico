@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
+import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 
 class DoctorAvailability extends StatelessWidget {
-  const DoctorAvailability({super.key});
+  const DoctorAvailability({super.key, required this.doctorEntity});
+  final DoctorEntity doctorEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,7 @@ class DoctorAvailability extends StatelessWidget {
         SvgPicture.asset(Assets.imagesTime),
         const SizedBox(width: 8),
         Text(
-          '10:30am - 5:30pm',
+          doctorEntity.availableHours.first,
           style: TextStyles.font14Medium.copyWith(
             color: const Color(0xFF32384B),
           ),

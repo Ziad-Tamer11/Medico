@@ -5,13 +5,15 @@ import 'package:medico/constants.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_route.dart';
+import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/book_appointment_button.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_availability.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_info.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_rating.dart';
 
 class DoctorCard extends StatelessWidget {
-  const DoctorCard({super.key});
+  const DoctorCard({super.key, required this.doctorEntity});
+  final DoctorEntity doctorEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +38,13 @@ class DoctorCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    DoctorInfo(),
+                    DoctorInfo(doctorEntity: doctorEntity),
                     const SizedBox(height: 8),
                     Row(
                       children: [
-                        DoctorRating(),
+                        DoctorRating(doctorEntity: doctorEntity),
                         const SizedBox(width: 24),
-                        DoctorAvailability(),
+                        DoctorAvailability(doctorEntity: doctorEntity),
                       ],
                     ),
                   ],

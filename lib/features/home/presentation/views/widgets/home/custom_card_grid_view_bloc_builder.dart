@@ -17,17 +17,14 @@ class CustomCardGridViewBlocBuilder extends StatelessWidget {
             child: CustomCardGridview(categories: getDummyCategories()),
           );
         }
-
         if (state is CategoryFailure) {
           return SliverToBoxAdapter(
             child: Center(child: Text(state.errMessage)),
           );
         }
-
         if (state is CategorySuccess) {
           return CustomCardGridview(categories: state.categories);
         }
-
         return const SliverToBoxAdapter(child: SizedBox.shrink());
       },
     );

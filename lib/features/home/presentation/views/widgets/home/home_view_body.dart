@@ -4,7 +4,7 @@ import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/features/home/presentation/views/widgets/home/custom_app_bar.dart';
 import 'package:medico/features/home/presentation/views/widgets/home/custom_card_grid_view_bloc_builder.dart';
 import 'package:medico/features/home/presentation/views/widgets/home/custom_header.dart';
-import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_card_sliver_list.dart';
+import 'package:medico/features/home/presentation/views/widgets/home/doctor_card_sliver_list_bloc_builder.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
@@ -46,7 +46,7 @@ class HomeViewBody extends StatelessWidget {
             ],
           ),
         ),
-        const DoctorCardSliverList(),
+        DoctorCardSliverListBlocBuilder(),
       ],
     );
   }

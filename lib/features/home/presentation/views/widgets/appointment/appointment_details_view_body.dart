@@ -35,8 +35,8 @@ class AppointmentDetailsViewBody extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(children: [DoctorName(), Spacer(), DoctorRating()]),
-                      DoctorSpecialist(),
+                      // Row(children: [DoctorName(), Spacer(), DoctorRating()]),
+                      // DoctorSpecialist(),
                       Text(
                         'Appointment Rate: \$300',
                         style: TextStyles.font14SemiBold,
