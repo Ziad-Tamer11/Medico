@@ -12,7 +12,7 @@ class DoctorCubit extends Cubit<DoctorState> {
     emit(DoctorLoading());
     var result = await doctorUsecase.getCategories();
     result.fold(
-      (failure) => emit(DoctorFailure(errMessage: failure.errMeesage)),
+      (failure) => emit(DoctorFailure(errMessage: failure.errMessage)),
       (doctor) => emit(DoctorSuccess(doctorEntity: doctor)),
     );
   }

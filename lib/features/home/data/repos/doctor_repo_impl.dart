@@ -20,10 +20,10 @@ class DoctorRepoImpl extends DoctorRepo {
       final doctors = data.map((json) => DoctorModel.fromJson(json)).toList();
       return right(doctors);
     } on CustomExceptions catch (e) {
-      return Left(ServerFailure(errMeesage: e.errMessage));
+      return Left(ServerFailure(errMessage: e.errMessage));
     } catch (e) {
       return left(
-        ServerFailure(errMeesage: 'Something went wrong. Please try again.'),
+        ServerFailure(errMessage: 'Something went wrong. Please try again.'),
       );
     }
   }

@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();
-  
+
   /// Assets for imagesApple
   /// assets/images/apple.svg
   static const String imagesApple = "assets/images/apple.svg";
@@ -16,7 +16,8 @@ class Assets {
 
   /// Assets for imagesBookingSelected
   /// assets/images/booking_selected.svg
-  static const String imagesBookingSelected = "assets/images/booking_selected.svg";
+  static const String imagesBookingSelected =
+      "assets/images/booking_selected.svg";
 
   /// Assets for imagesClose
   /// assets/images/close.svg
@@ -80,11 +81,13 @@ class Assets {
 
   /// Assets for imagesLottieNoResult
   /// assets/images/lottie/no_result.json
-  static const String imagesLottieNoResult = "assets/images/lottie/no_result.json";
+  static const String imagesLottieNoResult =
+      "assets/images/lottie/no_result.json";
 
   /// Assets for imagesNotSelectedCheckBox
   /// assets/images/not_selected_check_box.svg
-  static const String imagesNotSelectedCheckBox = "assets/images/not_selected_check_box.svg";
+  static const String imagesNotSelectedCheckBox =
+      "assets/images/not_selected_check_box.svg";
 
   /// Assets for imagesNotification
   /// assets/images/notification.svg
@@ -100,7 +103,8 @@ class Assets {
 
   /// Assets for imagesProfileSelected
   /// assets/images/profile_selected.svg
-  static const String imagesProfileSelected = "assets/images/profile_selected.svg";
+  static const String imagesProfileSelected =
+      "assets/images/profile_selected.svg";
 
   /// Assets for imagesSearch
   /// assets/images/search.svg
@@ -108,15 +112,18 @@ class Assets {
 
   /// Assets for imagesSearchNotselected
   /// assets/images/search_notselected.svg
-  static const String imagesSearchNotselected = "assets/images/search_notselected.svg";
+  static const String imagesSearchNotselected =
+      "assets/images/search_notselected.svg";
 
   /// Assets for imagesSearchSelected
   /// assets/images/search_selected.svg
-  static const String imagesSearchSelected = "assets/images/search_selected.svg";
+  static const String imagesSearchSelected =
+      "assets/images/search_selected.svg";
 
   /// Assets for imagesSelectedCheckBox
   /// assets/images/selected_check_box.svg
-  static const String imagesSelectedCheckBox = "assets/images/selected_check_box.svg";
+  static const String imagesSelectedCheckBox =
+      "assets/images/selected_check_box.svg";
 
   /// Assets for imagesShowMore
   /// assets/images/show_more.svg
@@ -142,4 +149,3 @@ class Assets {
   /// assets/images/visible.svg
   static const String imagesVisible = "assets/images/visible.svg";
 }
-

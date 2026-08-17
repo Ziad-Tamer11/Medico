@@ -40,7 +40,7 @@ class AuthRepoImpl implements AuthRepo {
       return right(userEntity);
     } on CustomExceptions catch (e) {
       await deleteUser(user);
-      return left(ServerFailure(errMeesage: e.errMessage));
+      return left(ServerFailure(errMessage: e.errMessage));
     } catch (e) {
       await deleteUser(user);
 
@@ -48,7 +48,7 @@ class AuthRepoImpl implements AuthRepo {
         'Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}',
       );
       return left(
-        ServerFailure(errMeesage: 'Something went wrong. Please try again.'),
+        ServerFailure(errMessage: 'Something went wrong. Please try again.'),
       );
     }
   }
@@ -82,13 +82,13 @@ class AuthRepoImpl implements AuthRepo {
       await saveUserData(userEntity: userEntity);
       return right(userEntity);
     } on CustomExceptions catch (e) {
-      return left(ServerFailure(errMeesage: e.errMessage));
+      return left(ServerFailure(errMessage: e.errMessage));
     } catch (e) {
       log(
         'Exception in AuthRepoImpl.signInWithEmailAndPassword: ${e.toString()}',
       );
       return left(
-        ServerFailure(errMeesage: 'Something went wrong. Please try again.'),
+        ServerFailure(errMessage: 'Something went wrong. Please try again.'),
       );
     }
   }
@@ -116,12 +116,12 @@ class AuthRepoImpl implements AuthRepo {
       return right(userEntity);
     } on CustomExceptions catch (e) {
       await deleteUserIfNeeded(shouldDeleteUser, user);
-      return left(ServerFailure(errMeesage: e.errMessage));
+      return left(ServerFailure(errMessage: e.errMessage));
     } catch (e) {
       await deleteUserIfNeeded(shouldDeleteUser, user);
       log('Exception in AuthRepoImpl.signInWithGoogle: ${e.toString()}');
       return left(
-        ServerFailure(errMeesage: 'Something went wrong. Please try again.'),
+        ServerFailure(errMessage: 'Something went wrong. Please try again.'),
       );
     }
   }
@@ -138,7 +138,7 @@ class AuthRepoImpl implements AuthRepo {
       if (user == null) {
         return left(
           ServerFailure(
-            errMeesage: 'Facebook sign-in failed. Please try again.',
+            errMessage: 'Facebook sign-in failed. Please try again.',
           ),
         );
       }
@@ -157,12 +157,12 @@ class AuthRepoImpl implements AuthRepo {
       return right(userEntity);
     } on CustomExceptions catch (e) {
       await deleteUserIfNeeded(shouldDeleteUser, user);
-      return left(ServerFailure(errMeesage: e.errMessage));
+      return left(ServerFailure(errMessage: e.errMessage));
     } catch (e) {
       await deleteUserIfNeeded(shouldDeleteUser, user);
       log('Exception in AuthRepoImpl.signInWithFacebook: ${e.toString()}');
       return left(
-        ServerFailure(errMeesage: 'Something went wrong. Please try again.'),
+        ServerFailure(errMessage: 'Something went wrong. Please try again.'),
       );
     }
   }

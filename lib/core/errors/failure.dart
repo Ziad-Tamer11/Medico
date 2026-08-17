@@ -1,9 +1,9 @@
 class Failure {
-  final String errMeesage;
+  final String errMessage;
 
-  Failure({required this.errMeesage});
+  Failure({required this.errMessage});
 }
 
 class ServerFailure extends Failure {
-  ServerFailure({required super.errMeesage});
+  ServerFailure({required super.errMessage});
 }

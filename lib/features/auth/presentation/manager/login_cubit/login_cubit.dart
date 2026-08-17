@@ -20,7 +20,7 @@ class LoginCubit extends Cubit<LoginState> {
       password: password,
     );
     result.fold(
-      (failure) => emit(LoginFailure(errMessage: failure.errMeesage)),
+      (failure) => emit(LoginFailure(errMessage: failure.errMessage)),
       (userEntity) => emit(LoginSuccess(userEntity: userEntity)),
     );
   }
@@ -30,7 +30,7 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginLoading());
     var result = await authUsecase.signInWithGoogle();
     result.fold(
-      (failure) => emit(LoginFailure(errMessage: failure.errMeesage)),
+      (failure) => emit(LoginFailure(errMessage: failure.errMessage)),
       (userEntity) => emit(LoginSuccess(userEntity: userEntity)),
     );
   }
@@ -40,7 +40,7 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginLoading());
     var result = await authUsecase.signInWithFacebook();
     result.fold(
-      (failure) => emit(LoginFailure(errMessage: failure.errMeesage)),
+      (failure) => emit(LoginFailure(errMessage: failure.errMessage)),
       (userEntity) => emit(LoginSuccess(userEntity: userEntity)),
     );
   }

@@ -1,7 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:medico/core/services/api_service.dart';
 import 'package:medico/core/services/database_service.dart';
 import 'package:medico/core/services/fire_store_service.dart';
 import 'package:medico/core/services/firebase_auth_service.dart';
+import 'package:medico/core/services/stripe_service.dart';
 import 'package:medico/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:medico/features/auth/domain/repos/auth_repo.dart';
 import 'package:medico/features/auth/domain/usecases/auth_usecase.dart';
@@ -11,6 +14,9 @@ import 'package:medico/features/home/domain/repos/category_repo.dart';
 import 'package:medico/features/home/domain/repos/doctor_repo.dart';
 import 'package:medico/features/home/domain/usecases/category_usecase.dart';
 import 'package:medico/features/home/domain/usecases/doctor_usecase.dart';
+import 'package:medico/features/payment/data/entities/usecase/payment_usecase.dart';
+import 'package:medico/features/payment/data/repos/payment_repo_impl.dart';
+import 'package:medico/features/payment/data/entities/repos/payment_repo.dart';
 
 final getIt = GetIt.instance;
 
@@ -37,5 +43,19 @@ void setUpGetIt() {
   );
   getIt.registerSingleton<DoctorUsecase>(
     DoctorUsecase(doctorRepo: getIt<DoctorRepo>()),
+  );
+  getIt.registerLazySingleton<Dio>(() => Dio());
+
+  getIt.registerLazySingleton<ApiService>(() => ApiService(dio: getIt<Dio>()));
+
+  getIt.registerLazySingleton<StripeService>(
+    () => StripeService(apiService: getIt<ApiService>()),
+  );
+
+  getIt.registerLazySingleton<PaymentRepo>(
+    () => PaymentRepoImpl(stripeService: getIt<StripeService>()),
+  );
+  getIt.registerLazySingleton<PaymentUsecase>(
+    () => PaymentUsecase(paymentRepo: getIt<PaymentRepo>()),
   );
 }

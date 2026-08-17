@@ -22,7 +22,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       password: password,
     );
     result.fold(
-      (failure) => emit(SignUpFailure(errMessage: failure.errMeesage)),
+      (failure) => emit(SignUpFailure(errMessage: failure.errMessage)),
       (userEntity) => emit(SignUpSuccess(userEntity: userEntity)),
     );
   }

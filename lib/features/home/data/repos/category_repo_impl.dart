@@ -22,10 +22,10 @@ class CategoryRepoImpl implements CategoryRepo {
           .toList();
       return right(categories);
     } on CustomExceptions catch (e) {
-      return Left(ServerFailure(errMeesage: e.errMessage));
+      return Left(ServerFailure(errMessage: e.errMessage));
     } catch (e) {
       return left(
-        ServerFailure(errMeesage: 'Something went wrong. Please try again.'),
+        ServerFailure(errMessage: 'Something went wrong. Please try again.'),
       );
     }
   }
