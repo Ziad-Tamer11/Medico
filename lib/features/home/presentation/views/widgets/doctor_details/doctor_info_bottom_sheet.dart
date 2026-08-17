@@ -10,14 +10,21 @@ import 'package:medico/features/home/presentation/views/widgets/doctor_details/d
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/schedule_section.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/select_date_section.dart';
 
-class DoctorInfoBottomSheet extends StatelessWidget {
+class DoctorInfoBottomSheet extends StatefulWidget {
   const DoctorInfoBottomSheet({super.key, required this.doctorEntity});
   final DoctorEntity doctorEntity;
 
   @override
+  State<DoctorInfoBottomSheet> createState() => _DoctorInfoBottomSheetState();
+}
+
+class _DoctorInfoBottomSheetState extends State<DoctorInfoBottomSheet> {
+  DateTime? selectedDate;
+  String? selectedTime;
+  @override
   Widget build(BuildContext context) {
     return Container(
-      height: 500,
+      height: MediaQuery.of(context).size.height * .61,
       width: double.infinity,
       padding: const EdgeInsets.only(left: 24, right: 24),
       decoration: const BoxDecoration(
@@ -29,7 +36,7 @@ class DoctorInfoBottomSheet extends StatelessWidget {
         children: [
           // Drag handle
           DragHandle(),
-          DoctorInfoSection(doctorEntity: doctorEntity),
+          DoctorInfoSection(doctorEntity: widget.doctorEntity),
           const SizedBox(height: 24),
           Divider(color: AppColor.blueGrey),
           Expanded(
@@ -39,18 +46,18 @@ class DoctorInfoBottomSheet extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 24),
-                  DoctorOverviewSection(doctorEntity: doctorEntity),
+                  DoctorOverviewSection(doctorEntity: widget.doctorEntity),
                   const SizedBox(height: 24),
                   const SelectDateSection(),
                   const SizedBox(height: 24),
-                  ScheduleSection(doctorEntity: doctorEntity),
+                  ScheduleSection(doctorEntity: widget.doctorEntity),
                   const SizedBox(height: 40),
                   CustomButton(
                     text: 'Book Appointment',
                     onPressed: () {
                       context.push(
                         AppRoute.kAppointmentDetailsView,
-                        extra: doctorEntity,
+                        extra: widget.doctorEntity,
                       );
                     },
                   ),
