@@ -6,7 +6,8 @@ import 'package:medico/features/home/presentation/views/widgets/doctor_details/d
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/month_picker_dialog.dart';
 
 class SelectDateSection extends StatefulWidget {
-  const SelectDateSection({super.key});
+  const SelectDateSection({super.key, required this.onDateSelected});
+  final ValueChanged<DateTime> onDateSelected;
 
   @override
   State<SelectDateSection> createState() => _SelectDateSectionState();
@@ -15,6 +16,24 @@ class SelectDateSection extends StatefulWidget {
 class _SelectDateSectionState extends State<SelectDateSection> {
   DateTime? selectedDay;
   DateTime? selectedMonth;
+  void _updateSelectedDate() {
+    if (selectedDay == null && selectedMonth == null) {
+      return;
+    }
+    if (selectedDay != null && selectedMonth != null) {
+      final date = DateTime(
+        selectedMonth!.year,
+        selectedMonth!.month,
+        selectedDay!.day,
+      );
+      widget.onDateSelected(date);
+    } else if (selectedDay != null) {
+      widget.onDateSelected(selectedDay!);
+    } else {
+      widget.onDateSelected(selectedMonth!);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -42,6 +61,7 @@ class _SelectDateSectionState extends State<SelectDateSection> {
                   setState(() {
                     selectedDay = selectedDate;
                   });
+                  _updateSelectedDate();
                 }
               },
             ),
@@ -65,6 +85,7 @@ class _SelectDateSectionState extends State<SelectDateSection> {
                   setState(() {
                     selectedMonth = selectedDate;
                   });
+                  _updateSelectedDate();
                 }
               },
             ),

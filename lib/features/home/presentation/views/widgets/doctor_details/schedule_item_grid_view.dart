@@ -3,8 +3,14 @@ import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/schedule_available_item.dart';
 
 class ScheduleItemGridView extends StatefulWidget {
-  const ScheduleItemGridView({super.key, required this.doctorEntity});
+  const ScheduleItemGridView({
+    super.key,
+    required this.doctorEntity,
+    required this.onTimeSelected,
+  });
   final DoctorEntity doctorEntity;
+  final ValueChanged<String> onTimeSelected;
+
   @override
   State<ScheduleItemGridView> createState() => _ScheduleItemGridViewState();
 }
@@ -33,6 +39,7 @@ class _ScheduleItemGridViewState extends State<ScheduleItemGridView> {
             setState(() {
               selectedIndex = index;
             });
+            widget.onTimeSelected(time);
           },
         );
       },

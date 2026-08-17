@@ -48,9 +48,22 @@ class _DoctorInfoBottomSheetState extends State<DoctorInfoBottomSheet> {
                   const SizedBox(height: 24),
                   DoctorOverviewSection(doctorEntity: widget.doctorEntity),
                   const SizedBox(height: 24),
-                  const SelectDateSection(),
+                  SelectDateSection(
+                    onDateSelected: (date) {
+                      setState(() {
+                        selectedDate = date;
+                      });
+                    },
+                  ),
                   const SizedBox(height: 24),
-                  ScheduleSection(doctorEntity: widget.doctorEntity),
+                  ScheduleSection(
+                    doctorEntity: widget.doctorEntity,
+                    onTimeSelected: (time) {
+                      setState(() {
+                        selectedTime = time;
+                      });
+                    },
+                  ),
                   const SizedBox(height: 40),
                   CustomButton(
                     text: 'Book Appointment',
