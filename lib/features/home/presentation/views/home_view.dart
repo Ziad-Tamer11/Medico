@@ -4,7 +4,7 @@ import 'package:medico/core/services/get_it_service.dart';
 import 'package:medico/features/home/domain/usecases/category_usecase.dart';
 import 'package:medico/features/home/domain/usecases/doctor_usecase.dart';
 import 'package:medico/features/home/presentation/manager/category_cubit/category_cubit.dart';
-import 'package:medico/features/home/presentation/manager/cubit/doctor_cubit.dart';
+import 'package:medico/features/home/presentation/manager/doctor_cubit/doctor_cubit.dart';
 import 'package:medico/features/home/presentation/views/widgets/home/home_view_body.dart';
 
 class HomeView extends StatelessWidget {

@@ -4,4 +4,5 @@ class BackendEndpoints {
   static const checkIfUserExists = 'users';
   static const categories = 'categories';
   static const doctors = 'doctors';
+  static const appointments = 'appointments';
 }
