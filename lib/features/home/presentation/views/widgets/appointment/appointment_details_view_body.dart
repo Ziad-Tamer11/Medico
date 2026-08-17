@@ -65,7 +65,9 @@ class AppointmentDetailsViewBody extends StatelessWidget {
             time: appointmentSelectionEntity.time,
           ),
           const SizedBox(height: 100),
-          CustomButtonBlocConsumer(),
+          CustomButtonBlocConsumer(
+            appointmentSelectionEntity: appointmentSelectionEntity,
+          ),
         ],
       ),
     );

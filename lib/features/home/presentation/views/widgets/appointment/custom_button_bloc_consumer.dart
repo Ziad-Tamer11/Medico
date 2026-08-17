@@ -4,15 +4,22 @@ import 'package:medico/constants.dart';
 import 'package:medico/core/helpers/show_message_bar.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/widgets/custom_button.dart';
+import 'package:medico/features/home/domain/entities/appointment_selection.dart';
 import 'package:medico/features/payment/data/models/payment_intent_input_model.dart';
 import 'package:medico/features/payment/presentation/manager/stripe_payment_cubit/stripe_payment_cubit.dart';
 import 'package:medico/features/payment/presentation/view/payment_view.dart';
 
 class CustomButtonBlocConsumer extends StatelessWidget {
-  const CustomButtonBlocConsumer({super.key});
+  const CustomButtonBlocConsumer({
+    super.key,
+    required this.appointmentSelectionEntity,
+  });
+  final AppointmentSelectionEntity appointmentSelectionEntity;
 
   @override
   Widget build(BuildContext context) {
+    final doctor = appointmentSelectionEntity.doctor;
+    final amount = (doctor.hourlyRate * 100).round();
     return BlocConsumer<StripePaymentCubit, StripePaymentState>(
       listener: (context, state) {
         if (state is StripePaymentSuccess) {
@@ -37,7 +44,7 @@ class CustomButtonBlocConsumer extends StatelessWidget {
           onPressed: () {
             PaymentIntentInputModel paymentIntentInputModel =
                 PaymentIntentInputModel(
-                  amount: '2000',
+                  amount: amount.toString(),
                   currency: 'USD',
                   customerId: customerId,
                 );
