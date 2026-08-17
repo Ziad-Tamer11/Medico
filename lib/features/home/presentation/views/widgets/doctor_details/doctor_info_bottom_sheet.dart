@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:medico/core/helpers/show_message_bar.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/drag_handle.dart';
+import 'package:medico/features/home/domain/entities/appointment_selection.dart';
 import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_info_section.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_overview_list.dart';
@@ -68,9 +70,30 @@ class _DoctorInfoBottomSheetState extends State<DoctorInfoBottomSheet> {
                   CustomButton(
                     text: 'Book Appointment',
                     onPressed: () {
+                      if (selectedDate == null) {
+                        showMessageBar(
+                          context,
+                          'Please select a date',
+                          AppColor.red,
+                        );
+                        return;
+                      }
+                      if (selectedTime == null) {
+                        showMessageBar(
+                          context,
+                          'Please select a time',
+                          AppColor.red,
+                        );
+                        return;
+                      }
+                      final appointmentSelection = AppointmentSelectionEntity(
+                        doctor: widget.doctorEntity,
+                        date: selectedDate!,
+                        time: selectedTime!,
+                      );
                       context.push(
                         AppRoute.kAppointmentDetailsView,
-                        extra: widget.doctorEntity,
+                        extra: appointmentSelection,
                       );
                     },
                   ),

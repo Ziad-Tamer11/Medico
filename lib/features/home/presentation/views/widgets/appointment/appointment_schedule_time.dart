@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
 
 class AppointmentScheduleTime extends StatelessWidget {
-  const AppointmentScheduleTime({super.key});
-
+  const AppointmentScheduleTime({
+    super.key,
+    required this.date,
+    required this.time,
+  });
+  final DateTime date;
+  final String time;
   @override
   Widget build(BuildContext context) {
+    final formattedDate = DateFormat('dd MMMM EEEE').format(date);
     return Row(
       children: [
         Expanded(
@@ -20,7 +27,7 @@ class AppointmentScheduleTime extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  '25 December Monday',
+                  formattedDate,
                   textAlign: TextAlign.center,
                   style: TextStyles.font16Bold,
                 ),
@@ -42,7 +49,7 @@ class AppointmentScheduleTime extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  '12:00 pm - 12:30 pm',
+                  time,
                   textAlign: TextAlign.center,
                   style: TextStyles.font16Bold,
                 ),
