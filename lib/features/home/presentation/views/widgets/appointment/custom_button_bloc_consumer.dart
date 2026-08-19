@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:medico/constants.dart';
 import 'package:medico/core/helpers/show_message_bar.dart';
 import 'package:medico/core/services/firebase_auth_service.dart';
 import 'package:medico/core/utils/app_colors.dart';
+import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/core/widgets/custom_button.dart';
+import 'package:medico/core/widgets/custom_dialog.dart';
 import 'package:medico/features/home/domain/entities/appointment_entity.dart';
 import 'package:medico/features/home/domain/entities/appointment_selection.dart';
 import 'package:medico/features/home/presentation/manager/create_appointment_cubit/create_appointment_cubit.dart';
@@ -40,6 +43,15 @@ class CustomButtonBlocConsumer extends StatelessWidget {
                 amount: doctor.hourlyRate,
                 status: 'confirmed',
                 paymentStatus: 'paid',
+              );
+              CustomDialog.showSuccessDialog(
+                context: context,
+                title: 'Appointment Confirmed',
+                message:
+                    'Your appointment with dr ${doctor.name} has been confirmed successfully!',
+                onPressed: () {
+                  context.push(AppRoute.kHomeView);
+                },
               );
               context.read<CreateAppointmentCubit>().createAppointment(
                 appointment: appointment,

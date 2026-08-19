@@ -1,3 +1,4 @@
+import 'package:medico/features/home/domain/entities/appointment_entity.dart';
 import 'package:medico/features/home/domain/entities/category_entity.dart';
 import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 
@@ -6,14 +7,7 @@ CategoryEntity getDummyCategory() {
 }
 
 List<CategoryEntity> getDummyCategories() {
-  return [
-    getDummyCategory(),
-    getDummyCategory(),
-    getDummyCategory(),
-    getDummyCategory(),
-    getDummyCategory(),
-    getDummyCategory(),
-  ];
+  return List.generate(6, (_) => getDummyCategory());
 }
 
 DoctorEntity getDummyDoctor() {
@@ -21,7 +15,7 @@ DoctorEntity getDummyDoctor() {
     id: 'Jennifer Miller',
     name: 'Jennifer Miller',
     specialization: 'Pediatrician',
-    workPlace: ',ercy Hospital',
+    workPlace: 'Mercy Hospital',
     rating: '4.8',
     experience: 1,
     hourlyRate: 1,
@@ -33,12 +27,23 @@ DoctorEntity getDummyDoctor() {
 }
 
 List<DoctorEntity> getDummyDoctors() {
-  return [
-    getDummyDoctor(),
-    getDummyDoctor(),
-    getDummyDoctor(),
-    getDummyDoctor(),
-    getDummyDoctor(),
-    getDummyDoctor(),
-  ];
+  return List.generate(6, (_) => getDummyDoctor());
+}
+
+AppointmentEntity getDummyAppointment() {
+  return AppointmentEntity(
+    id: 'Jennifer Miller',
+    patientId: 'Ziad Tamer',
+    doctorId: 'Jennifer Miller',
+    doctorName: 'Jennifer Miller',
+    date: DateTime.now(),
+    time: '4:00 PM',
+    amount: 300,
+    status: 'confirmed',
+    paymentStatus: 'paid',
+  );
+}
+
+List<AppointmentEntity> getDummyAppointments() {
+  return List.generate(6, (_) => getDummyAppointment());
 }
