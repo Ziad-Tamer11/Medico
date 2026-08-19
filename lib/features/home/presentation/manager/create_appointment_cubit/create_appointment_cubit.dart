@@ -5,8 +5,8 @@ import 'package:meta/meta.dart';
 
 part 'create_appointment_state.dart';
 
-class AppointmentCubit extends Cubit<CreateAppointmentState> {
-  AppointmentCubit({required this.appointmentUseCase})
+class CreateAppointmentCubit extends Cubit<CreateAppointmentState> {
+  CreateAppointmentCubit({required this.appointmentUseCase})
     : super(CreateAppointmentInitial());
 
   final AppointmentUseCase appointmentUseCase;
@@ -18,25 +18,10 @@ class AppointmentCubit extends Cubit<CreateAppointmentState> {
     final result = await appointmentUseCase.createAppointment(
       appointment: appointment,
     );
-    result.fold((failure) {
-      emit(CreateAppointmentFailure(errMessage: failure.errMessage));
-    }, (appointment) => emit(CreateAppointmentSuccess()));
-  }
-
-  Future<void> getUpcomingAppointments({required String patientId}) async {
-    emit(CreateAppointmentLoading());
-
-    final result = await appointmentUseCase.getUpcomingAppointments(
-      patientId: patientId,
-    );
-
     result.fold(
-      (failure) {
-        emit(CreateAppointmentFailure(errMessage: failure.errMessage));
-      },
-      (appointments) {
-        emit(CreateAppointmentSuccess());
-      },
+      (failure) =>
+          emit(CreateAppointmentFailure(errMessage: failure.errMessage)),
+      (_) => emit(CreateAppointmentSuccess()),
     );
   }
 }

@@ -116,4 +116,8 @@ class FirebaseAuthService {
   bool isLoggedIn() {
     return FirebaseAuth.instance.currentUser != null;
   }
+
+  String getCurrentUserId() {
+    return FirebaseAuth.instance.currentUser!.uid;
+  }
 }
