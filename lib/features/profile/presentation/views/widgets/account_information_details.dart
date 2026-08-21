@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medico/core/helpers/get_user.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_route.dart';
+import 'package:medico/features/auth/presentation/manager/sign_out_cubit/sign_out_cubit.dart';
 import 'package:medico/features/profile/presentation/views/widgets/account_information_item.dart';
 
 class AccountInformationDetails extends StatelessWidget {
@@ -28,12 +30,12 @@ class AccountInformationDetails extends StatelessWidget {
         AccountInformationItem(
           icon: FaIcon(FontAwesomeIcons.phone),
           title: 'Phone',
-          value: '01012345678',
+          value: user.phone,
         ),
         AccountInformationItem(
           icon: FaIcon(FontAwesomeIcons.marsAndVenus),
           title: 'Gender',
-          value: 'Male',
+          value: user.gender,
         ),
         AccountInformationItem(
           icon: FaIcon(FontAwesomeIcons.marsAndVenus),
@@ -46,7 +48,9 @@ class AccountInformationDetails extends StatelessWidget {
           icon: FaIcon(FontAwesomeIcons.signOutAlt, color: AppColor.red),
           title: 'Sign Out',
           textColor: AppColor.red,
-          onTap: () {},
+          onTap: () {
+            context.read<SignOutCubit>().logout();
+          },
         ),
       ],
     );

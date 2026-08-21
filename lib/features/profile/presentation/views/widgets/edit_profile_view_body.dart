@@ -22,7 +22,6 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
           NameAndTextField(
             title: 'Name',
             value: 'Ziad',
-
             keyboardType: TextInputType.name,
           ),
           NameAndTextField(
@@ -34,11 +33,6 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
             title: 'Phone',
             value: '01012345678',
             keyboardType: TextInputType.number,
-          ),
-          NameAndTextField(
-            title: 'Gender',
-            value: 'male',
-            keyboardType: TextInputType.text,
           ),
           NameAndTextField(
             title: 'Password',
@@ -57,7 +51,7 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
               color: Color(0xffC9CECF),
             ),
           ),
-          SizedBox(height: 24),
+          SizedBox(height: 50),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
             child: CustomButton(text: 'Save Changes', onPressed: () {}),
