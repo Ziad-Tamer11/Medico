@@ -5,14 +5,16 @@ import 'package:medico/core/utils/app_text_styles.dart';
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     super.key,
-    required this.hintText,
+    this.controller,
+    this.hintText,
     this.suffixIcon,
     required this.keyboardType,
     this.onSaved,
     this.obscureText = false,
   });
 
-  final String hintText;
+  final TextEditingController? controller;
+  final String? hintText;
   final Widget? suffixIcon;
   final TextInputType keyboardType;
   final void Function(String?)? onSaved;
@@ -21,6 +23,7 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Enter text here';

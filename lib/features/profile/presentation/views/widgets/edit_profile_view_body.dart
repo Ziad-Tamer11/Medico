@@ -5,6 +5,8 @@ import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/features/profile/presentation/views/widgets/name_and_text_filed.dart';
 
+import 'package:medico/core/helpers/get_user.dart';
+
 class EditProfileViewBody extends StatefulWidget {
   const EditProfileViewBody({super.key});
 
@@ -14,6 +16,32 @@ class EditProfileViewBody extends StatefulWidget {
 
 class _EditProfileViewBodyState extends State<EditProfileViewBody> {
   bool isVisible = false;
+
+  late final TextEditingController nameController;
+  late final TextEditingController emailController;
+  late final TextEditingController phoneController;
+  late final TextEditingController passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+    final user = getUser();
+    nameController = TextEditingController(text: user?.firstName ?? '');
+    emailController = TextEditingController(text: user?.email ?? '');
+    phoneController = TextEditingController(text: user?.phone ?? '');
+    passwordController =
+        TextEditingController(); // فاضي عن قصد، شوف الملاحظة تحت
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -21,23 +49,24 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
         children: [
           NameAndTextField(
             title: 'Name',
-            value: 'Ziad',
+            controller: nameController,
             keyboardType: TextInputType.name,
           ),
           NameAndTextField(
             title: 'Email',
-            value: 'ziad@gmail.com',
+            controller: emailController,
             keyboardType: TextInputType.emailAddress,
           ),
           NameAndTextField(
             title: 'Phone',
-            value: '01012345678',
+            controller: phoneController,
             keyboardType: TextInputType.number,
           ),
           NameAndTextField(
             title: 'Password',
-            value: '*******',
+            controller: passwordController,
             keyboardType: TextInputType.text,
+            hintText: 'Leave empty to keep current password',
             obscureText: !isVisible,
             suffixIcon: IconButton(
               onPressed: () {
@@ -54,7 +83,23 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
           SizedBox(height: 50),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
-            child: CustomButton(text: 'Save Changes', onPressed: () {}),
+            child: CustomButton(
+              text: 'Save Changes',
+              onPressed: () {
+                // final updatedName = nameController.text;
+                // final updatedEmail = emailController.text;
+                // final updatedPhone = phoneController.text;
+                // final updatedPassword =
+                //     passwordController.text; // فاضي لو المستخدم مغيرش الباسورد
+                // هنا هتنادي usecase/cubit تبعت الداتا دي للـ backend
+                // context.read<EditProfileCubit>().updateProfile(
+                //   firstName: updatedName,
+                //   email: updatedEmail,
+                //   phone: updatedPhone,
+                //   password: updatedPassword.isEmpty ? null : updatedPassword,
+                // );
+              },
+            ),
           ),
         ],
       ),

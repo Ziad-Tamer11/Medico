@@ -7,15 +7,19 @@ class NameAndTextField extends StatelessWidget {
   const NameAndTextField({
     super.key,
     required this.title,
-    required this.value,
+    required this.controller,
     required this.keyboardType,
     this.suffixIcon,
     this.obscureText = false,
+    this.hintText,
   });
-  final String title, value;
+
+  final String title;
+  final TextEditingController controller;
   final TextInputType keyboardType;
   final Widget? suffixIcon;
   final bool obscureText;
+  final String? hintText;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,7 +33,8 @@ class NameAndTextField extends StatelessWidget {
           CustomText(text: title),
           SizedBox(height: 16),
           CustomTextFormField(
-            hintText: value,
+            controller: controller,
+            hintText: hintText ?? 'Enter your $title',
             keyboardType: keyboardType,
             obscureText: obscureText,
             suffixIcon: suffixIcon,
