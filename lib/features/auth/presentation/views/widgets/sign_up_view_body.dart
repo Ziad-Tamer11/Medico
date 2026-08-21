@@ -73,9 +73,12 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
                     context.read<SignUpCubit>().createUserWithEmailAndPassword(
-                      name: fullName,
+                      firstName: fullName,
                       email: email,
                       password: password,
+                      lastName: '',
+                      phone: '',
+                      gender: 'male',
                     );
                   } else {
                     setState(() {
@@ -110,7 +113,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   SocialLoginButton(
                     image: Assets.imagesFacebook,
                     onTap: () {
-                      context.read<LoginCubit>().signInWithFacebook();
+                      // context.read<LoginCubit>().signInWithFacebook();
                     },
                   ),
                 ],

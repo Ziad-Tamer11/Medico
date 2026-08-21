@@ -1,30 +1,45 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:medico/features/auth/domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
-  UserModel({required super.name, required super.email, required super.uId});
+  UserModel({
+    required super.userId,
+    required super.firstName,
+    required super.lastName,
+    required super.email,
+    required super.phone,
+    required super.gender,
+  });
 
-  factory UserModel.fromFirebase(User user) {
+  factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      name: user.displayName ?? '',
-      email: user.email ?? '',
-      uId: user.uid,
+      userId: json['user_id'],
+      firstName: json['first_name'],
+      lastName: json['last_name'],
+      email: json['email'],
+      phone: json['phone'],
+      gender: json['gender'],
     );
   }
 
   factory UserModel.fromEntity(UserEntity entity) {
-    return UserModel(uId: entity.uId, name: entity.name, email: entity.email);
-  }
-
-  factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      name: json['name'],
-      email: json['email'],
-      uId: json['uId'],
+      userId: entity.userId,
+      firstName: entity.firstName,
+      lastName: entity.lastName,
+      email: entity.email,
+      phone: entity.phone,
+      gender: entity.gender,
     );
   }
 
   toMap() {
-    return {'name': name, 'email': email, 'uId': uId};
+    return {
+      'user_id': userId,
+      'first_name': firstName,
+      'last_name': lastName,
+      'email': email,
+      'phone': phone,
+      'gender': gender,
+    };
   }
 }

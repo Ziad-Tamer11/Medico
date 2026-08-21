@@ -26,7 +26,7 @@ class CustomAppBar extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          user.name,
+          user.firstName,
           style: TextStyles.font16Medium.copyWith(color: AppColor.black),
         ),
         trailing: Row(

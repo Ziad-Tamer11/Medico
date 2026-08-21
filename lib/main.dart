@@ -20,7 +20,7 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GoogleSignIn.instance.initialize(
     serverClientId:
-        '1005135440777-7nv4d33vumht7l8mhrbk1jqocp1sgfb0.apps.googleusercontent.com',
+        '883391731424-afmt194hmpgjpn5qr1lur7dd4h4itfac.apps.googleusercontent.com',
   );
   setUpGetIt();
   runApp(const Medico());

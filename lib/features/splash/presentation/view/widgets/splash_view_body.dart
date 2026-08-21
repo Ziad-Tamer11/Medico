@@ -5,6 +5,7 @@ import 'package:medico/core/services/firebase_auth_service.dart';
 import 'package:medico/core/services/get_it_service.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_route.dart';
+import 'package:medico/features/auth/domain/usecases/auth_usecase.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -61,7 +62,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
   }
 
   void executeNavigation() {
-    var isLoggedIn = getIt<FirebaseAuthService>().isLoggedIn();
+    var isLoggedIn = getIt<AuthUsecase>().isLoggedIn();
     if (isLoggedIn) {
       GoRouter.of(context).pushReplacement(AppRoute.kHomeView);
     } else {

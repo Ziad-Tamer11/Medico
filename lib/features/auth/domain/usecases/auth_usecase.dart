@@ -7,20 +7,25 @@ class AuthUsecase {
   final AuthRepo authRepo;
 
   AuthUsecase({required this.authRepo});
-  //create user useCase
+
   Future<Either<Failure, UserEntity>> createUserWithEmailAndPassword({
-    required String name,
+    required String firstName,
+    required String lastName,
     required String email,
     required String password,
+    required String phone,
+    required String gender,
   }) {
     return authRepo.createUserWithEmailAndPassword(
+      firstName: firstName,
+      lastName: lastName,
       email: email,
       password: password,
-      name: name,
+      phone: phone,
+      gender: gender,
     );
   }
 
-  //sign in with email and password useCase
   Future<Either<Failure, UserEntity>> signInWithEmailAndPassword({
     required String email,
     required String password,
@@ -31,28 +36,19 @@ class AuthUsecase {
     );
   }
 
-  //sign in with google useCase
   Future<Either<Failure, UserEntity>> signInWithGoogle() {
     return authRepo.signInWithGoogle();
   }
 
-  //sign in with facebook useCase
-  Future<Either<Failure, UserEntity>> signInWithFacebook() {
-    return authRepo.signInWithFacebook();
+  Future<Either<Failure, void>> logout() {
+    return authRepo.logout();
   }
 
-  //add user data useCase
-  Future addUserData({required UserEntity userEntity}) {
-    return authRepo.addUserData(userEntity: userEntity);
+  UserEntity? getCachedUser() {
+    return authRepo.getCachedUser();
   }
 
-  //read user data useCase
-  Future getUserData({required String uId}) {
-    return authRepo.getUserData(uId: uId);
-  }
-
-  //save user data useCase
-  Future saveUserData({required UserEntity userEntity}) {
-    return authRepo.saveUserData(userEntity: userEntity);
+  bool isLoggedIn() {
+    return authRepo.isLoggedIn();
   }
 }

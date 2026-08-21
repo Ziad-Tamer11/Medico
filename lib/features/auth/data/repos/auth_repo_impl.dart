@@ -1,49 +1,43 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:medico/constants.dart';
 import 'package:medico/core/errors/exceptions.dart';
 import 'package:medico/core/errors/failure.dart';
-import 'package:medico/core/services/database_service.dart';
-import 'package:medico/core/services/firebase_auth_service.dart';
+import 'package:medico/core/services/auth_api_service.dart';
 import 'package:medico/core/services/shared_preferences.dart';
-import 'package:medico/core/utils/backend_endpoints.dart';
 import 'package:medico/features/auth/data/models/user_model.dart';
 import 'package:medico/features/auth/domain/entities/user_entity.dart';
 import 'package:medico/features/auth/domain/repos/auth_repo.dart';
 
 class AuthRepoImpl implements AuthRepo {
-  final FirebaseAuthService firebaseAuthService;
-  final DatabaseService databaseService;
+  final AuthApiService authApiService;
 
-  AuthRepoImpl({
-    required this.firebaseAuthService,
-    required this.databaseService,
-  });
-  // create user impl
+  AuthRepoImpl({required this.authApiService});
+
   @override
   Future<Either<Failure, UserEntity>> createUserWithEmailAndPassword({
-    required String name,
+    required String firstName,
+    required String lastName,
     required String email,
     required String password,
+    required String phone,
+    required String gender,
   }) async {
-    User? user;
     try {
-      user = await firebaseAuthService.createUserWithEmailAndPassword(
+      final userModel = await authApiService.createUserWithEmailAndPassword(
+        firstName: firstName,
+        lastName: lastName,
         email: email,
         password: password,
+        phone: phone,
+        gender: gender,
       );
-      var userEntity = UserEntity(name: name, email: email, uId: user.uid);
-      await addUserData(userEntity: userEntity);
-      await saveUserData(userEntity: userEntity);
-      return right(userEntity);
+      return right(userModel);
     } on CustomExceptions catch (e) {
-      await deleteUser(user);
       return left(ServerFailure(errMessage: e.errMessage));
     } catch (e) {
-      await deleteUser(user);
-
       log(
         'Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}',
       );
@@ -53,34 +47,18 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
-  //delete user
-  Future<void> deleteUser(User? user) async {
-    if (user != null) {
-      await firebaseAuthService.deleteUser();
-    }
-  }
-
-  //should delete user
-  Future<void> deleteUserIfNeeded(bool shouldDeleteUser, User? user) async {
-    if (shouldDeleteUser) {
-      await deleteUser(user);
-    }
-  }
-
-  // sign in impl
   @override
   Future<Either<Failure, UserEntity>> signInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
     try {
-      var user = await firebaseAuthService.signInWithEmailAndPassword(
+      final userModel = await authApiService.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      var userEntity = await getUserData(uId: user.uid);
-      await saveUserData(userEntity: userEntity);
-      return right(userEntity);
+      await saveUserData(userEntity: userModel);
+      return right(userModel);
     } on CustomExceptions catch (e) {
       return left(ServerFailure(errMessage: e.errMessage));
     } catch (e) {
@@ -93,32 +71,22 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
-  // google impl
   @override
   Future<Either<Failure, UserEntity>> signInWithGoogle() async {
-    User? user;
-    bool shouldDeleteUser = false;
     try {
-      user = await firebaseAuthService.signInWithGoogle();
-      UserEntity userEntity;
-      userEntity = UserModel.fromFirebase(user);
-      bool isUserExist = await databaseService.checkIfDataExists(
-        path: BackendEndpoints.checkIfUserExists,
-        documentId: user.uid,
-      );
-      if (isUserExist) {
-        userEntity = await getUserData(uId: user.uid);
-      } else {
-        shouldDeleteUser = true;
-        await addUserData(userEntity: userEntity);
+      final googleUser = await GoogleSignIn.instance.authenticate();
+      final idToken = googleUser.authentication.idToken;
+      if (idToken == null) {
+        return left(
+          ServerFailure(errMessage: 'Google sign in failed. Please try again.'),
+        );
       }
-      await saveUserData(userEntity: userEntity);
-      return right(userEntity);
+      final userModel = await authApiService.signInWithGoogle(idToken);
+      await saveUserData(userEntity: userModel);
+      return right(userModel);
     } on CustomExceptions catch (e) {
-      await deleteUserIfNeeded(shouldDeleteUser, user);
       return left(ServerFailure(errMessage: e.errMessage));
     } catch (e) {
-      await deleteUserIfNeeded(shouldDeleteUser, user);
       log('Exception in AuthRepoImpl.signInWithGoogle: ${e.toString()}');
       return left(
         ServerFailure(errMessage: 'Something went wrong. Please try again.'),
@@ -126,73 +94,36 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
-  // facebook impl
   @override
-  Future<Either<Failure, UserEntity>> signInWithFacebook() async {
-    User? user;
-    bool shouldDeleteUser = false;
+  Future<Either<Failure, void>> logout() async {
     try {
-      var userCredential = await firebaseAuthService.signInWithFacebook();
-      user = userCredential.user;
-      UserEntity userEntity;
-      if (user == null) {
-        return left(
-          ServerFailure(
-            errMessage: 'Facebook sign-in failed. Please try again.',
-          ),
-        );
-      }
-      userEntity = UserModel.fromFirebase(user);
-      final isUserExist = await databaseService.checkIfDataExists(
-        path: BackendEndpoints.checkIfUserExists,
-        documentId: user.uid,
-      );
-      if (isUserExist) {
-        userEntity = await getUserData(uId: user.uid);
-      } else {
-        shouldDeleteUser = true;
-        await addUserData(userEntity: userEntity);
-      }
-      await saveUserData(userEntity: userEntity);
-      return right(userEntity);
-    } on CustomExceptions catch (e) {
-      await deleteUserIfNeeded(shouldDeleteUser, user);
-      return left(ServerFailure(errMessage: e.errMessage));
+      await authApiService.logout();
+      await Prefs.setString(kUserData, '');
+      return right(null);
     } catch (e) {
-      await deleteUserIfNeeded(shouldDeleteUser, user);
-      log('Exception in AuthRepoImpl.signInWithFacebook: ${e.toString()}');
+      log('Exception in AuthRepoImpl.logout: ${e.toString()}');
       return left(
         ServerFailure(errMessage: 'Something went wrong. Please try again.'),
       );
     }
   }
 
-  //add user impl
   @override
-  Future<void> addUserData({required UserEntity userEntity}) async {
-    var userModel = UserModel.fromEntity(userEntity);
-    await databaseService.addData(
-      path: BackendEndpoints.addUserData,
-      data: userModel.toMap(),
-      documentId: userEntity.uId,
-    );
-  }
-
-  //get user impl
-  @override
-  Future<UserEntity> getUserData({required String uId}) async {
-    final userData = await databaseService.getData(
-      path: BackendEndpoints.getUserData,
-      documentId: uId,
-    );
-    var userEntity = UserModel.fromJson(userData);
-    return userEntity;
-  }
-
-  //save user data
-  @override
-  Future<dynamic> saveUserData({required UserEntity userEntity}) async {
-    var jsonData = jsonEncode(UserModel.fromEntity(userEntity).toMap());
+  Future<void> saveUserData({required UserEntity userEntity}) async {
+    final jsonData = jsonEncode(UserModel.fromEntity(userEntity).toMap());
     await Prefs.setString(kUserData, jsonData);
+  }
+
+  @override
+  UserEntity? getCachedUser() {
+    final jsonData = Prefs.getString(kUserData);
+    if (jsonData == null || jsonData.isEmpty) return null;
+    return UserModel.fromJson(jsonDecode(jsonData));
+  }
+
+  @override
+  bool isLoggedIn() {
+    final token = Prefs.getString(kAccessToken);
+    return token != null && token.isNotEmpty;
   }
 }

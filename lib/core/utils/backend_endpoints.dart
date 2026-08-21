@@ -1,4 +1,10 @@
 class BackendEndpoints {
+  static const signup = 'auth/signup';
+  static const login = 'auth/login';
+  static const googleLogin = 'auth/google';
+  static const logout = 'auth/logout';
+  static const refresh = 'auth/refresh';
+
   static const addUserData = 'users';
   static const getUserData = 'users';
   static const checkIfUserExists = 'users';

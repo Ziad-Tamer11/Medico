@@ -18,7 +18,7 @@ class AccountInformationDetails extends StatelessWidget {
         AccountInformationItem(
           icon: Icon(Icons.person, size: 28),
           title: 'Name',
-          value: user.name,
+          value: user.firstName,
         ),
         AccountInformationItem(
           icon: Icon(Icons.mail, size: 28),

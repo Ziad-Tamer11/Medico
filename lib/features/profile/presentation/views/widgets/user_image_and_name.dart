@@ -18,7 +18,7 @@ class UserImageAndName extends StatelessWidget {
         ),
         SizedBox(height: 8),
         Text(
-          user.name,
+          user.firstName,
           style: TextStyles.font18Bold.copyWith(color: AppColor.black),
         ),
         SizedBox(height: 42),

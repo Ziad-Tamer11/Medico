@@ -3,31 +3,27 @@ import 'package:medico/core/errors/failure.dart';
 import 'package:medico/features/auth/domain/entities/user_entity.dart';
 
 abstract class AuthRepo {
-  //create user method
   Future<Either<Failure, UserEntity>> createUserWithEmailAndPassword({
-    required String name,
+    required String firstName,
+    required String lastName,
     required String email,
     required String password,
+    required String phone,
+    required String gender,
   });
 
-  //sign in method
   Future<Either<Failure, UserEntity>> signInWithEmailAndPassword({
     required String email,
     required String password,
   });
 
-  //google method
   Future<Either<Failure, UserEntity>> signInWithGoogle();
 
-  //facebook method
-  Future<Either<Failure, UserEntity>> signInWithFacebook();
+  Future<Either<Failure, void>> logout();
 
-  //add user
-  Future addUserData({required UserEntity userEntity});
+  Future<void> saveUserData({required UserEntity userEntity});
 
-  //read user
-  Future getUserData({required String uId});
+  UserEntity? getCachedUser();
 
-  //save user data
-  Future saveUserData({required UserEntity userEntity});
+  bool isLoggedIn();
 }

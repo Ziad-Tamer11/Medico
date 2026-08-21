@@ -11,19 +11,35 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   //sign up cubit
   Future<void> createUserWithEmailAndPassword({
-    required String name,
+    required String firstName,
+    required String lastName,
     required String email,
     required String password,
+    required String phone,
+    required String gender,
   }) async {
     emit(SignUpLoading());
     var result = await authUsecase.createUserWithEmailAndPassword(
-      name: name,
+      firstName: firstName,
+      lastName: lastName,
       email: email,
       password: password,
+      phone: phone,
+      gender: gender,
     );
-    result.fold(
-      (failure) => emit(SignUpFailure(errMessage: failure.errMessage)),
-      (userEntity) => emit(SignUpSuccess(userEntity: userEntity)),
+    await result.fold(
+      (failure) async => emit(SignUpFailure(errMessage: failure.errMessage)),
+      (_) async {
+        // signup نجح بس من غير tokens، فنعمل login تلقائي بنفس البيانات
+        var loginResult = await authUsecase.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        loginResult.fold(
+          (failure) => emit(SignUpFailure(errMessage: failure.errMessage)),
+          (userEntity) => emit(SignUpSuccess(userEntity: userEntity)),
+        );
+      },
     );
   }
 }

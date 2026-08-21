@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medico/core/services/firebase_auth_service.dart';
 import 'package:medico/core/services/get_it_service.dart';
+import 'package:medico/features/auth/domain/usecases/auth_usecase.dart';
 import 'package:medico/features/home/domain/usecases/appointment_usecase.dart';
 import 'package:medico/features/home/domain/usecases/category_usecase.dart';
 import 'package:medico/features/home/domain/usecases/doctor_usecase.dart';
@@ -32,7 +32,10 @@ class HomeView extends StatelessWidget {
                 GetUpcomingAppointmentCubit(
                   appointmentUseCase: getIt<AppointmentUseCase>(),
                 )..getUpcomingAppointments(
-                  patientId: getIt<FirebaseAuthService>().getCurrentUserId(),
+                  patientId: getIt<AuthUsecase>()
+                      .getCachedUser()!
+                      .userId
+                      .toString(),
                 ),
           ),
         ],

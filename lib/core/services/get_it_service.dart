@@ -1,10 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:medico/constants.dart';
 import 'package:medico/core/services/api_service.dart';
+import 'package:medico/core/services/auth_api_service.dart';
 import 'package:medico/core/services/database_service.dart';
+import 'package:medico/core/services/dio_client.dart';
 import 'package:medico/core/services/fire_store_service.dart';
-import 'package:medico/core/services/firebase_auth_service.dart';
+import 'package:medico/core/services/shared_preferences.dart';
 import 'package:medico/core/services/stripe_service.dart';
+import 'package:medico/core/services/token_provider.dart';
+import 'package:medico/core/utils/backend_endpoints.dart';
 import 'package:medico/features/auth/data/repos/auth_repo_impl.dart';
 import 'package:medico/features/auth/domain/repos/auth_repo.dart';
 import 'package:medico/features/auth/domain/usecases/auth_usecase.dart';
@@ -24,13 +29,29 @@ import 'package:medico/features/payment/data/entities/repos/payment_repo.dart';
 final getIt = GetIt.instance;
 
 void setUpGetIt() {
-  getIt.registerSingleton<FirebaseAuthService>(FirebaseAuthService());
+  getIt.registerLazySingleton<Dio>(() {
+    return buildDio(
+      baseUrl: kBaseUrl,
+      refreshEndpoint: BackendEndpoints.refresh,
+      tokenCallbacks: TokenCallbacks(
+        getAccessToken: () => Prefs.getString(kAccessToken),
+        getRefreshToken: () => Prefs.getString(kRefreshToken),
+        saveAccessToken: (token) => Prefs.setString(kAccessToken, token),
+        clearTokens: () async {
+          await Prefs.setString(kAccessToken, '');
+          await Prefs.setString(kRefreshToken, '');
+        },
+      ),
+    );
+  });
+  getIt.registerLazySingleton<ApiService>(() => ApiService(dio: getIt<Dio>()));
   getIt.registerSingleton<DatabaseService>(FireStoreService());
+
+  getIt.registerSingleton<AuthApiService>(
+    AuthApiService(apiService: getIt<ApiService>()),
+  );
   getIt.registerSingleton<AuthRepo>(
-    AuthRepoImpl(
-      firebaseAuthService: getIt<FirebaseAuthService>(),
-      databaseService: getIt<DatabaseService>(),
-    ),
+    AuthRepoImpl(authApiService: getIt<AuthApiService>()),
   );
   getIt.registerSingleton<AuthUsecase>(
     AuthUsecase(authRepo: getIt<AuthRepo>()),
@@ -47,9 +68,6 @@ void setUpGetIt() {
   getIt.registerSingleton<DoctorUsecase>(
     DoctorUsecase(doctorRepo: getIt<DoctorRepo>()),
   );
-  getIt.registerLazySingleton<Dio>(() => Dio());
-
-  getIt.registerLazySingleton<ApiService>(() => ApiService(dio: getIt<Dio>()));
 
   getIt.registerLazySingleton<StripeService>(
     () => StripeService(apiService: getIt<ApiService>()),
