@@ -14,4 +14,8 @@ class Prefs {
   static getString(String key) {
     return _preferences.getString(key);
   }
+
+  static Future<bool> remove(String key) async {
+    return await _preferences.remove(key);
+  }
 }

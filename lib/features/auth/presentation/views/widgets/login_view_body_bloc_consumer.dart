@@ -17,7 +17,7 @@ class LoginViewBodyBlocConsumer extends StatelessWidget {
       listener: (context, state) {
         if (state is LoginSuccess) {
           showMessageBar(context, 'Login Successful', Colors.green);
-          GoRouter.of(context).push(AppRoute.kHomeView);
+          GoRouter.of(context).pushReplacement(AppRoute.kHomeView);
         }
         if (state is LoginFailure) {
           showMessageBar(context, state.errMessage, AppColor.red);

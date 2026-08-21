@@ -98,7 +98,7 @@ class AuthRepoImpl implements AuthRepo {
   Future<Either<Failure, void>> logout() async {
     try {
       await authApiService.logout();
-      await Prefs.setString(kUserData, '');
+      await Prefs.remove(kUserData);
       return right(null);
     } catch (e) {
       log('Exception in AuthRepoImpl.logout: ${e.toString()}');

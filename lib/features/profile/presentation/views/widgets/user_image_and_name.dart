@@ -10,6 +10,9 @@ class UserImageAndName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = getUser();
+    if (user == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
     return Column(
       children: [
         Image.asset(
