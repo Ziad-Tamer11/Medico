@@ -5,6 +5,7 @@ import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
 import 'package:medico/core/widgets/custom_text_form_field.dart';
+import 'package:medico/core/widgets/password_field.dart';
 
 class CustomDialog {
   static Future<void> showSuccessDialog({
@@ -382,6 +383,109 @@ class CustomDialog {
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  static Future<(String oldPassword, String newPassword)?>
+  showChangePasswordDialog({required BuildContext context}) async {
+    final formKey = GlobalKey<FormState>();
+    late String oldPassword, newPassword;
+
+    return showDialog<(String, String)>(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        contentPadding: const EdgeInsets.all(24),
+        content: Form(
+          key: formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: AppColor.primary.withOpacity(0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.lock_outline,
+                  color: AppColor.primary,
+                  size: 30,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Change Password',
+                style: TextStyles.font18Bold.copyWith(color: AppColor.black),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+              PasswordField(
+                hintText: 'Current password',
+                onSaved: (value) => oldPassword = value!,
+              ),
+              const SizedBox(height: 12),
+              PasswordField(
+                hintText: 'New password',
+                onSaved: (value) => newPassword = value!,
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () => Navigator.pop(dialogContext),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          side: const BorderSide(color: AppColor.grey),
+                        ),
+                      ),
+                      child: Text(
+                        'Cancel',
+                        style: TextStyles.font16Medium.copyWith(
+                          color: AppColor.grey,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          formKey.currentState!.save();
+                          Navigator.pop(dialogContext, (
+                            oldPassword,
+                            newPassword,
+                          ));
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.primary,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        'Confirm',
+                        style: TextStyles.font16Medium.copyWith(
+                          color: AppColor.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

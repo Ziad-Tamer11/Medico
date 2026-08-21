@@ -51,4 +51,26 @@ class AuthUsecase {
   bool isLoggedIn() {
     return authRepo.isLoggedIn();
   }
+
+  Future<Either<Failure, UserEntity>> updateProfile({
+    required String firstName,
+    required String lastName,
+    required String phone,
+  }) {
+    return authRepo.updateProfile(
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone,
+    );
+  }
+
+  Future<Either<Failure, void>> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  }) {
+    return authRepo.changePassword(
+      oldPassword: oldPassword,
+      newPassword: newPassword,
+    );
+  }
 }

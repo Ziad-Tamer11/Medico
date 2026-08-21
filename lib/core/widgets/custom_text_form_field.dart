@@ -11,6 +11,7 @@ class CustomTextFormField extends StatelessWidget {
     required this.keyboardType,
     this.onSaved,
     this.obscureText = false,
+    this.enabled = true, // ← جديد
   });
 
   final TextEditingController? controller;
@@ -19,11 +20,13 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType keyboardType;
   final void Function(String?)? onSaved;
   final bool obscureText;
+  final bool enabled; // ← جديد
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      enabled: enabled, // ← جديد
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Enter text here';
@@ -35,7 +38,9 @@ class CustomTextFormField extends StatelessWidget {
       obscureText: obscureText,
       decoration: InputDecoration(
         filled: true,
-        fillColor: Color(0xFFF9FAFB),
+        fillColor: enabled
+            ? const Color(0xFFF9FAFB)
+            : const Color(0xFFF0F0F0), // ← لون مختلف شوية وهو disabled
         hintText: hintText,
         hintStyle: TextStyles.font16Regular.copyWith(
           color: const Color(0xFFB2BCC8),
@@ -44,6 +49,7 @@ class CustomTextFormField extends StatelessWidget {
         suffixIcon: suffixIcon,
         border: buildBorder(),
         enabledBorder: buildBorder(),
+        disabledBorder: buildBorder(), // ← جديد
         focusedBorder: buildBorder().copyWith(
           borderSide: BorderSide(color: AppColor.primary),
         ),

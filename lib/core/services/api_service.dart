@@ -22,4 +22,22 @@ class ApiService {
     );
     return response;
   }
+
+  Future<Response> put({
+    required String url,
+    required body,
+    required String token,
+    String? contentType,
+    Map<String, String>? headers,
+  }) async {
+    var response = await dio.put(
+      url,
+      data: body,
+      options: Options(
+        contentType: contentType,
+        headers: headers ?? {'Authorization': "Bearer $token"},
+      ),
+    );
+    return response;
+  }
 }

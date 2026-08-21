@@ -2,21 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medico/constants.dart';
-import 'package:medico/core/helpers/get_user.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
+import 'package:medico/features/auth/domain/entities/user_entity.dart';
 
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
+class CustomAppBarBody extends StatelessWidget {
+  const CustomAppBarBody({super.key, required this.user});
+  final UserEntity user;
 
   @override
   Widget build(BuildContext context) {
-    final user = getUser();
-    if (user == null) {
-      return const Center(child: CircularProgressIndicator());
-    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
       child: ListTile(
@@ -37,15 +34,11 @@ class CustomAppBar extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             GestureDetector(
-              onTap: () {
-                context.push(AppRoute.kNotificationsView);
-              },
+              onTap: () => context.push(AppRoute.kNotificationsView),
               child: SvgPicture.asset(Assets.imagesNotification),
             ),
             GestureDetector(
-              onTap: () {
-                context.push(AppRoute.kMyFavoritesView);
-              },
+              onTap: () => context.push(AppRoute.kMyFavoritesView),
               child: SvgPicture.asset(Assets.imagesFavorite),
             ),
           ],

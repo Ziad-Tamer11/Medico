@@ -1,107 +1,116 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:medico/constants.dart';
-import 'package:medico/core/utils/app_images.dart';
-import 'package:medico/core/widgets/custom_button.dart';
-import 'package:medico/features/profile/presentation/views/widgets/name_and_text_filed.dart';
-
 import 'package:medico/core/helpers/get_user.dart';
+import 'package:medico/core/widgets/custom_button.dart';
+import 'package:medico/features/profile/presentation/views/widgets/name_and_text_field.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class EditProfileViewBody extends StatefulWidget {
-  const EditProfileViewBody({super.key});
+  const EditProfileViewBody({
+    super.key,
+    required this.isLoading,
+    required this.onSave,
+    required this.onChangePasswordTap,
+  });
+
+  final bool isLoading;
+  final void Function(String firstName, String lastName, String phone) onSave;
+  final VoidCallback onChangePasswordTap;
 
   @override
   State<EditProfileViewBody> createState() => _EditProfileViewBodyState();
 }
 
 class _EditProfileViewBodyState extends State<EditProfileViewBody> {
-  bool isVisible = false;
-
-  late final TextEditingController nameController;
+  late final TextEditingController firstNameController;
+  late final TextEditingController lastNameController;
   late final TextEditingController emailController;
   late final TextEditingController phoneController;
-  late final TextEditingController passwordController;
 
   @override
   void initState() {
     super.initState();
     final user = getUser();
-    nameController = TextEditingController(text: user?.firstName ?? '');
+    firstNameController = TextEditingController(text: user?.firstName ?? '');
+    lastNameController = TextEditingController(text: user?.lastName ?? '');
     emailController = TextEditingController(text: user?.email ?? '');
     phoneController = TextEditingController(text: user?.phone ?? '');
-    passwordController =
-        TextEditingController(); // فاضي عن قصد، شوف الملاحظة تحت
   }
 
   @override
   void dispose() {
-    nameController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
     emailController.dispose();
     phoneController.dispose();
-    passwordController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          NameAndTextField(
-            title: 'Name',
-            controller: nameController,
-            keyboardType: TextInputType.name,
-          ),
-          NameAndTextField(
-            title: 'Email',
-            controller: emailController,
-            keyboardType: TextInputType.emailAddress,
-          ),
-          NameAndTextField(
-            title: 'Phone',
-            controller: phoneController,
-            keyboardType: TextInputType.number,
-          ),
-          NameAndTextField(
-            title: 'Password',
-            controller: passwordController,
-            keyboardType: TextInputType.text,
-            hintText: 'Leave empty to keep current password',
-            obscureText: !isVisible,
-            suffixIcon: IconButton(
-              onPressed: () {
-                setState(() {
-                  isVisible = !isVisible;
-                });
-              },
-              icon: isVisible
-                  ? SvgPicture.asset(Assets.imagesVisible)
-                  : SvgPicture.asset(Assets.imagesInVisible),
-              color: Color(0xffC9CECF),
+    return ModalProgressHUD(
+      inAsyncCall: widget.isLoading,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            NameAndTextField(
+              title: 'First Name',
+              controller: firstNameController,
+              keyboardType: TextInputType.name,
             ),
-          ),
-          SizedBox(height: 50),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
-            child: CustomButton(
-              text: 'Save Changes',
-              onPressed: () {
-                // final updatedName = nameController.text;
-                // final updatedEmail = emailController.text;
-                // final updatedPhone = phoneController.text;
-                // final updatedPassword =
-                //     passwordController.text; // فاضي لو المستخدم مغيرش الباسورد
-                // هنا هتنادي usecase/cubit تبعت الداتا دي للـ backend
-                // context.read<EditProfileCubit>().updateProfile(
-                //   firstName: updatedName,
-                //   email: updatedEmail,
-                //   phone: updatedPhone,
-                //   password: updatedPassword.isEmpty ? null : updatedPassword,
-                // );
-              },
+            NameAndTextField(
+              title: 'Last Name',
+              controller: lastNameController,
+              keyboardType: TextInputType.name,
             ),
-          ),
-        ],
+            NameAndTextField(
+              title: 'Email',
+              controller: emailController,
+              keyboardType: TextInputType.emailAddress,
+              enabled: false,
+            ),
+            NameAndTextField(
+              title: 'Phone',
+              controller: phoneController,
+              keyboardType: TextInputType.phone,
+            ),
+            const SizedBox(height: 24),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: kHorizontalPadding,
+              ),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: TextButton(
+                  onPressed: widget.onChangePasswordTap,
+                  child: const Text(
+                    'Change Password',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: kHorizontalPadding,
+              ),
+              child: CustomButton(
+                text: 'Save Changes',
+                onPressed: widget.isLoading
+                    ? null
+                    : () {
+                        widget.onSave(
+                          firstNameController.text.trim(),
+                          lastNameController.text.trim(),
+                          phoneController.text.trim(),
+                        );
+                      },
+              ),
+            ),
+            const SizedBox(height: 50),
+          ],
+        ),
       ),
     );
   }

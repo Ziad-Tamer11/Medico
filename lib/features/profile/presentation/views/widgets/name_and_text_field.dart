@@ -12,6 +12,7 @@ class NameAndTextField extends StatelessWidget {
     this.suffixIcon,
     this.obscureText = false,
     this.hintText,
+    this.enabled = true, // ← جديد
   });
 
   final String title;
@@ -20,6 +21,8 @@ class NameAndTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final bool obscureText;
   final String? hintText;
+  final bool enabled; // ← جديد
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -38,6 +41,7 @@ class NameAndTextField extends StatelessWidget {
             keyboardType: keyboardType,
             obscureText: obscureText,
             suffixIcon: suffixIcon,
+            enabled: enabled, // ← جديد
           ),
         ],
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medico/features/profile/presentation/views/widgets/account_information.dart';
-import 'package:medico/features/profile/presentation/views/widgets/user_image_and_name.dart';
+import 'package:medico/features/profile/presentation/views/widgets/user_image_and_name_bloc_builder.dart';
 
 class ProfileViewBody extends StatelessWidget {
   const ProfileViewBody({super.key});
@@ -10,7 +10,7 @@ class ProfileViewBody extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: 30),
-        UserImageAndName(),
+        UserImageAndNameBlocBuilder(),
         AccountInformation(),
       ],
     );

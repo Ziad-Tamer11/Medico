@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medico/core/utils/app_route.dart';
-import 'package:medico/features/home/presentation/views/widgets/home/custom_app_bar.dart';
+import 'package:medico/features/home/presentation/views/widgets/home/custom_app_bar_bloc_builder.dart';
 import 'package:medico/features/home/presentation/views/widgets/home/custom_card_grid_view_bloc_builder.dart';
 import 'package:medico/features/home/presentation/views/widgets/home/custom_header.dart';
 import 'package:medico/features/home/presentation/views/widgets/home/doctor_card_sliver_list_bloc_builder.dart';
@@ -20,7 +20,7 @@ class HomeViewBody extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 30),
-              const CustomAppBar(),
+              const CustomAppBarBlocBuilder(),
               const SizedBox(height: 40),
               UpcomingAppointmentSectionBlocBuilder(),
               const SizedBox(height: 24),

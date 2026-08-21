@@ -26,4 +26,15 @@ abstract class AuthRepo {
   UserEntity? getCachedUser();
 
   bool isLoggedIn();
+
+  Future<Either<Failure, UserEntity>> updateProfile({
+    required String firstName,
+    required String lastName,
+    required String phone,
+  });
+
+  Future<Either<Failure, void>> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  });
 }

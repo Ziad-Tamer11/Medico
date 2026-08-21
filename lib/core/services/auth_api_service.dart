@@ -111,4 +111,42 @@ class AuthApiService {
     }
     return 'Something went wrong. Please try again.';
   }
+
+  //update profile (name + phone)
+  Future<UserModel> updateProfile({
+    required String firstName,
+    required String lastName,
+    required String phone,
+  }) async {
+    final token = Prefs.getString(kAccessToken) ?? '';
+    try {
+      final response = await apiService.put(
+        url: BackendEndpoints.updateProfile,
+        token: token,
+        body: {'first_name': firstName, 'last_name': lastName, 'phone': phone},
+      );
+      return UserModel.fromJson(response.data);
+    } on DioException catch (e) {
+      log('Exception in AuthApiService.updateProfile: ${e.toString()}');
+      throw CustomExceptions(errMessage: _extractMessage(e));
+    }
+  }
+
+  //change password
+  Future<void> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    final token = Prefs.getString(kAccessToken) ?? '';
+    try {
+      await apiService.put(
+        url: BackendEndpoints.changePassword,
+        token: token,
+        body: {'old_password': oldPassword, 'new_password': newPassword},
+      );
+    } on DioException catch (e) {
+      log('Exception in AuthApiService.changePassword: ${e.toString()}');
+      throw CustomExceptions(errMessage: _extractMessage(e));
+    }
+  }
 }

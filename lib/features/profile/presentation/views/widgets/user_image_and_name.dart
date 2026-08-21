@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:medico/core/helpers/get_user.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
+import 'package:medico/features/auth/domain/entities/user_entity.dart';
 
-class UserImageAndName extends StatelessWidget {
-  const UserImageAndName({super.key});
+class UserImageAndNameBody extends StatelessWidget {
+  const UserImageAndNameBody({super.key, required this.user});
+  final UserEntity user;
 
   @override
   Widget build(BuildContext context) {
-    final user = getUser();
-    if (user == null) {
-      return const Center(child: CircularProgressIndicator());
-    }
     return Column(
       children: [
         Image.asset(
           Assets.imagesUser,
           height: MediaQuery.of(context).size.height * 0.135,
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Text(
           user.firstName,
           style: TextStyles.font18Bold.copyWith(color: AppColor.black),
         ),
-        SizedBox(height: 42),
+        const SizedBox(height: 42),
       ],
     );
   }

@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:medico/core/manager/app_user_cubit/app_user_cubit.dart';
+import 'package:medico/core/services/get_it_service.dart';
 import 'package:medico/features/auth/domain/entities/user_entity.dart';
 import 'package:medico/features/auth/domain/usecases/auth_usecase.dart';
 import 'package:meta/meta.dart';
@@ -21,7 +23,10 @@ class LoginCubit extends Cubit<LoginState> {
     );
     result.fold(
       (failure) => emit(LoginFailure(errMessage: failure.errMessage)),
-      (userEntity) => emit(LoginSuccess(userEntity: userEntity)),
+      (userEntity) {
+        getIt<AppUserCubit>().refresh();
+        emit(LoginSuccess(userEntity: userEntity));
+      },
     );
   }
 
@@ -31,7 +36,10 @@ class LoginCubit extends Cubit<LoginState> {
     var result = await authUsecase.signInWithGoogle();
     result.fold(
       (failure) => emit(LoginFailure(errMessage: failure.errMessage)),
-      (userEntity) => emit(LoginSuccess(userEntity: userEntity)),
+      (userEntity) {
+        getIt<AppUserCubit>().refresh();
+        emit(LoginSuccess(userEntity: userEntity));
+      },
     );
   }
 }

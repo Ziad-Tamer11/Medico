@@ -4,8 +4,9 @@ import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/widgets/custom_text_form_field.dart';
 
 class PasswordField extends StatefulWidget {
-  const PasswordField({super.key, this.onSaved});
+  const PasswordField({super.key, this.onSaved, this.hintText});
   final void Function(String?)? onSaved;
+  final String? hintText;
 
   @override
   State<PasswordField> createState() => _PasswordFieldState();
@@ -19,7 +20,7 @@ class _PasswordFieldState extends State<PasswordField> {
     return CustomTextFormField(
       obscureText: isVisible,
       onSaved: widget.onSaved,
-      hintText: 'Enter password',
+      hintText: widget.hintText ?? 'Enter password',
       keyboardType: TextInputType.visiblePassword,
       suffixIcon: IconButton(
         onPressed: () {

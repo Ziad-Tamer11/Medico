@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:medico/constants.dart';
+import 'package:medico/core/manager/app_user_cubit/app_user_cubit.dart';
 import 'package:medico/core/services/api_service.dart';
 import 'package:medico/core/services/auth_api_service.dart';
 import 'package:medico/core/services/database_service.dart';
@@ -25,6 +26,8 @@ import 'package:medico/features/home/domain/usecases/doctor_usecase.dart';
 import 'package:medico/features/payment/data/entities/usecase/payment_usecase.dart';
 import 'package:medico/features/payment/data/repos/payment_repo_impl.dart';
 import 'package:medico/features/payment/data/entities/repos/payment_repo.dart';
+import 'package:medico/features/profile/presentation/manager/change_password_cubit/change_password_cubit.dart';
+import 'package:medico/features/profile/presentation/manager/edit_profile_cubit/edit_profile_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -55,6 +58,13 @@ void setUpGetIt() {
   );
   getIt.registerSingleton<AuthUsecase>(
     AuthUsecase(authRepo: getIt<AuthRepo>()),
+  );
+  getIt.registerSingleton<AppUserCubit>(AppUserCubit());
+  getIt.registerFactory<EditProfileCubit>(
+    () => EditProfileCubit(authUsecase: getIt<AuthUsecase>()),
+  );
+  getIt.registerFactory<ChangePasswordCubit>(
+    () => ChangePasswordCubit(authUsecase: getIt<AuthUsecase>()),
   );
   getIt.registerSingleton<CategoryRepo>(
     CategoryRepoImpl(databaseService: getIt<DatabaseService>()),

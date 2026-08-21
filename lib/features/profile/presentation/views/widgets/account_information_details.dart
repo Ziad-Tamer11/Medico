@@ -2,22 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:medico/core/helpers/get_user.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/core/widgets/custom_dialog.dart';
+import 'package:medico/features/auth/domain/entities/user_entity.dart';
 import 'package:medico/features/auth/presentation/manager/sign_out_cubit/sign_out_cubit.dart';
 import 'package:medico/features/profile/presentation/views/widgets/account_information_item.dart';
 
-class AccountInformationDetails extends StatelessWidget {
-  const AccountInformationDetails({super.key});
+class AccountInformationDetailsBody extends StatelessWidget {
+  const AccountInformationDetailsBody({super.key, required this.user});
+  final UserEntity user;
 
   @override
   Widget build(BuildContext context) {
-    final user = getUser();
-    if (user == null) {
-      return const Center(child: CircularProgressIndicator());
-    }
     return Column(
       spacing: 30,
       children: [
@@ -44,9 +41,7 @@ class AccountInformationDetails extends StatelessWidget {
         AccountInformationItem(
           icon: FaIcon(FontAwesomeIcons.marsAndVenus),
           title: 'My Favorites',
-          onTap: () {
-            context.push(AppRoute.kMyFavoritesView);
-          },
+          onTap: () => context.push(AppRoute.kMyFavoritesView),
         ),
         AccountInformationItem(
           icon: FaIcon(FontAwesomeIcons.signOutAlt, color: AppColor.red),
@@ -57,9 +52,7 @@ class AccountInformationDetails extends StatelessWidget {
               context: context,
               title: 'Sign Out',
               message: 'Are you sure you want to sign out?',
-              onConfirm: () {
-                context.read<SignOutCubit>().logout();
-              },
+              onConfirm: () => context.read<SignOutCubit>().logout(),
             );
           },
         ),

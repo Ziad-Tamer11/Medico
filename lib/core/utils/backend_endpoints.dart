@@ -4,6 +4,8 @@ class BackendEndpoints {
   static const googleLogin = 'auth/google';
   static const logout = 'auth/logout';
   static const refresh = 'auth/refresh';
+  static const updateProfile = 'users/me';
+  static const changePassword = 'users/me/password';
 
   static const addUserData = 'users';
   static const getUserData = 'users';

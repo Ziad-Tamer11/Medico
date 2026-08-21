@@ -126,4 +126,49 @@ class AuthRepoImpl implements AuthRepo {
     final token = Prefs.getString(kAccessToken);
     return token != null && token.isNotEmpty;
   }
+
+  @override
+  Future<Either<Failure, UserEntity>> updateProfile({
+    required String firstName,
+    required String lastName,
+    required String phone,
+  }) async {
+    try {
+      final userModel = await authApiService.updateProfile(
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+      );
+      await saveUserData(userEntity: userModel); // نحدّث الـ cache المحلي كمان
+      return right(userModel);
+    } on CustomExceptions catch (e) {
+      return left(ServerFailure(errMessage: e.errMessage));
+    } catch (e) {
+      log('Exception in AuthRepoImpl.updateProfile: ${e.toString()}');
+      return left(
+        ServerFailure(errMessage: 'Something went wrong. Please try again.'),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    try {
+      await authApiService.changePassword(
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+      );
+      return right(null);
+    } on CustomExceptions catch (e) {
+      return left(ServerFailure(errMessage: e.errMessage));
+    } catch (e) {
+      log('Exception in AuthRepoImpl.changePassword: ${e.toString()}');
+      return left(
+        ServerFailure(errMessage: 'Something went wrong. Please try again.'),
+      );
+    }
+  }
 }
