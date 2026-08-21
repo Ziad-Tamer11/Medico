@@ -11,6 +11,7 @@ import 'package:medico/core/widgets/password_field.dart';
 import 'package:medico/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:medico/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:medico/features/auth/presentation/views/widgets/custom_text.dart';
+import 'package:medico/features/auth/presentation/views/widgets/gender_selector.dart';
 import 'package:medico/features/auth/presentation/views/widgets/prompt_texr.dart';
 import 'package:medico/features/auth/presentation/views/widgets/social_login_button.dart';
 
@@ -24,7 +25,8 @@ class SignUpViewBody extends StatefulWidget {
 class _SignUpViewBodyState extends State<SignUpViewBody> {
   final GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-  late String fullName, email, password;
+  late String fullName, email, password, phone, gender;
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -47,6 +49,24 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   fullName = value!;
                 },
                 keyboardType: TextInputType.name,
+              ),
+              const SizedBox(height: 16),
+              const CustomText(text: 'Phone Number'),
+              const SizedBox(height: 12),
+              CustomTextFormField(
+                hintText: 'Enter your phone number',
+                onSaved: (value) {
+                  phone = value!;
+                },
+                keyboardType: TextInputType.phone,
+              ),
+              const SizedBox(height: 16),
+              const CustomText(text: 'Gender'),
+              const SizedBox(height: 12),
+              GenderSelector(
+                onSaved: (value) {
+                  gender = value!;
+                },
               ),
               const SizedBox(height: 16),
               const CustomText(text: 'Email Address'),
@@ -74,11 +94,11 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                     formKey.currentState!.save();
                     context.read<SignUpCubit>().createUserWithEmailAndPassword(
                       firstName: fullName,
+                      lastName: '',
                       email: email,
                       password: password,
-                      lastName: '',
-                      phone: '',
-                      gender: 'male',
+                      phone: phone,
+                      gender: gender,
                     );
                   } else {
                     setState(() {
@@ -118,6 +138,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   ),
                 ],
               ),
+              const SizedBox(height: 50),
             ],
           ),
         ),
