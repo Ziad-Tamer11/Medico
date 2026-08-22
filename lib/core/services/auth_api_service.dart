@@ -146,4 +146,50 @@ class AuthApiService {
       throw CustomExceptions(errMessage: _extractMessage(e));
     }
   }
+
+  //forgot password — sends an OTP to the given email
+  Future<void> forgotPassword({required String email}) async {
+    try {
+      await apiService.post(
+        url: BackendEndpoints.forgotPassword,
+        token: '',
+        body: {'email': email},
+      );
+    } on DioException catch (e) {
+      log('Exception in AuthApiService.forgotPassword: ${e.toString()}');
+      throw CustomExceptions(errMessage: _extractMessage(e));
+    }
+  }
+
+  //verify otp — returns the reset_token used by resetPassword
+  Future<String> verifyOtp({required String email, required String otp}) async {
+    try {
+      final response = await apiService.post(
+        url: BackendEndpoints.verifyOtp,
+        token: '',
+        body: {'email': email, 'otp': otp},
+      );
+      return response.data['reset_token'] as String;
+    } on DioException catch (e) {
+      log('Exception in AuthApiService.verifyOtp: ${e.toString()}');
+      throw CustomExceptions(errMessage: _extractMessage(e));
+    }
+  }
+
+  //reset password
+  Future<void> resetPassword({
+    required String resetToken,
+    required String newPassword,
+  }) async {
+    try {
+      await apiService.post(
+        url: BackendEndpoints.resetPassword,
+        token: '',
+        body: {'reset_token': resetToken, 'new_password': newPassword},
+      );
+    } on DioException catch (e) {
+      log('Exception in AuthApiService.resetPassword: ${e.toString()}');
+      throw CustomExceptions(errMessage: _extractMessage(e));
+    }
+  }
 }

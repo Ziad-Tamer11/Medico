@@ -66,4 +66,25 @@ class AuthUsecase {
       newPassword: newPassword,
     );
   }
+
+  Future<Either<Failure, void>> forgotPassword({required String email}) {
+    return authRepo.forgotPassword(email: email);
+  }
+
+  Future<Either<Failure, String>> verifyOtp({
+    required String email,
+    required String otp,
+  }) {
+    return authRepo.verifyOtp(email: email, otp: otp);
+  }
+
+  Future<Either<Failure, void>> resetPassword({
+    required String resetToken,
+    required String newPassword,
+  }) {
+    return authRepo.resetPassword(
+      resetToken: resetToken,
+      newPassword: newPassword,
+    );
+  }
 }

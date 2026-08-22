@@ -35,4 +35,16 @@ abstract class AuthRepo {
     required String oldPassword,
     required String newPassword,
   });
+
+  Future<Either<Failure, void>> forgotPassword({required String email});
+
+  Future<Either<Failure, String>> verifyOtp({
+    required String email,
+    required String otp,
+  });
+
+  Future<Either<Failure, void>> resetPassword({
+    required String resetToken,
+    required String newPassword,
+  });
 }

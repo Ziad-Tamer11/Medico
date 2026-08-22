@@ -6,6 +6,9 @@ class BackendEndpoints {
   static const refresh = 'auth/refresh';
   static const updateProfile = 'users/me';
   static const changePassword = 'users/me/password';
+  static const forgotPassword = 'auth/forgot-password';
+  static const verifyOtp = 'auth/verify-otp';
+  static const resetPassword = 'auth/reset-password';
 
   static const addUserData = 'users';
   static const getUserData = 'users';

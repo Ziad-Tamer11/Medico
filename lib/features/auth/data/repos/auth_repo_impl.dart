@@ -167,4 +167,61 @@ class AuthRepoImpl implements AuthRepo {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, void>> forgotPassword({required String email}) async {
+    try {
+      await authApiService.forgotPassword(email: email);
+      return right(null);
+    } on CustomExceptions catch (e) {
+      return left(ServerFailure(errMessage: e.errMessage));
+    } catch (e) {
+      log('Exception in AuthRepoImpl.forgotPassword: ${e.toString()}');
+      return left(
+        ServerFailure(errMessage: 'Something went wrong. Please try again.'),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> verifyOtp({
+    required String email,
+    required String otp,
+  }) async {
+    try {
+      final resetToken = await authApiService.verifyOtp(
+        email: email,
+        otp: otp,
+      );
+      return right(resetToken);
+    } on CustomExceptions catch (e) {
+      return left(ServerFailure(errMessage: e.errMessage));
+    } catch (e) {
+      log('Exception in AuthRepoImpl.verifyOtp: ${e.toString()}');
+      return left(
+        ServerFailure(errMessage: 'Something went wrong. Please try again.'),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> resetPassword({
+    required String resetToken,
+    required String newPassword,
+  }) async {
+    try {
+      await authApiService.resetPassword(
+        resetToken: resetToken,
+        newPassword: newPassword,
+      );
+      return right(null);
+    } on CustomExceptions catch (e) {
+      return left(ServerFailure(errMessage: e.errMessage));
+    } catch (e) {
+      log('Exception in AuthRepoImpl.resetPassword: ${e.toString()}');
+      return left(
+        ServerFailure(errMessage: 'Something went wrong. Please try again.'),
+      );
+    }
+  }
 }

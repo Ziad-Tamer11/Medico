@@ -1,7 +1,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:medico/features/auth/presentation/views/forget_password_view.dart';
 import 'package:medico/features/auth/presentation/views/login_view.dart';
+import 'package:medico/features/auth/presentation/views/reset_password_view.dart';
 import 'package:medico/features/auth/presentation/views/sign_up_view.dart';
+import 'package:medico/features/auth/presentation/views/verify_otp_view.dart';
 import 'package:medico/features/home/domain/entities/appointment_selection.dart';
 import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/all_doctors_view.dart';
@@ -20,6 +22,8 @@ class AppRoute {
   static const kLoginView = '/loginView';
   static const kSignUpView = '/signUpView';
   static const kAllForgetPasswordView = '/allForgetPasswordView';
+  static const kVerifyOtpView = '/verifyOtpView';
+  static const kResetPasswordView = '/resetPasswordView';
   static const kHomeView = '/homeView';
   static const kAllCategoriesView = '/allCategoriesView';
   static const kDoctorsByCategoryView = '/doctorsByCategotyView';
@@ -39,6 +43,20 @@ class AppRoute {
       GoRoute(
         path: kAllForgetPasswordView,
         builder: (context, state) => ForgetPasswordView(),
+      ),
+      GoRoute(
+        path: kVerifyOtpView,
+        builder: (context, state) {
+          final email = state.extra as String;
+          return VerifyOtpView(email: email);
+        },
+      ),
+      GoRoute(
+        path: kResetPasswordView,
+        builder: (context, state) {
+          final resetToken = state.extra as String;
+          return ResetPasswordView(resetToken: resetToken);
+        },
       ),
       GoRoute(path: kHomeView, builder: (context, state) => MainView()),
       GoRoute(
