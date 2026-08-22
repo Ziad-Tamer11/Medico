@@ -3,8 +3,7 @@ import 'package:medico/features/auth/domain/entities/user_entity.dart';
 class UserModel extends UserEntity {
   UserModel({
     required super.userId,
-    required super.firstName,
-    required super.lastName,
+    required super.fullName,
     required super.email,
     required super.phone,
     required super.gender,
@@ -13,8 +12,7 @@ class UserModel extends UserEntity {
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       userId: json['user_id'],
-      firstName: json['first_name'],
-      lastName: json['last_name'],
+      fullName: json['full_name'],
       email: json['email'],
       phone: json['phone'],
       gender: json['gender'],
@@ -24,8 +22,7 @@ class UserModel extends UserEntity {
   factory UserModel.fromEntity(UserEntity entity) {
     return UserModel(
       userId: entity.userId,
-      firstName: entity.firstName,
-      lastName: entity.lastName,
+      fullName: entity.fullName,
       email: entity.email,
       phone: entity.phone,
       gender: entity.gender,
@@ -35,8 +32,7 @@ class UserModel extends UserEntity {
   toMap() {
     return {
       'user_id': userId,
-      'first_name': firstName,
-      'last_name': lastName,
+      'full_name': fullName,
       'email': email,
       'phone': phone,
       'gender': gender,

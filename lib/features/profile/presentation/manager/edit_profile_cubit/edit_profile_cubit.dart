@@ -12,14 +12,12 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   final AuthUsecase authUsecase;
 
   Future<void> updateProfile({
-    required String firstName,
-    required String lastName,
+    required String fullName,
     required String phone,
   }) async {
     emit(EditProfileLoading());
     final result = await authUsecase.updateProfile(
-      firstName: firstName,
-      lastName: lastName,
+      fullName: fullName,
       phone: phone,
     );
     result.fold(

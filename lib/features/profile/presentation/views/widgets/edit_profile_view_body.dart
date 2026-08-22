@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medico/constants.dart';
 import 'package:medico/core/helpers/get_user.dart';
+import 'package:medico/core/utils/app_text_styles.dart';
 import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/features/profile/presentation/views/widgets/name_and_text_field.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -14,7 +15,7 @@ class EditProfileViewBody extends StatefulWidget {
   });
 
   final bool isLoading;
-  final void Function(String firstName, String lastName, String phone) onSave;
+  final void Function(String fullName, String phone) onSave;
   final VoidCallback onChangePasswordTap;
 
   @override
@@ -22,8 +23,7 @@ class EditProfileViewBody extends StatefulWidget {
 }
 
 class _EditProfileViewBodyState extends State<EditProfileViewBody> {
-  late final TextEditingController firstNameController;
-  late final TextEditingController lastNameController;
+  late final TextEditingController fullNameController;
   late final TextEditingController emailController;
   late final TextEditingController phoneController;
 
@@ -31,16 +31,14 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
   void initState() {
     super.initState();
     final user = getUser();
-    firstNameController = TextEditingController(text: user?.firstName ?? '');
-    lastNameController = TextEditingController(text: user?.lastName ?? '');
+    fullNameController = TextEditingController(text: user?.fullName ?? '');
     emailController = TextEditingController(text: user?.email ?? '');
     phoneController = TextEditingController(text: user?.phone ?? '');
   }
 
   @override
   void dispose() {
-    firstNameController.dispose();
-    lastNameController.dispose();
+    fullNameController.dispose();
     emailController.dispose();
     phoneController.dispose();
     super.dispose();
@@ -54,13 +52,8 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
         child: Column(
           children: [
             NameAndTextField(
-              title: 'First Name',
-              controller: firstNameController,
-              keyboardType: TextInputType.name,
-            ),
-            NameAndTextField(
-              title: 'Last Name',
-              controller: lastNameController,
+              title: 'Full Name',
+              controller: fullNameController,
               keyboardType: TextInputType.name,
             ),
             NameAndTextField(
@@ -82,10 +75,12 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: TextButton(
-                  onPressed: widget.onChangePasswordTap,
-                  child: const Text(
+                  onPressed: widget.isLoading
+                      ? null
+                      : widget.onChangePasswordTap,
+                  child: Text(
                     'Change Password',
-                    style: TextStyle(fontWeight: FontWeight.w600),
+                    style: TextStyles.font16Medium,
                   ),
                 ),
               ),
@@ -101,8 +96,7 @@ class _EditProfileViewBodyState extends State<EditProfileViewBody> {
                     ? null
                     : () {
                         widget.onSave(
-                          firstNameController.text.trim(),
-                          lastNameController.text.trim(),
+                          fullNameController.text.trim(),
                           phoneController.text.trim(),
                         );
                       },

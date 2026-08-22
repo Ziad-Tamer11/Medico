@@ -14,8 +14,7 @@ class AuthApiService {
 
   //create user
   Future<UserModel> createUserWithEmailAndPassword({
-    required String firstName,
-    required String lastName,
+    required String fullName,
     required String email,
     required String password,
     required String phone,
@@ -26,8 +25,7 @@ class AuthApiService {
         url: BackendEndpoints.signup,
         token: '',
         body: {
-          'first_name': firstName,
-          'last_name': lastName,
+          'full_name': fullName,
           'email': email,
           'password': password,
           'phone': phone,
@@ -114,8 +112,7 @@ class AuthApiService {
 
   //update profile (name + phone)
   Future<UserModel> updateProfile({
-    required String firstName,
-    required String lastName,
+    required String fullName,
     required String phone,
   }) async {
     final token = Prefs.getString(kAccessToken) ?? '';
@@ -123,7 +120,7 @@ class AuthApiService {
       final response = await apiService.put(
         url: BackendEndpoints.updateProfile,
         token: token,
-        body: {'first_name': firstName, 'last_name': lastName, 'phone': phone},
+        body: {'full_name': fullName, 'phone': phone},
       );
       return UserModel.fromJson(response.data);
     } on DioException catch (e) {

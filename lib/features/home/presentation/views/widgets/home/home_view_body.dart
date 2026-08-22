@@ -5,7 +5,6 @@ import 'package:medico/features/home/presentation/views/widgets/home/custom_app_
 import 'package:medico/features/home/presentation/views/widgets/home/custom_card_grid_view_bloc_builder.dart';
 import 'package:medico/features/home/presentation/views/widgets/home/custom_header.dart';
 import 'package:medico/features/home/presentation/views/widgets/home/doctor_card_sliver_list_bloc_builder.dart';
-import 'package:medico/features/home/presentation/views/widgets/home/upcoming_appointment_section_bloc_builder.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
@@ -22,8 +21,8 @@ class HomeViewBody extends StatelessWidget {
               const SizedBox(height: 30),
               const CustomAppBarBlocBuilder(),
               const SizedBox(height: 40),
-              UpcomingAppointmentSectionBlocBuilder(),
-              const SizedBox(height: 24),
+              //! UpcomingAppointmentSectionBlocBuilder(),
+              //! const SizedBox(height: 24),
               CustomHeader(
                 title1: 'Categories',
                 onTap: () {

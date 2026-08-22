@@ -20,6 +20,7 @@ class CustomDialog {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: AppColor.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
@@ -93,6 +94,7 @@ class CustomDialog {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: AppColor.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
@@ -266,6 +268,7 @@ class CustomDialog {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: AppColor.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
@@ -298,6 +301,7 @@ class CustomDialog {
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
+        backgroundColor: AppColor.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         contentPadding: const EdgeInsets.all(24),
         content: Column(
@@ -335,7 +339,7 @@ class CustomDialog {
             CustomTextFormField(
               hintText: '01xxxxxxxxx',
               keyboardType: TextInputType.number,
-              //! controller: controller,
+              // ! controller: controller,
             ),
             SizedBox(height: 24),
 
@@ -397,6 +401,7 @@ class CustomDialog {
       context: context,
       barrierDismissible: false,
       builder: (dialogContext) => AlertDialog(
+        backgroundColor: AppColor.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         contentPadding: const EdgeInsets.all(24),
         content: Form(

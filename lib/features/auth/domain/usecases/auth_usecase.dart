@@ -9,16 +9,14 @@ class AuthUsecase {
   AuthUsecase({required this.authRepo});
 
   Future<Either<Failure, UserEntity>> createUserWithEmailAndPassword({
-    required String firstName,
-    required String lastName,
+    required String fullName,
     required String email,
     required String password,
     required String phone,
     required String gender,
   }) {
     return authRepo.createUserWithEmailAndPassword(
-      firstName: firstName,
-      lastName: lastName,
+      fullName: fullName,
       email: email,
       password: password,
       phone: phone,
@@ -53,15 +51,10 @@ class AuthUsecase {
   }
 
   Future<Either<Failure, UserEntity>> updateProfile({
-    required String firstName,
-    required String lastName,
+    required String fullName,
     required String phone,
   }) {
-    return authRepo.updateProfile(
-      firstName: firstName,
-      lastName: lastName,
-      phone: phone,
-    );
+    return authRepo.updateProfile(fullName: fullName, phone: phone);
   }
 
   Future<Either<Failure, void>> changePassword({

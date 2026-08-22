@@ -93,8 +93,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
                     context.read<SignUpCubit>().createUserWithEmailAndPassword(
-                      firstName: fullName,
-                      lastName: '',
+                      fullName: fullName,
                       email: email,
                       password: password,
                       phone: phone,

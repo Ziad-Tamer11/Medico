@@ -28,15 +28,18 @@ class HomeView extends StatelessWidget {
                 DoctorCubit(doctorUsecase: getIt<DoctorUsecase>())..getDoctor(),
           ),
           BlocProvider(
-            create: (context) =>
-                GetUpcomingAppointmentCubit(
-                  appointmentUseCase: getIt<AppointmentUseCase>(),
-                )..getUpcomingAppointments(
-                  patientId: getIt<AuthUsecase>()
-                      .getCachedUser()!
-                      .userId
-                      .toString(),
-                ),
+            create: (context) {
+              final cubit = GetUpcomingAppointmentCubit(
+                appointmentUseCase: getIt<AppointmentUseCase>(),
+              );
+              final cachedUser = getIt<AuthUsecase>().getCachedUser();
+              if (cachedUser != null) {
+                cubit.getUpcomingAppointments(
+                  patientId: cachedUser.userId.toString(),
+                );
+              }
+              return cubit;
+            },
           ),
         ],
         child: HomeViewBody(),

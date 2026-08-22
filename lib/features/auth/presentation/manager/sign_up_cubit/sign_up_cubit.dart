@@ -13,8 +13,7 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   //sign up cubit
   Future<void> createUserWithEmailAndPassword({
-    required String firstName,
-    required String lastName,
+    required String fullName,
     required String email,
     required String password,
     required String phone,
@@ -22,8 +21,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   }) async {
     emit(SignUpLoading());
     var result = await authUsecase.createUserWithEmailAndPassword(
-      firstName: firstName,
-      lastName: lastName,
+      fullName: fullName,
       email: email,
       password: password,
       phone: phone,

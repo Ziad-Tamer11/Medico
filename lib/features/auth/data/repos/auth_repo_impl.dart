@@ -18,8 +18,7 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<Failure, UserEntity>> createUserWithEmailAndPassword({
-    required String firstName,
-    required String lastName,
+    required String fullName,
     required String email,
     required String password,
     required String phone,
@@ -27,8 +26,7 @@ class AuthRepoImpl implements AuthRepo {
   }) async {
     try {
       final userModel = await authApiService.createUserWithEmailAndPassword(
-        firstName: firstName,
-        lastName: lastName,
+        fullName: fullName,
         email: email,
         password: password,
         phone: phone,
@@ -129,14 +127,12 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<Failure, UserEntity>> updateProfile({
-    required String firstName,
-    required String lastName,
+    required String fullName,
     required String phone,
   }) async {
     try {
       final userModel = await authApiService.updateProfile(
-        firstName: firstName,
-        lastName: lastName,
+        fullName: fullName,
         phone: phone,
       );
       await saveUserData(userEntity: userModel); // نحدّث الـ cache المحلي كمان

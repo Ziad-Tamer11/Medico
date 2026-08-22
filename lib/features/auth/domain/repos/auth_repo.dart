@@ -4,8 +4,7 @@ import 'package:medico/features/auth/domain/entities/user_entity.dart';
 
 abstract class AuthRepo {
   Future<Either<Failure, UserEntity>> createUserWithEmailAndPassword({
-    required String firstName,
-    required String lastName,
+    required String fullName,
     required String email,
     required String password,
     required String phone,
@@ -28,8 +27,7 @@ abstract class AuthRepo {
   bool isLoggedIn();
 
   Future<Either<Failure, UserEntity>> updateProfile({
-    required String firstName,
-    required String lastName,
+    required String fullName,
     required String phone,
   });
 

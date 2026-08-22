@@ -1,3 +1,5 @@
+import 'dart:developer';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +19,7 @@ void main() async {
   await Prefs.init();
   Bloc.observer = CustomBlocObserver();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await _ensureFirestoreAccess();
   await GoogleSignIn.instance.initialize(
     serverClientId:
         '883391731424-afmt194hmpgjpn5qr1lur7dd4h4itfac.apps.googleusercontent.com',
@@ -24,6 +27,18 @@ void main() async {
   setUpGetIt();
   getIt<AppUserCubit>().refresh();
   runApp(const Medico());
+}
+
+// Firestore rules require an authenticated Firebase user; this app's real
+// identity lives entirely in our own backend, so this stays a fully separate,
+// anonymous Firebase session with no link to that user — just to unlock reads.
+Future<void> _ensureFirestoreAccess() async {
+  if (FirebaseAuth.instance.currentUser != null) return;
+  try {
+    await FirebaseAuth.instance.signInAnonymously();
+  } catch (e) {
+    log('Anonymous Firebase sign-in failed: ${e.toString()}');
+  }
 }
 
 class Medico extends StatelessWidget {

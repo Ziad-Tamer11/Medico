@@ -10,7 +10,7 @@ class EditProfileViewBodyBlocConsumer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ChangePasswordCubit, ChangePasswordState>(
+    return BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
       listener: (context, state) {
         if (state is ChangePasswordSuccess) {
           CustomDialog.showSuccessDialog(
@@ -27,51 +27,57 @@ class EditProfileViewBodyBlocConsumer extends StatelessWidget {
           );
         }
       },
-      child: BlocConsumer<EditProfileCubit, EditProfileState>(
-        listener: (context, state) {
-          if (state is EditProfileSuccess) {
-            CustomDialog.showSuccessDialog(
-              context: context,
-              title: 'Profile Updated',
-              message: 'Your information has been saved successfully.',
-              onPressed: () {
-                Navigator.of(context).pop(); // يقفل الـ dialog
-                Navigator.of(context).pop(); // يقفل صفحة الـ Edit
+      builder: (context, changePasswordState) {
+        return BlocConsumer<EditProfileCubit, EditProfileState>(
+          listener: (context, state) {
+            if (state is EditProfileSuccess) {
+              CustomDialog.showSuccessDialog(
+                context: context,
+                title: 'Profile Updated',
+                message: 'Your information has been saved successfully.',
+                onPressed: () {
+                  Navigator.of(context).pop(); // يقفل الـ dialog
+                  Navigator.of(context).pop(); // يقفل صفحة الـ Edit
+                },
+              );
+            }
+            if (state is EditProfileFailure) {
+              CustomDialog.showErrorDialog(
+                context: context,
+                title: 'Update Failed',
+                message: state.errMessage,
+              );
+            }
+          },
+          builder: (context, state) {
+            // covers both cubits so the HUD (and the disabled buttons) show
+            // for whichever request is actually in flight
+            final isLoading =
+                state is EditProfileLoading ||
+                changePasswordState is ChangePasswordLoading;
+            return EditProfileViewBody(
+              isLoading: isLoading,
+              onSave: (fullName, phone) {
+                context.read<EditProfileCubit>().updateProfile(
+                  fullName: fullName,
+                  phone: phone,
+                );
+              },
+              onChangePasswordTap: () async {
+                final result = await CustomDialog.showChangePasswordDialog(
+                  context: context,
+                );
+                if (result != null) {
+                  context.read<ChangePasswordCubit>().changePassword(
+                    oldPassword: result.$1,
+                    newPassword: result.$2,
+                  );
+                }
               },
             );
-          }
-          if (state is EditProfileFailure) {
-            CustomDialog.showErrorDialog(
-              context: context,
-              title: 'Update Failed',
-              message: state.errMessage,
-            );
-          }
-        },
-        builder: (context, state) {
-          return EditProfileViewBody(
-            isLoading: state is EditProfileLoading,
-            onSave: (firstName, lastName, phone) {
-              context.read<EditProfileCubit>().updateProfile(
-                firstName: firstName,
-                lastName: lastName,
-                phone: phone,
-              );
-            },
-            onChangePasswordTap: () async {
-              final result = await CustomDialog.showChangePasswordDialog(
-                context: context,
-              );
-              if (result != null) {
-                context.read<ChangePasswordCubit>().changePassword(
-                  oldPassword: result.$1,
-                  newPassword: result.$2,
-                );
-              }
-            },
-          );
-        },
-      ),
+          },
+        );
+      },
     );
   }
 }
