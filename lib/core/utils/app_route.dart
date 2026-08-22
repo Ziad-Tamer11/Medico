@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:medico/features/auth/presentation/views/forget_password_view.dart';
 import 'package:medico/features/auth/presentation/views/login_view.dart';
 import 'package:medico/features/auth/presentation/views/sign_up_view.dart';
 import 'package:medico/features/home/domain/entities/appointment_selection.dart';
@@ -18,6 +19,7 @@ import 'package:medico/features/splash/presentation/view/splash_view.dart';
 class AppRoute {
   static const kLoginView = '/loginView';
   static const kSignUpView = '/signUpView';
+  static const kAllForgetPasswordView = '/allForgetPasswordView';
   static const kHomeView = '/homeView';
   static const kAllCategoriesView = '/allCategoriesView';
   static const kDoctorsByCategoryView = '/doctorsByCategotyView';
@@ -34,6 +36,10 @@ class AppRoute {
       GoRoute(path: '/', builder: (context, state) => SplashView()),
       GoRoute(path: kLoginView, builder: (context, state) => LoginView()),
       GoRoute(path: kSignUpView, builder: (context, state) => SignUpView()),
+      GoRoute(
+        path: kAllForgetPasswordView,
+        builder: (context, state) => ForgetPasswordView(),
+      ),
       GoRoute(path: kHomeView, builder: (context, state) => MainView()),
       GoRoute(
         path: kAllCategoriesView,

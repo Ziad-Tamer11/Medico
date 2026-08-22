@@ -9,6 +9,7 @@ import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/custom_text_form_field.dart';
 import 'package:medico/core/widgets/password_field.dart';
 import 'package:medico/features/auth/presentation/manager/login_cubit/login_cubit.dart';
+import 'package:medico/features/auth/presentation/views/widgets/forget_password.dart';
 import 'package:medico/features/auth/presentation/views/widgets/social_login_button.dart';
 import 'package:medico/features/auth/presentation/views/widgets/custom_text.dart';
 import 'package:medico/features/auth/presentation/views/widgets/prompt_texr.dart';
@@ -53,6 +54,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               PasswordField(
                 onSaved: (value) {
                   password = value!;
+                },
+              ),
+              SizedBox(height: 12),
+              ForgetPassword(
+                onTap: () {
+                  context.push(AppRoute.kAllForgetPasswordView);
                 },
               ),
               SizedBox(height: 32),
