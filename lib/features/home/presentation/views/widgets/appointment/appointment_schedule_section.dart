@@ -6,10 +6,12 @@ class AppointmentScheduleSection extends StatelessWidget {
   const AppointmentScheduleSection({
     super.key,
     required this.date,
-    required this.time,
+    required this.startTime,
+    required this.endTime,
   });
   final DateTime date;
-  final String time;
+  final String startTime;
+  final String endTime;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -17,7 +19,10 @@ class AppointmentScheduleSection extends StatelessWidget {
       children: [
         Text('Schedule', style: TextStyles.font18Bold),
         const SizedBox(height: 24),
-        AppointmentScheduleTime(date: date, time: time),
+        AppointmentScheduleTime(
+          date: date,
+          time: '$startTime - $endTime',
+        ),
       ],
     );
   }

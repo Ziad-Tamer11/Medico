@@ -5,6 +5,11 @@ import 'package:medico/features/home/presentation/manager/category_cubit/categor
 import 'package:medico/features/home/presentation/views/widgets/home/custom_card_grid_view.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+// Home only ever shows a preview of the categories; the full list lives on
+// AllCategoriesView ("See All"), which fetches independently and is untouched
+// by this limit.
+const _homeCategoriesLimit = 6;
+
 class CustomCardGridViewBlocBuilder extends StatelessWidget {
   const CustomCardGridViewBlocBuilder({super.key});
 
@@ -23,7 +28,9 @@ class CustomCardGridViewBlocBuilder extends StatelessWidget {
           );
         }
         if (state is CategorySuccess) {
-          return CustomCardGridview(categories: state.categories);
+          return CustomCardGridview(
+            categories: state.categories.take(_homeCategoriesLimit).toList(),
+          );
         }
         return const SliverToBoxAdapter(child: SizedBox.shrink());
       },

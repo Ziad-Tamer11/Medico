@@ -3,7 +3,7 @@ import 'package:medico/features/home/domain/entities/category_entity.dart';
 import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 
 CategoryEntity getDummyCategory() {
-  return CategoryEntity(name: 'Psychological', id: '');
+  return CategoryEntity(id: 0, name: 'Psychological');
 }
 
 List<CategoryEntity> getDummyCategories() {
@@ -12,17 +12,16 @@ List<CategoryEntity> getDummyCategories() {
 
 DoctorEntity getDummyDoctor() {
   return DoctorEntity(
-    id: 'Jennifer Miller',
+    id: 0,
     name: 'Jennifer Miller',
-    specialization: 'Pediatrician',
+    specialty: 'Pediatrics',
     workPlace: 'Mercy Hospital',
-    rating: '4.8',
     experience: 1,
-    hourlyRate: 1,
     treated: 1,
-    availableDays: [],
-    availableHours: ['10:30am - 5:30pm'],
-    categoryId: '',
+    hourlyRate: 1,
+    rating: 4.8,
+    isActive: true,
+    categoryId: 0,
   );
 }
 
@@ -32,15 +31,13 @@ List<DoctorEntity> getDummyDoctors() {
 
 AppointmentEntity getDummyAppointment() {
   return AppointmentEntity(
-    id: 'Jennifer Miller',
-    patientId: 'Ziad Tamer',
-    doctorId: 'Jennifer Miller',
+    id: 0,
+    doctorId: 0,
     doctorName: 'Jennifer Miller',
     date: DateTime.now(),
-    time: '4:00 PM',
-    amount: 300,
-    status: 'confirmed',
-    paymentStatus: 'paid',
+    startTime: '16:00',
+    endTime: '17:00',
+    createdAt: DateTime.now(),
   );
 }
 

@@ -8,15 +8,21 @@ class AppointmentUseCase {
 
   AppointmentUseCase({required this.appointmentRepo});
 
-  Future<Either<Failure, void>> createAppointment({
-    required AppointmentEntity appointment,
+  Future<Either<Failure, AppointmentEntity>> createAppointment({
+    required int doctorId,
+    required DateTime appointmentDate,
+    required String startTime,
+    required String endTime,
   }) {
-    return appointmentRepo.createAppointment(appointment: appointment);
+    return appointmentRepo.createAppointment(
+      doctorId: doctorId,
+      appointmentDate: appointmentDate,
+      startTime: startTime,
+      endTime: endTime,
+    );
   }
 
-  Future<Either<Failure, List<AppointmentEntity>>> getUpcomingAppointments({
-    required String patientId,
-  }) {
-    return appointmentRepo.getUpcomingAppointments(patientId: patientId);
+  Future<Either<Failure, List<AppointmentEntity>>> getMyAppointments() {
+    return appointmentRepo.getMyAppointments();
   }
 }

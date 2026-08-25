@@ -1,27 +1,64 @@
+import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:medico/core/errors/exceptions.dart';
 import 'package:medico/core/errors/failure.dart';
-import 'package:medico/core/services/database_service.dart';
-import 'package:medico/core/utils/backend_endpoints.dart';
-import 'package:medico/features/home/data/models/doctor_model.dart';
+import 'package:medico/core/services/doctor_api_service.dart';
+import 'package:medico/features/home/domain/entities/doctor_availability_entity.dart';
 import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/domain/repos/doctor_repo.dart';
 
-class DoctorRepoImpl extends DoctorRepo {
-  final DatabaseService databaseService;
+class DoctorRepoImpl implements DoctorRepo {
+  final DoctorApiService doctorApiService;
 
-  DoctorRepoImpl({required this.databaseService});
+  DoctorRepoImpl({required this.doctorApiService});
+
   @override
   Future<Either<Failure, List<DoctorEntity>>> getDoctors() async {
     try {
-      var data = await databaseService.getCollectionData(
-        path: BackendEndpoints.doctors,
-      );
-      final doctors = data.map((json) => DoctorModel.fromJson(json)).toList();
+      final doctors = await doctorApiService.getDoctors();
       return right(doctors);
     } on CustomExceptions catch (e) {
-      return Left(ServerFailure(errMessage: e.errMessage));
+      return left(ServerFailure(errMessage: e.errMessage));
     } catch (e) {
+      log('Exception in DoctorRepoImpl.getDoctors: ${e.toString()}');
+      return left(
+        ServerFailure(errMessage: 'Something went wrong. Please try again.'),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<DoctorEntity>>> getDoctorsByCategory({
+    required int categoryId,
+  }) async {
+    try {
+      final doctors = await doctorApiService.getDoctorsByCategory(
+        categoryId: categoryId,
+      );
+      return right(doctors);
+    } on CustomExceptions catch (e) {
+      return left(ServerFailure(errMessage: e.errMessage));
+    } catch (e) {
+      log('Exception in DoctorRepoImpl.getDoctorsByCategory: ${e.toString()}');
+      return left(
+        ServerFailure(errMessage: 'Something went wrong. Please try again.'),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<DoctorAvailabilityEntity>>> getDoctorAvailability({
+    required int doctorId,
+  }) async {
+    try {
+      final availability = await doctorApiService.getDoctorAvailability(
+        doctorId: doctorId,
+      );
+      return right(availability);
+    } on CustomExceptions catch (e) {
+      return left(ServerFailure(errMessage: e.errMessage));
+    } catch (e) {
+      log('Exception in DoctorRepoImpl.getDoctorAvailability: ${e.toString()}');
       return left(
         ServerFailure(errMessage: 'Something went wrong. Please try again.'),
       );

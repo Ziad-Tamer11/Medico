@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
+import 'package:medico/core/widgets/doctor_image.dart';
 import 'package:medico/core/widgets/doctor_name.dart';
 import 'package:medico/core/widgets/doctor_specialist.dart';
 import 'package:medico/features/home/domain/entities/appointment_entity.dart';
@@ -35,7 +36,7 @@ class UpcomingAppointmentItem extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(Assets.imagesDoctorProfile),
+              DoctorImage(imageUrl: doctor.image),
               const SizedBox(width: 8),
               Expanded(
                 child: Column(
@@ -92,7 +93,7 @@ class UpcomingAppointmentItem extends StatelessWidget {
               SvgPicture.asset(Assets.imagesTime, color: AppColor.white),
               SizedBox(width: 8),
               Text(
-                appointment.time.split('-').first.trim(),
+                appointment.startTime,
                 style: TextStyles.font14Regular.copyWith(color: AppColor.white),
               ),
             ],

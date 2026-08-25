@@ -3,10 +3,12 @@ import 'package:get_it/get_it.dart';
 import 'package:medico/constants.dart';
 import 'package:medico/core/manager/app_user_cubit/app_user_cubit.dart';
 import 'package:medico/core/services/api_service.dart';
+import 'package:medico/core/services/appointment_api_service.dart';
 import 'package:medico/core/services/auth_api_service.dart';
-import 'package:medico/core/services/database_service.dart';
+import 'package:medico/core/services/category_api_service.dart';
 import 'package:medico/core/services/dio_client.dart';
-import 'package:medico/core/services/fire_store_service.dart';
+import 'package:medico/core/services/doctor_api_service.dart';
+import 'package:medico/core/services/favorite_api_service.dart';
 import 'package:medico/core/services/shared_preferences.dart';
 import 'package:medico/core/services/stripe_service.dart';
 import 'package:medico/core/services/token_provider.dart';
@@ -17,17 +19,21 @@ import 'package:medico/features/auth/domain/usecases/auth_usecase.dart';
 import 'package:medico/features/home/data/repos/appointment_repo_impl.dart';
 import 'package:medico/features/home/data/repos/category_repo_impl.dart';
 import 'package:medico/features/home/data/repos/doctor_repo_impl.dart';
+import 'package:medico/features/home/data/repos/favorite_repo_impl.dart';
 import 'package:medico/features/home/domain/repos/appointment_repo.dart';
 import 'package:medico/features/home/domain/repos/category_repo.dart';
 import 'package:medico/features/home/domain/repos/doctor_repo.dart';
+import 'package:medico/features/home/domain/repos/favorite_repo.dart';
 import 'package:medico/features/home/domain/usecases/appointment_usecase.dart';
 import 'package:medico/features/home/domain/usecases/category_usecase.dart';
 import 'package:medico/features/home/domain/usecases/doctor_usecase.dart';
+import 'package:medico/features/home/domain/usecases/favorite_usecase.dart';
+import 'package:medico/features/home/presentation/manager/category_cubit/category_cubit.dart';
+import 'package:medico/features/home/presentation/manager/doctor_cubit/doctor_cubit.dart';
+import 'package:medico/features/home/presentation/manager/favorite_cubit/favorite_cubit.dart';
 import 'package:medico/features/payment/data/entities/usecase/payment_usecase.dart';
 import 'package:medico/features/payment/data/repos/payment_repo_impl.dart';
 import 'package:medico/features/payment/data/entities/repos/payment_repo.dart';
-import 'package:medico/features/profile/presentation/manager/change_password_cubit/change_password_cubit.dart';
-import 'package:medico/features/profile/presentation/manager/edit_profile_cubit/edit_profile_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -48,7 +54,6 @@ void setUpGetIt() {
     );
   });
   getIt.registerLazySingleton<ApiService>(() => ApiService(dio: getIt<Dio>()));
-  getIt.registerSingleton<DatabaseService>(FireStoreService());
 
   getIt.registerSingleton<AuthApiService>(
     AuthApiService(apiService: getIt<ApiService>()),
@@ -60,23 +65,41 @@ void setUpGetIt() {
     AuthUsecase(authRepo: getIt<AuthRepo>()),
   );
   getIt.registerSingleton<AppUserCubit>(AppUserCubit());
-  getIt.registerFactory<EditProfileCubit>(
-    () => EditProfileCubit(authUsecase: getIt<AuthUsecase>()),
-  );
-  getIt.registerFactory<ChangePasswordCubit>(
-    () => ChangePasswordCubit(authUsecase: getIt<AuthUsecase>()),
+  getIt.registerSingleton<CategoryApiService>(
+    CategoryApiService(apiService: getIt<ApiService>()),
   );
   getIt.registerSingleton<CategoryRepo>(
-    CategoryRepoImpl(databaseService: getIt<DatabaseService>()),
+    CategoryRepoImpl(categoryApiService: getIt<CategoryApiService>()),
   );
   getIt.registerSingleton<CategoryUsecase>(
     CategoryUsecase(categoryRepo: getIt<CategoryRepo>()),
   );
+  getIt.registerSingleton<CategoryCubit>(
+    CategoryCubit(categoryUsecase: getIt<CategoryUsecase>()),
+  );
+  getIt.registerSingleton<DoctorApiService>(
+    DoctorApiService(apiService: getIt<ApiService>()),
+  );
   getIt.registerSingleton<DoctorRepo>(
-    DoctorRepoImpl(databaseService: getIt<DatabaseService>()),
+    DoctorRepoImpl(doctorApiService: getIt<DoctorApiService>()),
   );
   getIt.registerSingleton<DoctorUsecase>(
     DoctorUsecase(doctorRepo: getIt<DoctorRepo>()),
+  );
+  getIt.registerSingleton<DoctorCubit>(
+    DoctorCubit(doctorUsecase: getIt<DoctorUsecase>()),
+  );
+  getIt.registerSingleton<FavoriteApiService>(
+    FavoriteApiService(apiService: getIt<ApiService>()),
+  );
+  getIt.registerSingleton<FavoriteRepo>(
+    FavoriteRepoImpl(favoriteApiService: getIt<FavoriteApiService>()),
+  );
+  getIt.registerSingleton<FavoriteUsecase>(
+    FavoriteUsecase(favoriteRepo: getIt<FavoriteRepo>()),
+  );
+  getIt.registerSingleton<FavoriteCubit>(
+    FavoriteCubit(favoriteUsecase: getIt<FavoriteUsecase>()),
   );
 
   getIt.registerLazySingleton<StripeService>(
@@ -89,8 +112,13 @@ void setUpGetIt() {
   getIt.registerLazySingleton<PaymentUsecase>(
     () => PaymentUsecase(paymentRepo: getIt<PaymentRepo>()),
   );
+  getIt.registerLazySingleton<AppointmentApiService>(
+    () => AppointmentApiService(apiService: getIt<ApiService>()),
+  );
   getIt.registerLazySingleton<AppointmentRepo>(
-    () => AppointmentRepoImpl(databaseService: getIt<DatabaseService>()),
+    () => AppointmentRepoImpl(
+      appointmentApiService: getIt<AppointmentApiService>(),
+    ),
   );
   getIt.registerLazySingleton<AppointmentUseCase>(
     () => AppointmentUseCase(appointmentRepo: getIt<AppointmentRepo>()),

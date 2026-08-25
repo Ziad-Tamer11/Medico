@@ -3,7 +3,6 @@ import 'package:medico/core/utils/app_text_styles.dart';
 import 'package:medico/core/widgets/doctor_name.dart';
 import 'package:medico/core/widgets/doctor_specialist.dart';
 import 'package:medico/features/home/domain/entities/doctor_entity.dart';
-import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_availability.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_rating.dart';
 
 class DoctorInfoSection extends StatelessWidget {
@@ -18,11 +17,13 @@ class DoctorInfoSection extends StatelessWidget {
       children: [
         Row(
           children: [
-            DoctorName(
-              textStyle: TextStyles.font18Bold,
-              doctorEntity: doctorEntity,
+            Expanded(
+              child: DoctorName(
+                textStyle: TextStyles.font18Bold,
+                doctorEntity: doctorEntity,
+              ),
             ),
-            Spacer(),
+            const SizedBox(width: 8),
             DoctorRating(
               textStyle: TextStyles.font14SemiBold,
               doctorEntity: doctorEntity,
@@ -35,7 +36,6 @@ class DoctorInfoSection extends StatelessWidget {
           ),
           doctorEntity: doctorEntity,
         ),
-        DoctorAvailability(doctorEntity: doctorEntity),
       ],
     );
   }

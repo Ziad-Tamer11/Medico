@@ -4,10 +4,25 @@ import 'package:medico/constants.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
-import 'package:medico/features/home/presentation/views/widgets/no_result.dart';
+import 'package:medico/features/home/domain/entities/doctor_entity.dart';
+import 'package:medico/features/home/presentation/views/widgets/favorites/favorite_doctors_content.dart';
 
+// Pure UI: renders whatever state MyFavoritesViewBodyBlocBuilder resolved.
 class MyFavoritesViewBody extends StatelessWidget {
-  const MyFavoritesViewBody({super.key});
+  const MyFavoritesViewBody({
+    super.key,
+    required this.isLoading,
+    required this.errorMessage,
+    required this.favoriteDoctors,
+    required this.isClearAllChecked,
+    required this.onClearAllTap,
+  });
+
+  final bool isLoading;
+  final String? errorMessage;
+  final List<DoctorEntity>? favoriteDoctors;
+  final bool isClearAllChecked;
+  final VoidCallback onClearAllTap;
 
   @override
   Widget build(BuildContext context) {
@@ -27,16 +42,25 @@ class MyFavoritesViewBody extends StatelessWidget {
                 style: TextStyles.font18Bold.copyWith(color: AppColor.black),
               ),
               Spacer(),
-              SvgPicture.asset(Assets.imagesNotSelectedCheckBox),
+              GestureDetector(
+                onTap: onClearAllTap,
+                child: SvgPicture.asset(
+                  isClearAllChecked
+                      ? Assets.imagesSelectedCheckBox
+                      : Assets.imagesNotSelectedCheckBox,
+                ),
+              ),
             ],
           ),
         ),
-        //emptyState
-        NoResult(text: 'No favorit doctors found'),
+        Expanded(
+          child: FavoriteDoctorsContent(
+            isLoading: isLoading,
+            errorMessage: errorMessage,
+            favoriteDoctors: favoriteDoctors,
+          ),
+        ),
       ],
     );
   }
 }
-
-//!       resultState
-//        Expanded(child: DoctorCardListView()),

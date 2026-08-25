@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medico/core/services/get_it_service.dart';
 import 'package:medico/core/widgets/build_custom_app_bar.dart';
+import 'package:medico/features/auth/domain/usecases/auth_usecase.dart';
 import 'package:medico/features/profile/presentation/manager/change_password_cubit/change_password_cubit.dart';
 import 'package:medico/features/profile/presentation/manager/edit_profile_cubit/edit_profile_cubit.dart';
 import 'package:medico/features/profile/presentation/views/widgets/edit_profile_view_body_bloc_consumer.dart';
@@ -15,8 +16,14 @@ class EditProfileView extends StatelessWidget {
       appBar: buildCustomAppBar(context, title: 'Account Information'),
       body: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (_) => getIt<EditProfileCubit>()),
-          BlocProvider(create: (_) => getIt<ChangePasswordCubit>()),
+          BlocProvider(
+            create: (_) =>
+                EditProfileCubit(authUsecase: getIt<AuthUsecase>()),
+          ),
+          BlocProvider(
+            create: (_) =>
+                ChangePasswordCubit(authUsecase: getIt<AuthUsecase>()),
+          ),
         ],
         child: const EditProfileViewBodyBlocConsumer(),
       ),

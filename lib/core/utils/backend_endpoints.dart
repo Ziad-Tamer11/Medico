@@ -10,10 +10,15 @@ class BackendEndpoints {
   static const verifyOtp = 'auth/verify-otp';
   static const resetPassword = 'auth/reset-password';
 
-  static const addUserData = 'users';
-  static const getUserData = 'users';
-  static const checkIfUserExists = 'users';
-  static const categories = 'categories';
-  static const doctors = 'doctors';
-  static const appointments = 'appointments';
+  static const categories = 'categories/';
+  static const doctors = 'doctors/';
+  static String doctorsByCategory(int categoryId) =>
+      'doctors/category/$categoryId';
+  static String doctorAvailability(int doctorId) =>
+      'doctors/$doctorId/availability';
+  static const createAppointment = 'appointments';
+  static const myAppointments = 'appointments/me';
+
+  static const favorites = 'favorites';
+  static String favorite(int doctorId) => 'favorites/$doctorId';
 }

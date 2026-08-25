@@ -14,7 +14,7 @@ class CustomCardGridview extends StatelessWidget {
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
       sliver: SliverGrid.builder(
-        itemCount: 6,
+        itemCount: categories.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           crossAxisSpacing: 12,
@@ -22,10 +22,11 @@ class CustomCardGridview extends StatelessWidget {
           mainAxisExtent: 72,
         ),
         itemBuilder: (context, index) {
+          final category = categories[index];
           return CustomCard(
-            categoryEntity: categories[index],
+            categoryEntity: category,
             onTap: () {
-              context.push(AppRoute.kDoctorsByCategoryView);
+              context.push(AppRoute.kDoctorsByCategoryView, extra: category);
             },
           );
         },

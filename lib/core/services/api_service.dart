@@ -23,6 +23,19 @@ class ApiService {
     return response;
   }
 
+  Future<Response> get({
+    required String url,
+    String token = '',
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    var response = await dio.get(
+      url,
+      queryParameters: queryParameters,
+      options: Options(headers: {'Authorization': "Bearer $token"}),
+    );
+    return response;
+  }
+
   Future<Response> put({
     required String url,
     required body,
@@ -37,6 +50,14 @@ class ApiService {
         contentType: contentType,
         headers: headers ?? {'Authorization': "Bearer $token"},
       ),
+    );
+    return response;
+  }
+
+  Future<Response> delete({required String url, required String token}) async {
+    var response = await dio.delete(
+      url,
+      options: Options(headers: {'Authorization': "Bearer $token"}),
     );
     return response;
   }

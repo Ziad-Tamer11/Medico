@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:medico/features/home/domain/entities/appointment_entity.dart';
 import 'package:medico/features/home/domain/usecases/appointment_usecase.dart';
 import 'package:meta/meta.dart';
 
@@ -12,11 +11,17 @@ class CreateAppointmentCubit extends Cubit<CreateAppointmentState> {
   final AppointmentUseCase appointmentUseCase;
 
   Future<void> createAppointment({
-    required AppointmentEntity appointment,
+    required int doctorId,
+    required DateTime appointmentDate,
+    required String startTime,
+    required String endTime,
   }) async {
     emit(CreateAppointmentLoading());
     final result = await appointmentUseCase.createAppointment(
-      appointment: appointment,
+      doctorId: doctorId,
+      appointmentDate: appointmentDate,
+      startTime: startTime,
+      endTime: endTime,
     );
     result.fold(
       (failure) =>

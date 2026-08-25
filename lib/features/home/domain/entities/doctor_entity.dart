@@ -1,27 +1,27 @@
 class DoctorEntity {
-  final String id;
+  final int id;
   final String name;
-  final String specialization;
-  final String workPlace;
-  final String rating;
-  final int experience;
-  final double hourlyRate;
+  final String specialty;
+  final String? image;
+  final String? workPlace;
+  final int? experience;
   final int treated;
-  final List<String> availableDays;
-  final List<String> availableHours;
-  final String categoryId;
+  final double hourlyRate;
+  final double rating;
+  final bool isActive;
+  final int categoryId;
 
   const DoctorEntity({
     required this.id,
     required this.name,
-    required this.specialization,
-    required this.workPlace,
-    required this.rating,
-    required this.experience,
-    required this.hourlyRate,
+    required this.specialty,
+    this.image,
+    this.workPlace,
+    this.experience,
     required this.treated,
-    required this.availableDays,
-    required this.availableHours,
+    required this.hourlyRate,
+    required this.rating,
+    required this.isActive,
     required this.categoryId,
   });
 }

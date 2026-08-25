@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medico/core/helpers/show_message_bar.dart';
+import 'package:medico/core/manager/app_user_cubit/app_user_cubit.dart';
+import 'package:medico/core/services/get_it_service.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/features/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:medico/features/auth/presentation/views/widgets/login_view_body.dart';
+import 'package:medico/features/home/presentation/manager/favorite_cubit/favorite_cubit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class LoginViewBodyBlocConsumer extends StatelessWidget {
@@ -16,6 +19,8 @@ class LoginViewBodyBlocConsumer extends StatelessWidget {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
+          getIt<AppUserCubit>().refresh();
+          getIt<FavoriteCubit>().loadFavorites();
           showMessageBar(context, 'Login Successful', Colors.green);
           GoRouter.of(context).pushReplacement(AppRoute.kHomeView);
         }

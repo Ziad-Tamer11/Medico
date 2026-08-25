@@ -1,29 +1,25 @@
+import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:medico/core/errors/exceptions.dart';
 import 'package:medico/core/errors/failure.dart';
-import 'package:medico/core/services/database_service.dart';
-import 'package:medico/core/utils/backend_endpoints.dart';
-import 'package:medico/features/home/data/models/category_model.dart';
+import 'package:medico/core/services/category_api_service.dart';
 import 'package:medico/features/home/domain/entities/category_entity.dart';
 import 'package:medico/features/home/domain/repos/category_repo.dart';
 
 class CategoryRepoImpl implements CategoryRepo {
-  final DatabaseService databaseService;
+  final CategoryApiService categoryApiService;
 
-  CategoryRepoImpl({required this.databaseService});
+  CategoryRepoImpl({required this.categoryApiService});
+
   @override
   Future<Either<Failure, List<CategoryEntity>>> getCategories() async {
     try {
-      var data = await databaseService.getCollectionData(
-        path: BackendEndpoints.categories,
-      );
-      final categories = data
-          .map((json) => CategoryModel.fromJson(json))
-          .toList();
+      final categories = await categoryApiService.getCategories();
       return right(categories);
     } on CustomExceptions catch (e) {
-      return Left(ServerFailure(errMessage: e.errMessage));
+      return left(ServerFailure(errMessage: e.errMessage));
     } catch (e) {
+      log('Exception in CategoryRepoImpl.getCategories: ${e.toString()}');
       return left(
         ServerFailure(errMessage: 'Something went wrong. Please try again.'),
       );

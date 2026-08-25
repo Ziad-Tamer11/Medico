@@ -11,6 +11,8 @@ class DoctorName extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       doctorEntity.name,
+      overflow: TextOverflow.ellipsis,
+      maxLines: 1,
       style:
           textStyle ??
           TextStyles.font14SemiBold.copyWith(color: const Color(0xFF32384B)),

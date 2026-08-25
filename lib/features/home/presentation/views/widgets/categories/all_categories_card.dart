@@ -5,6 +5,7 @@ import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
+import 'package:medico/core/widgets/category_image.dart';
 import 'package:medico/features/home/domain/entities/category_entity.dart';
 
 class AllCategoriesCard extends StatelessWidget {
@@ -15,7 +16,7 @@ class AllCategoriesCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push(AppRoute.kDoctorsByCategoryView);
+        context.push(AppRoute.kDoctorsByCategoryView, extra: categoryEntity);
       },
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -28,11 +29,10 @@ class AllCategoriesCard extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(12),
-              child: SvgPicture.asset(
-                Assets.imagesHeart,
+              child: CategoryImage(
+                imageUrl: categoryEntity.image,
                 width: 36,
                 height: 36,
-                fit: BoxFit.contain,
               ),
             ),
             Spacer(flex: 2),

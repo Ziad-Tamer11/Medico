@@ -3,11 +3,13 @@ import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 class AppointmentSelectionEntity {
   final DoctorEntity doctor;
   final DateTime date;
-  final String time;
+  final String startTime;
+  final String endTime;
 
   const AppointmentSelectionEntity({
     required this.doctor,
     required this.date,
-    required this.time,
+    required this.startTime,
+    required this.endTime,
   });
 }

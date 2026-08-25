@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:medico/constants.dart';
 import 'package:medico/core/utils/app_colors.dart';
-import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
+import 'package:medico/core/widgets/doctor_image.dart';
 import 'package:medico/core/widgets/doctor_name.dart';
 import 'package:medico/core/widgets/doctor_specialist.dart';
 import 'package:medico/features/home/domain/entities/appointment_selection.dart';
@@ -35,7 +35,7 @@ class AppointmentDetailsViewBody extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(Assets.imagesDoctorProfile),
+                DoctorImage(imageUrl: doctor.image),
                 SizedBox(width: 16),
                 Expanded(
                   child: Column(
@@ -43,8 +43,8 @@ class AppointmentDetailsViewBody extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          DoctorName(doctorEntity: doctor),
-                          Spacer(),
+                          Expanded(child: DoctorName(doctorEntity: doctor)),
+                          const SizedBox(width: 8),
                           DoctorRating(doctorEntity: doctor),
                         ],
                       ),
@@ -62,7 +62,8 @@ class AppointmentDetailsViewBody extends StatelessWidget {
           const SizedBox(height: 24),
           AppointmentScheduleSection(
             date: appointmentSelectionEntity.date,
-            time: appointmentSelectionEntity.time,
+            startTime: appointmentSelectionEntity.startTime,
+            endTime: appointmentSelectionEntity.endTime,
           ),
           const SizedBox(height: 100),
           CustomButtonBlocConsumer(

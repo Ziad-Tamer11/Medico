@@ -13,7 +13,7 @@ class DoctorRating extends StatelessWidget {
     return Row(
       children: [
         Text(
-          '${doctorEntity.rating}',
+          doctorEntity.rating.toStringAsFixed(1),
           style: textStyle ?? TextStyles.font14Medium,
         ),
         const SizedBox(width: 4),

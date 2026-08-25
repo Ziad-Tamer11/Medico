@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medico/core/manager/app_user_cubit/app_user_cubit.dart';
+import 'package:medico/core/services/get_it_service.dart';
 import 'package:medico/core/widgets/custom_dialog.dart';
 import 'package:medico/features/profile/presentation/manager/change_password_cubit/change_password_cubit.dart';
 import 'package:medico/features/profile/presentation/manager/edit_profile_cubit/edit_profile_cubit.dart';
@@ -31,6 +33,7 @@ class EditProfileViewBodyBlocConsumer extends StatelessWidget {
         return BlocConsumer<EditProfileCubit, EditProfileState>(
           listener: (context, state) {
             if (state is EditProfileSuccess) {
+              getIt<AppUserCubit>().refresh();
               CustomDialog.showSuccessDialog(
                 context: context,
                 title: 'Profile Updated',

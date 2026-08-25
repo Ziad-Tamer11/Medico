@@ -11,6 +11,9 @@ class CategoryCubit extends Cubit<CategoryState> {
   final CategoryUsecase categoryUsecase;
 
   Future<void> getCategories() async {
+    // already loaded, or a request is already in flight — don't fire a
+    // redundant duplicate request
+    if (state is CategorySuccess || state is CategoryLoading) return;
     emit(CategoryLoading());
     var result = await categoryUsecase.getCategories();
     result.fold(

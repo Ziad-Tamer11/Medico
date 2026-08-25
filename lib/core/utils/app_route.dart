@@ -5,6 +5,7 @@ import 'package:medico/features/auth/presentation/views/reset_password_view.dart
 import 'package:medico/features/auth/presentation/views/sign_up_view.dart';
 import 'package:medico/features/auth/presentation/views/verify_otp_view.dart';
 import 'package:medico/features/home/domain/entities/appointment_selection.dart';
+import 'package:medico/features/home/domain/entities/category_entity.dart';
 import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/all_doctors_view.dart';
 import 'package:medico/features/home/presentation/views/appointment_details_view.dart';
@@ -65,7 +66,10 @@ class AppRoute {
       ),
       GoRoute(
         path: kDoctorsByCategoryView,
-        builder: (context, state) => DoctorsByCategoryView(),
+        builder: (context, state) {
+          final category = state.extra as CategoryEntity;
+          return DoctorsByCategoryView(categoryEntity: category);
+        },
       ),
       GoRoute(
         path: kAllDoctorsView,

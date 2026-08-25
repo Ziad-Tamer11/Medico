@@ -3,11 +3,12 @@ import 'package:medico/core/errors/failure.dart';
 import 'package:medico/features/home/domain/entities/appointment_entity.dart';
 
 abstract class AppointmentRepo {
-  Future<Either<Failure, void>> createAppointment({
-    required AppointmentEntity appointment,
+  Future<Either<Failure, AppointmentEntity>> createAppointment({
+    required int doctorId,
+    required DateTime appointmentDate,
+    required String startTime,
+    required String endTime,
   });
 
-  Future<Either<Failure, List<AppointmentEntity>>> getUpcomingAppointments({
-    required String patientId,
-  });
+  Future<Either<Failure, List<AppointmentEntity>>> getMyAppointments();
 }

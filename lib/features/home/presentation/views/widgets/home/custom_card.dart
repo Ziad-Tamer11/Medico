@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
+import 'package:medico/core/widgets/category_image.dart';
 import 'package:medico/features/home/domain/entities/category_entity.dart';
 
 class CustomCard extends StatelessWidget {
@@ -25,7 +24,7 @@ class CustomCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset(Assets.imagesHeart),
+              CategoryImage(imageUrl: categoryEntity.image, width: 36, height: 36),
               Text(
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,

@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:medico/features/home/domain/entities/doctor_entity.dart';
+import 'package:medico/core/utils/app_text_styles.dart';
+import 'package:medico/features/home/domain/entities/doctor_availability_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/schedule_available_item.dart';
 
-class ScheduleItemGridView extends StatefulWidget {
+class ScheduleItemGridView extends StatelessWidget {
   const ScheduleItemGridView({
     super.key,
-    required this.doctorEntity,
-    required this.onTimeSelected,
+    required this.slots,
+    required this.selectedSlot,
+    required this.onSlotSelected,
   });
-  final DoctorEntity doctorEntity;
-  final ValueChanged<String> onTimeSelected;
-
-  @override
-  State<ScheduleItemGridView> createState() => _ScheduleItemGridViewState();
-}
-
-class _ScheduleItemGridViewState extends State<ScheduleItemGridView> {
-  int? selectedIndex;
+  final List<DoctorAvailabilityEntity> slots;
+  final DoctorAvailabilityEntity? selectedSlot;
+  final ValueChanged<DoctorAvailabilityEntity> onSlotSelected;
 
   @override
   Widget build(BuildContext context) {
+    if (slots.isEmpty) {
+      return Text('No available times for this date', style: TextStyles.font14Regular);
+    }
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: widget.doctorEntity.availableHours.length,
+      itemCount: slots.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 12,
@@ -31,16 +30,11 @@ class _ScheduleItemGridViewState extends State<ScheduleItemGridView> {
         mainAxisExtent: 44,
       ),
       itemBuilder: (context, index) {
-        final time = widget.doctorEntity.availableHours[index];
+        final slot = slots[index];
         return ScheduleAvailableItem(
-          time: time,
-          isSelected: selectedIndex == index,
-          onTap: () {
-            setState(() {
-              selectedIndex = index;
-            });
-            widget.onTimeSelected(time);
-          },
+          time: '${slot.startTime} - ${slot.endTime}',
+          isSelected: selectedSlot == slot,
+          onTap: () => onSlotSelected(slot),
         );
       },
     );

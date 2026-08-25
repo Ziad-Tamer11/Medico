@@ -1,33 +1,35 @@
+import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:medico/core/errors/exceptions.dart';
 import 'package:medico/core/errors/failure.dart';
-import 'package:medico/core/services/database_service.dart';
-import 'package:medico/core/utils/backend_endpoints.dart';
-import 'package:medico/features/home/data/models/appointment_model.dart';
+import 'package:medico/core/services/appointment_api_service.dart';
 import 'package:medico/features/home/domain/entities/appointment_entity.dart';
 import 'package:medico/features/home/domain/repos/appointment_repo.dart';
 
 class AppointmentRepoImpl implements AppointmentRepo {
-  final DatabaseService databaseService;
+  final AppointmentApiService appointmentApiService;
 
-  AppointmentRepoImpl({required this.databaseService});
+  AppointmentRepoImpl({required this.appointmentApiService});
 
   @override
-  Future<Either<Failure, void>> createAppointment({
-    required AppointmentEntity appointment,
+  Future<Either<Failure, AppointmentEntity>> createAppointment({
+    required int doctorId,
+    required DateTime appointmentDate,
+    required String startTime,
+    required String endTime,
   }) async {
     try {
-      final appointmentModel = AppointmentModel.fromEntity(appointment);
-
-      await databaseService.addData(
-        path: BackendEndpoints.appointments,
-        documentId: appointment.id,
-        data: appointmentModel.toMap(),
+      final appointment = await appointmentApiService.createAppointment(
+        doctorId: doctorId,
+        appointmentDate: appointmentDate,
+        startTime: startTime,
+        endTime: endTime,
       );
-      return right(null);
+      return right(appointment);
     } on CustomExceptions catch (e) {
       return left(ServerFailure(errMessage: e.errMessage));
     } catch (e) {
+      log('Exception in AppointmentRepoImpl.createAppointment: ${e.toString()}');
       return left(
         ServerFailure(errMessage: 'Something went wrong. Please try again.'),
       );
@@ -35,25 +37,14 @@ class AppointmentRepoImpl implements AppointmentRepo {
   }
 
   @override
-  Future<Either<Failure, List<AppointmentEntity>>> getUpcomingAppointments({
-    required String patientId,
-  }) async {
+  Future<Either<Failure, List<AppointmentEntity>>> getMyAppointments() async {
     try {
-      final data = await databaseService.getCollectionData(
-        path: BackendEndpoints.appointments,
-      );
-      final appointments = data
-          .map((json) => AppointmentModel.fromJson(json))
-          .where(
-            (appointment) =>
-                appointment.patientId == patientId &&
-                appointment.date.isAfter(DateTime.now()),
-          )
-          .toList();
+      final appointments = await appointmentApiService.getMyAppointments();
       return right(appointments);
     } on CustomExceptions catch (e) {
       return left(ServerFailure(errMessage: e.errMessage));
     } catch (e) {
+      log('Exception in AppointmentRepoImpl.getMyAppointments: ${e.toString()}');
       return left(
         ServerFailure(errMessage: 'Something went wrong. Please try again.'),
       );

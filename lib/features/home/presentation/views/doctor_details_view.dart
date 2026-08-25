@@ -12,7 +12,7 @@ class DoctorDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.primary,
-      appBar: doctorInfoAppBar(context),
+      appBar: doctorInfoAppBar(context, doctorId: doctorEntity.id),
       body: DoctorDetailsViewBody(),
       bottomSheet: DoctorInfoBottomSheet(doctorEntity: doctorEntity),
     );

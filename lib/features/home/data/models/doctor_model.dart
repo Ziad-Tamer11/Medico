@@ -4,62 +4,43 @@ class DoctorModel extends DoctorEntity {
   const DoctorModel({
     required super.id,
     required super.name,
-    required super.specialization,
-    required super.workPlace,
-    required super.rating,
-    required super.experience,
-    required super.hourlyRate,
+    required super.specialty,
+    super.image,
+    super.workPlace,
+    super.experience,
     required super.treated,
-    required super.availableDays,
-    required super.availableHours,
+    required super.hourlyRate,
+    required super.rating,
+    required super.isActive,
     required super.categoryId,
   });
 
-  factory DoctorModel.fromEntity(DoctorEntity entity) {
-    return DoctorModel(
-      id: entity.id,
-      name: entity.name,
-      specialization: entity.specialization,
-      workPlace: entity.workPlace,
-      rating: entity.rating,
-      experience: entity.experience,
-      hourlyRate: entity.hourlyRate,
-      treated: entity.treated,
-      availableDays: entity.availableDays,
-      availableHours: entity.availableHours,
-      categoryId: entity.categoryId,
-    );
-  }
+  // The backend's `name` field bundles the title and specialty into one
+  // string, e.g. "DR. Bassem Raafat - Consultant Cardiology". Split it once
+  // here into a clean display name and a clean specialty.
+  static final _nameWithSpecialtyPattern = RegExp(
+    r'^dr\.?\s*(.+?)\s*-\s*consultant\s+(.+)$',
+    caseSensitive: false,
+  );
 
   factory DoctorModel.fromJson(Map<String, dynamic> json) {
-    return DoctorModel(
-      id: json['id'] ?? '',
-      name: json['name'] ?? '',
-      specialization: json['specialization'] ?? '',
-      workPlace: json['workPlace'] ?? '',
-      rating: json['rating'] ?? '',
-      experience: json['experience'] ?? 0,
-      hourlyRate: (json['hourlyRate'] ?? 0).toDouble(),
-      treated: json['treated'] ?? 0,
-      availableDays: List<String>.from(json['availableDays'] ?? []),
-      availableHours: List<String>.from(json['availableHours'] ?? []),
-      categoryId: json['categoryId'] ?? '',
-    );
-  }
+    final rawName = (json['name'] as String).trim();
+    final match = _nameWithSpecialtyPattern.firstMatch(rawName);
+    final name = match != null ? match.group(1)!.trim() : rawName;
+    final specialty = match != null ? match.group(2)!.trim() : '';
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'specialization': specialization,
-      'workPlace': workPlace,
-      'rating': rating,
-      'experience': experience,
-      'hourlyRate': hourlyRate,
-      'treated': treated,
-      'availableDays': availableDays,
-      'availableHours': availableHours,
-      'categoryId': categoryId,
-    };
+    return DoctorModel(
+      id: json['doctor_id'],
+      name: name,
+      specialty: specialty,
+      image: json['image'],
+      workPlace: json['work_place'],
+      experience: json['experience'],
+      treated: json['treated'] ?? 0,
+      hourlyRate: (json['price'] as num).toDouble(),
+      rating: (json['average_rating'] as num).toDouble(),
+      isActive: json['is_active'] ?? true,
+      categoryId: json['category_id'],
+    );
   }
 }
