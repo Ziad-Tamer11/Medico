@@ -9,15 +9,19 @@ class DoctorAvailabilityBlocBuilder extends StatelessWidget {
   const DoctorAvailabilityBlocBuilder({
     super.key,
     required this.doctorEntity,
+    required this.selectedMonth,
     required this.selectedDate,
     required this.selectedSlot,
+    required this.onMonthSelected,
     required this.onDateSelected,
     required this.onSlotSelected,
   });
 
   final DoctorEntity doctorEntity;
+  final DateTime? selectedMonth;
   final DateTime? selectedDate;
   final DoctorAvailabilityEntity? selectedSlot;
+  final ValueChanged<DateTime> onMonthSelected;
   final ValueChanged<DateTime> onDateSelected;
   final ValueChanged<DoctorAvailabilityEntity> onSlotSelected;
 
@@ -35,8 +39,10 @@ class DoctorAvailabilityBlocBuilder extends StatelessWidget {
           return AvailabilityContent(
             doctorEntity: doctorEntity,
             availability: state.availability,
+            selectedMonth: selectedMonth,
             selectedDate: selectedDate,
             selectedSlot: selectedSlot,
+            onMonthSelected: onMonthSelected,
             onDateSelected: onDateSelected,
             onSlotSelected: onSlotSelected,
           );

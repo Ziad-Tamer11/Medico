@@ -19,6 +19,7 @@ class DoctorInfoBottomSheet extends StatefulWidget {
 }
 
 class _DoctorInfoBottomSheetState extends State<DoctorInfoBottomSheet> {
+  DateTime? selectedMonth;
   DateTime? selectedDate;
   DoctorAvailabilityEntity? selectedSlot;
 
@@ -46,8 +47,16 @@ class _DoctorInfoBottomSheetState extends State<DoctorInfoBottomSheet> {
             Expanded(
               child: DoctorAvailabilityBlocBuilder(
                 doctorEntity: widget.doctorEntity,
+                selectedMonth: selectedMonth,
                 selectedDate: selectedDate,
                 selectedSlot: selectedSlot,
+                onMonthSelected: (month) {
+                  setState(() {
+                    selectedMonth = month;
+                    selectedDate = null;
+                    selectedSlot = null;
+                  });
+                },
                 onDateSelected: (date) {
                   setState(() {
                     selectedDate = date;

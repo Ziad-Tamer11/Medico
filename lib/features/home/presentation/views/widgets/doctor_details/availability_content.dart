@@ -7,34 +7,51 @@ import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/features/home/domain/entities/appointment_selection.dart';
 import 'package:medico/features/home/domain/entities/doctor_availability_entity.dart';
 import 'package:medico/features/home/domain/entities/doctor_entity.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_details/availability_calendar.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/available_date_section.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_details/available_month_section.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_overview_list.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/schedule_section.dart';
 
-// Pure UI: renders the loaded availability for one doctor, plus the booking
-// CTA. Date/slot selection stays owned by the parent (DoctorInfoBottomSheet)
-// since it needs setState across the whole bottom sheet, not just this part.
+// Pure UI: renders the loaded availability for one doctor as a strict
+// Month -> Day -> Time flow, plus the booking CTA. Selection state stays
+// owned by the parent (DoctorInfoBottomSheet) since it needs setState
+// across the whole bottom sheet, not just this part. Each step is only
+// rendered once the previous one is chosen, so it is structurally
+// impossible to pick a day before a month, or a time before a day.
 class AvailabilityContent extends StatelessWidget {
   const AvailabilityContent({
     super.key,
     required this.doctorEntity,
     required this.availability,
+    required this.selectedMonth,
     required this.selectedDate,
     required this.selectedSlot,
+    required this.onMonthSelected,
     required this.onDateSelected,
     required this.onSlotSelected,
   });
 
   final DoctorEntity doctorEntity;
   final List<DoctorAvailabilityEntity> availability;
+  final DateTime? selectedMonth;
   final DateTime? selectedDate;
   final DoctorAvailabilityEntity? selectedSlot;
+  final ValueChanged<DateTime> onMonthSelected;
   final ValueChanged<DateTime> onDateSelected;
   final ValueChanged<DoctorAvailabilityEntity> onSlotSelected;
 
   @override
   Widget build(BuildContext context) {
     final availableDates = _uniqueSortedDates(availability);
+    final months = buildAvailableMonths(availableDates);
+    final daysForSelectedMonth = selectedMonth == null
+        ? const <AvailabilityDay>[]
+        : buildDaysForMonth(
+            year: selectedMonth!.year,
+            month: selectedMonth!.month,
+            availableDates: availableDates,
+          );
     final slotsForSelectedDate = selectedDate == null
         ? const <DoctorAvailabilityEntity>[]
         : availability
@@ -49,15 +66,23 @@ class AvailabilityContent extends StatelessWidget {
           const SizedBox(height: 24),
           DoctorOverviewSection(doctorEntity: doctorEntity),
           const SizedBox(height: 24),
-          if (availableDates.isEmpty)
+          if (months.isEmpty)
             const Text('This doctor has no available slots right now.')
           else ...[
-            AvailableDateSection(
-              dates: availableDates,
-              selectedDate: selectedDate,
-              onDateSelected: onDateSelected,
+            AvailableMonthSection(
+              months: months,
+              selectedMonth: selectedMonth,
+              onMonthSelected: onMonthSelected,
             ),
             const SizedBox(height: 24),
+            if (selectedMonth != null) ...[
+              AvailableDateSection(
+                days: daysForSelectedMonth,
+                selectedDate: selectedDate,
+                onDateSelected: onDateSelected,
+              ),
+              const SizedBox(height: 24),
+            ],
             if (selectedDate != null)
               ScheduleSection(
                 slots: slotsForSelectedDate,
@@ -77,8 +102,12 @@ class AvailabilityContent extends StatelessWidget {
   }
 
   void _onBookAppointment(BuildContext context) {
+    if (selectedMonth == null) {
+      showMessageBar(context, 'Please select a month', AppColor.red);
+      return;
+    }
     if (selectedDate == null) {
-      showMessageBar(context, 'Please select a date', AppColor.red);
+      showMessageBar(context, 'Please select a day', AppColor.red);
       return;
     }
     if (selectedSlot == null) {
