@@ -16,6 +16,7 @@ class BackendEndpoints {
       'doctors/category/$categoryId';
   static String doctorAvailability(int doctorId) =>
       'doctors/$doctorId/availability';
+  static const doctorSearch = 'doctors/search';
   static const createAppointment = 'appointments';
   static const myAppointments = 'appointments/me';
 

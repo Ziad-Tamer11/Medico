@@ -10,6 +10,10 @@ abstract class DoctorRepo {
     required int categoryId,
   });
 
+  Future<Either<Failure, List<DoctorEntity>>> searchDoctors({
+    required String query,
+  });
+
   Future<Either<Failure, List<DoctorAvailabilityEntity>>> getDoctorAvailability({
     required int doctorId,
   });

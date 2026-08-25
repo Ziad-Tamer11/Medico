@@ -4,7 +4,7 @@ class AppointmentModel extends AppointmentEntity {
   const AppointmentModel({
     required super.id,
     required super.doctorId,
-    required super.doctorName,
+    super.doctorName,
     required super.date,
     required super.startTime,
     required super.endTime,

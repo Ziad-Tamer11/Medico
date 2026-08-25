@@ -31,4 +31,19 @@ class DoctorCubit extends Cubit<DoctorState> {
       (doctor) => emit(DoctorSuccess(doctorEntity: doctor)),
     );
   }
+
+  Future<void> searchDoctors(String query) async {
+    emit(DoctorLoading());
+    var result = await doctorUsecase.searchDoctors(query: query);
+    result.fold(
+      (failure) => emit(DoctorFailure(errMessage: failure.errMessage)),
+      (doctor) => emit(DoctorSuccess(doctorEntity: doctor)),
+    );
+  }
+
+  // clears search results back to the initial "type to search" prompt,
+  // e.g. when the user clears the search field
+  void resetSearch() {
+    emit(DoctorInitial());
+  }
 }

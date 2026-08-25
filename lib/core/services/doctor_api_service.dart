@@ -39,6 +39,21 @@ class DoctorApiService {
     }
   }
 
+  Future<List<DoctorModel>> searchDoctors({required String query}) async {
+    try {
+      final response = await apiService.get(
+        url: BackendEndpoints.doctorSearch,
+        queryParameters: {'query': query},
+      );
+      return (response.data as List)
+          .map((json) => DoctorModel.fromJson(json))
+          .toList();
+    } on DioException catch (e) {
+      log('Exception in DoctorApiService.searchDoctors: ${e.toString()}');
+      throw CustomExceptions(errMessage: _extractMessage(e));
+    }
+  }
+
   Future<List<DoctorAvailabilityModel>> getDoctorAvailability({
     required int doctorId,
   }) async {

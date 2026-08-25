@@ -47,6 +47,23 @@ class DoctorRepoImpl implements DoctorRepo {
   }
 
   @override
+  Future<Either<Failure, List<DoctorEntity>>> searchDoctors({
+    required String query,
+  }) async {
+    try {
+      final doctors = await doctorApiService.searchDoctors(query: query);
+      return right(doctors);
+    } on CustomExceptions catch (e) {
+      return left(ServerFailure(errMessage: e.errMessage));
+    } catch (e) {
+      log('Exception in DoctorRepoImpl.searchDoctors: ${e.toString()}');
+      return left(
+        ServerFailure(errMessage: 'Something went wrong. Please try again.'),
+      );
+    }
+  }
+
+  @override
   Future<Either<Failure, List<DoctorAvailabilityEntity>>> getDoctorAvailability({
     required int doctorId,
   }) async {

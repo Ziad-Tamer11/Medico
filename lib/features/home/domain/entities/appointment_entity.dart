@@ -1,7 +1,9 @@
 class AppointmentEntity {
   final int id;
   final int doctorId;
-  final String doctorName;
+  // present when listing (GET /appointments/me -> UserAppointmentOut), null
+  // right after booking (POST /appointments -> AppointmentOut has no join)
+  final String? doctorName;
   final DateTime date;
   final String startTime;
   final String endTime;
@@ -10,7 +12,7 @@ class AppointmentEntity {
   const AppointmentEntity({
     required this.id,
     required this.doctorId,
-    required this.doctorName,
+    this.doctorName,
     required this.date,
     required this.startTime,
     required this.endTime,

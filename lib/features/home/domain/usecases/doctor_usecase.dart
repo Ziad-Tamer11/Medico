@@ -19,6 +19,12 @@ class DoctorUsecase {
     return doctorRepo.getDoctorsByCategory(categoryId: categoryId);
   }
 
+  Future<Either<Failure, List<DoctorEntity>>> searchDoctors({
+    required String query,
+  }) {
+    return doctorRepo.searchDoctors(query: query);
+  }
+
   Future<Either<Failure, List<DoctorAvailabilityEntity>>> getDoctorAvailability({
     required int doctorId,
   }) {
