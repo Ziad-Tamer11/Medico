@@ -14,52 +14,58 @@ class AppointmentScheduleTime extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formattedDate = DateFormat('dd MMMM EEEE').format(date);
-    return Row(
-      children: [
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: AppColor.white,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: AppColor.grey.withValues(alpha: .2)),
-            ),
-            child: Column(
-              children: [
-                Text(
-                  formattedDate,
-                  textAlign: TextAlign.center,
-                  style: TextStyles.font16Bold,
-                ),
-                const SizedBox(height: 8),
-                Text('Date ', style: TextStyles.font16Regular),
-              ],
-            ),
-          ),
-        ),
-        SizedBox(width: 8),
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: AppColor.white,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: AppColor.grey.withValues(alpha: .2)),
-            ),
-            child: Column(
-              children: [
-                Text(
-                  time,
-                  textAlign: TextAlign.center,
-                  style: TextStyles.font16Bold,
-                ),
-                const SizedBox(height: 8),
-                Text('Time', style: TextStyles.font16Regular),
-              ],
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: AppColor.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: AppColor.grey.withValues(alpha: .2)),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    formattedDate,
+                    textAlign: TextAlign.center,
+                    style: TextStyles.font16Bold,
+                  ),
+                  const SizedBox(height: 8),
+                  Text('Date ', style: TextStyles.font16Regular),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+          SizedBox(width: 8),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColor.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: AppColor.grey.withValues(alpha: .2)),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    time,
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.visible,
+                    style: TextStyles.font16Bold,
+                  ),
+                  const SizedBox(height: 8),
+                  Text('Time', style: TextStyles.font16Regular),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
