@@ -34,7 +34,7 @@ class AvailableDateSection extends StatelessWidget {
           context: context,
           title: 'Select Day',
           items: days,
-          labelBuilder: (day) => DateFormat('EEEE, d MMM').format(day.date),
+          labelBuilder: (day) => '${day.date.day}',
           isEnabled: (day) => day.hasAvailability,
           isSelected: (day) =>
               selectedDate != null && _isSameDay(selectedDate!, day.date),

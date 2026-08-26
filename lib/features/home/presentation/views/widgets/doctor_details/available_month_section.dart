@@ -33,7 +33,7 @@ class AvailableMonthSection extends StatelessWidget {
           title: 'Select Month',
           items: months,
           labelBuilder: (month) =>
-              DateFormat('MMMM yyyy').format(DateTime(month.year, month.month)),
+              DateFormat('MMM').format(DateTime(month.year, month.month)),
           isEnabled: (month) => month.hasAvailability,
           isSelected: (month) =>
               selectedMonth != null &&
