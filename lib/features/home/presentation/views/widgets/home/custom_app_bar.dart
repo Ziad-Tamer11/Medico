@@ -18,7 +18,7 @@ class CustomAppBarBody extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
-        leading: Image.asset(Assets.imagesProfileAvatar),
+        leading: Image.asset(Assets.imagesUser, height: 40),
         title: Text(
           'Welcome Back',
           style: TextStyles.font14Regular.copyWith(
