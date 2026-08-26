@@ -8,18 +8,18 @@ import 'package:medico/features/home/domain/entities/appointment_selection.dart'
 import 'package:medico/features/home/domain/entities/doctor_availability_entity.dart';
 import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/availability_calendar.dart';
-import 'package:medico/features/home/presentation/views/widgets/doctor_details/available_month_day_section.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_details/availability_calendar_card.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_overview_list.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/schedule_section.dart';
 
-// Pure UI: renders the loaded availability for one doctor as a strict
-// Month -> Day -> Time flow, plus the booking CTA. Selection state stays
-// owned by the parent (DoctorInfoBottomSheet) since it needs setState
-// across the whole bottom sheet, not just this part. Month and Day are
-// always shown stacked, but the Day field stays disabled (not hidden)
-// until a month is picked, and the Time grid only renders once a day is
-// picked - so it stays structurally impossible to pick out of order.
-class AvailabilityContent extends StatelessWidget {
+// Renders the loaded availability for one doctor as a Month/Day calendar
+// card plus the booking CTA. Selection state stays owned by the parent
+// (DoctorInfoBottomSheet) since it needs setState across the whole bottom
+// sheet, not just this part; this widget only keeps its own local
+// "show a validation error" flag for the red-border feedback on a failed
+// booking attempt. The first available month is auto-selected once
+// availability loads, so the Days grid always has a valid month behind it.
+class AvailabilityContent extends StatefulWidget {
   const AvailabilityContent({
     super.key,
     required this.doctorEntity,
@@ -42,20 +42,56 @@ class AvailabilityContent extends StatelessWidget {
   final ValueChanged<DoctorAvailabilityEntity> onSlotSelected;
 
   @override
+  State<AvailabilityContent> createState() => _AvailabilityContentState();
+}
+
+class _AvailabilityContentState extends State<AvailabilityContent> {
+  bool _dateError = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || widget.selectedMonth != null) return;
+      final months = buildAvailableMonths(
+        _uniqueSortedDates(widget.availability),
+      );
+      if (months.any((month) => month.hasAvailability)) {
+        final firstAvailable = months.firstWhere(
+          (month) => month.hasAvailability,
+        );
+        widget.onMonthSelected(
+          DateTime(firstAvailable.year, firstAvailable.month),
+        );
+      }
+    });
+  }
+
+  void _handleMonthSelected(DateTime month) {
+    setState(() => _dateError = false);
+    widget.onMonthSelected(month);
+  }
+
+  void _handleDateSelected(DateTime date) {
+    setState(() => _dateError = false);
+    widget.onDateSelected(date);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final availableDates = _uniqueSortedDates(availability);
+    final availableDates = _uniqueSortedDates(widget.availability);
     final months = buildAvailableMonths(availableDates);
-    final daysForSelectedMonth = selectedMonth == null
+    final daysForSelectedMonth = widget.selectedMonth == null
         ? const <AvailabilityDay>[]
         : buildDaysForMonth(
-            year: selectedMonth!.year,
-            month: selectedMonth!.month,
+            year: widget.selectedMonth!.year,
+            month: widget.selectedMonth!.month,
             availableDates: availableDates,
           );
-    final slotsForSelectedDate = selectedDate == null
+    final slotsForSelectedDate = widget.selectedDate == null
         ? const <DoctorAvailabilityEntity>[]
-        : availability
-              .where((slot) => _isSameDay(slot.date, selectedDate!))
+        : widget.availability
+              .where((slot) => _isSameDay(slot.date, widget.selectedDate!))
               .toList();
 
     return SingleChildScrollView(
@@ -64,25 +100,26 @@ class AvailabilityContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 24),
-          DoctorOverviewSection(doctorEntity: doctorEntity),
+          DoctorOverviewSection(doctorEntity: widget.doctorEntity),
           const SizedBox(height: 24),
           if (months.isEmpty)
             const Text('This doctor has no available slots right now.')
           else ...[
-            AvailableMonthDaySection(
+            AvailabilityCalendarCard(
               months: months,
-              selectedMonth: selectedMonth,
-              onMonthSelected: onMonthSelected,
+              selectedMonth: widget.selectedMonth,
+              onMonthSelected: _handleMonthSelected,
               days: daysForSelectedMonth,
-              selectedDate: selectedDate,
-              onDateSelected: onDateSelected,
+              selectedDate: widget.selectedDate,
+              onDateSelected: _handleDateSelected,
+              hasError: _dateError,
             ),
             const SizedBox(height: 24),
-            if (selectedDate != null)
+            if (widget.selectedDate != null)
               ScheduleSection(
                 slots: slotsForSelectedDate,
-                selectedSlot: selectedSlot,
-                onSlotSelected: onSlotSelected,
+                selectedSlot: widget.selectedSlot,
+                onSlotSelected: widget.onSlotSelected,
               ),
           ],
           const SizedBox(height: 40),
@@ -97,23 +134,20 @@ class AvailabilityContent extends StatelessWidget {
   }
 
   void _onBookAppointment(BuildContext context) {
-    if (selectedMonth == null) {
-      showMessageBar(context, 'Please select a month', AppColor.red);
+    if (widget.selectedMonth == null || widget.selectedDate == null) {
+      setState(() => _dateError = true);
+      showMessageBar(context, 'Please select a date', AppColor.red);
       return;
     }
-    if (selectedDate == null) {
-      showMessageBar(context, 'Please select a day', AppColor.red);
-      return;
-    }
-    if (selectedSlot == null) {
+    if (widget.selectedSlot == null) {
       showMessageBar(context, 'Please select a time', AppColor.red);
       return;
     }
     final appointmentSelection = AppointmentSelectionEntity(
-      doctor: doctorEntity,
-      date: selectedDate!,
-      startTime: selectedSlot!.startTime,
-      endTime: selectedSlot!.endTime,
+      doctor: widget.doctorEntity,
+      date: widget.selectedDate!,
+      startTime: widget.selectedSlot!.startTime,
+      endTime: widget.selectedSlot!.endTime,
     );
     context.push(AppRoute.kAppointmentDetailsView, extra: appointmentSelection);
   }
