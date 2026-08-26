@@ -8,8 +8,7 @@ import 'package:medico/features/home/domain/entities/appointment_selection.dart'
 import 'package:medico/features/home/domain/entities/doctor_availability_entity.dart';
 import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/availability_calendar.dart';
-import 'package:medico/features/home/presentation/views/widgets/doctor_details/available_date_section.dart';
-import 'package:medico/features/home/presentation/views/widgets/doctor_details/available_month_section.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_details/available_month_day_section.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_overview_list.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/schedule_section.dart';
 
@@ -70,15 +69,11 @@ class AvailabilityContent extends StatelessWidget {
           if (months.isEmpty)
             const Text('This doctor has no available slots right now.')
           else ...[
-            AvailableMonthSection(
+            AvailableMonthDaySection(
               months: months,
               selectedMonth: selectedMonth,
               onMonthSelected: onMonthSelected,
-            ),
-            const SizedBox(height: 24),
-            AvailableDateSection(
               days: daysForSelectedMonth,
-              enabled: selectedMonth != null,
               selectedDate: selectedDate,
               onDateSelected: onDateSelected,
             ),

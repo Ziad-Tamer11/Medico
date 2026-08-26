@@ -21,11 +21,10 @@ class AvailableDateSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AvailabilitySelectorField(
-      label: 'Select Day',
-      placeholder: 'Choose a day',
+      placeholder: 'Day',
       valueText: selectedDate == null
           ? null
-          : DateFormat('EEEE, d MMM').format(selectedDate!),
+          : DateFormat('EEE, d').format(selectedDate!),
       enabled: enabled,
       onTap: () async {
         final picked = await CustomDialog.showListPickerDialog<AvailabilityDay>(

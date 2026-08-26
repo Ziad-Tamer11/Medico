@@ -19,8 +19,7 @@ class AvailableMonthSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AvailabilitySelectorField(
-      label: 'Select Month',
-      placeholder: 'Choose a month',
+      placeholder: 'Month',
       valueText: selectedMonth == null
           ? null
           : DateFormat('MMMM yyyy').format(selectedMonth!),
