@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medico/core/helpers/format_time_12h.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
 import 'package:medico/features/home/domain/entities/doctor_availability_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/schedule_available_item.dart';
@@ -17,7 +18,10 @@ class ScheduleItemGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (slots.isEmpty) {
-      return Text('No available times for this date', style: TextStyles.font14Regular);
+      return Text(
+        'No available times for this date',
+        style: TextStyles.font14Regular,
+      );
     }
     return GridView.builder(
       shrinkWrap: true,
@@ -32,7 +36,8 @@ class ScheduleItemGridView extends StatelessWidget {
       itemBuilder: (context, index) {
         final slot = slots[index];
         return ScheduleAvailableItem(
-          time: '${slot.startTime} - ${slot.endTime}',
+          time:
+              '${formatTime12h(slot.startTime)} - ${formatTime12h(slot.endTime)}',
           isSelected: selectedSlot == slot,
           onTap: () => onSlotSelected(slot),
         );

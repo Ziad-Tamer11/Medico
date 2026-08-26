@@ -8,36 +8,46 @@ class ScheduleAvailableItem extends StatelessWidget {
     this.onTap,
     required this.isSelected,
     required this.time,
+    this.isDisabled = false,
   });
   final bool isSelected;
   final VoidCallback? onTap;
   final String time;
+  final bool isDisabled;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: isDisabled ? null : onTap,
       child: Container(
-        padding: const EdgeInsets.only(
-          top: 12,
-          left: 16,
-          right: 16,
-          bottom: 12,
-        ),
+        width: double.infinity,
+        alignment: Alignment.center,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: ShapeDecoration(
           color: isSelected ? AppColor.babyBlue : Colors.transparent,
           shape: RoundedRectangleBorder(
             side: BorderSide(
               width: 1,
-              color: isSelected ? AppColor.primary : AppColor.veryLightGrey,
+              color: isDisabled
+                  ? AppColor.veryLightGrey
+                  : isSelected
+                  ? AppColor.primary
+                  : AppColor.veryLightGrey,
             ),
             borderRadius: BorderRadius.circular(32),
           ),
         ),
         child: Text(
           time,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: TextStyles.font12SemiBold.copyWith(
-            color: isSelected ? AppColor.primary : AppColor.black,
+            color: isDisabled
+                ? AppColor.grey
+                : isSelected
+                ? AppColor.primary
+                : AppColor.black,
+            decoration: isDisabled ? TextDecoration.lineThrough : null,
           ),
         ),
       ),

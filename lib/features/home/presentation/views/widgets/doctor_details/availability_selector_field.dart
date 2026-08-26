@@ -29,9 +29,9 @@ class AvailabilitySelectorField extends StatelessWidget {
       onTap: enabled ? onTap : null,
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
         decoration: ShapeDecoration(
-          color: AppColor.veryLightGrey,
+          color: Color(0xffFAFAFC),
           shape: RoundedRectangleBorder(
             side: hasError
                 ? const BorderSide(color: AppColor.red, width: 1.4)
@@ -46,11 +46,16 @@ class AvailabilitySelectorField extends StatelessWidget {
                 valueText ?? placeholder,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.font14SemiBold.copyWith(
-                  color: valueText != null ? AppColor.black : AppColor.grey,
+                  color: valueText != null
+                      ? AppColor.doctorCardSubtitle
+                      : AppColor.grey,
                 ),
               ),
             ),
-            SvgPicture.asset(Assets.imagesForwardArrow),
+            SvgPicture.asset(
+              Assets.imagesForwardArrow,
+              color: Color(0xffB2BCC9),
+            ),
           ],
         ),
       ),

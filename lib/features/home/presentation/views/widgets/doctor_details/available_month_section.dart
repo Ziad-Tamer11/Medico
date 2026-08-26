@@ -24,7 +24,7 @@ class AvailableMonthSection extends StatelessWidget {
       placeholder: 'Month',
       valueText: selectedMonth == null
           ? null
-          : DateFormat('MMMM yyyy').format(selectedMonth!),
+          : DateFormat('MMM, yyyy').format(selectedMonth!),
       enabled: months.isNotEmpty,
       hasError: hasError,
       onTap: () async {

@@ -17,8 +17,8 @@ import 'package:medico/features/home/presentation/views/widgets/doctor_details/s
 // (DoctorInfoBottomSheet) since it needs setState across the whole bottom
 // sheet, not just this part; this widget only keeps its own local
 // "show a validation error" flag for the red-border feedback on a failed
-// booking attempt. The first available month is auto-selected once
-// availability loads, so the Days grid always has a valid month behind it.
+// booking attempt. Nothing is auto-selected - Month and Day both start
+// empty until the user taps them, same behavior for both fields.
 class AvailabilityContent extends StatefulWidget {
   const AvailabilityContent({
     super.key,
@@ -47,25 +47,6 @@ class AvailabilityContent extends StatefulWidget {
 
 class _AvailabilityContentState extends State<AvailabilityContent> {
   bool _dateError = false;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted || widget.selectedMonth != null) return;
-      final months = buildAvailableMonths(
-        _uniqueSortedDates(widget.availability),
-      );
-      if (months.any((month) => month.hasAvailability)) {
-        final firstAvailable = months.firstWhere(
-          (month) => month.hasAvailability,
-        );
-        widget.onMonthSelected(
-          DateTime(firstAvailable.year, firstAvailable.month),
-        );
-      }
-    });
-  }
 
   void _handleMonthSelected(DateTime month) {
     setState(() => _dateError = false);

@@ -443,7 +443,7 @@ class CustomDialog {
                   child: Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: isActive ? AppColor.primary : AppColor.white,
+                      color: isActive ? AppColor.primary : Colors.transparent,
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
                         color: isActive
@@ -455,7 +455,7 @@ class CustomDialog {
                       labelBuilder(item),
                       style: TextStyles.font14SemiBold.copyWith(
                         color: !enabled
-                            ? AppColor.grey
+                            ? AppColor.doctorCardSubtitle
                             : isActive
                             ? AppColor.white
                             : AppColor.black,

@@ -9,6 +9,7 @@ import 'package:medico/features/home/domain/usecases/doctor_usecase.dart';
 import 'package:medico/features/home/presentation/manager/doctor_availability_cubit/doctor_availability_cubit.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_availability_bloc_builder.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_info_section.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_working_hours_bloc_builder.dart';
 
 class DoctorInfoBottomSheet extends StatefulWidget {
   const DoctorInfoBottomSheet({super.key, required this.doctorEntity});
@@ -42,6 +43,8 @@ class _DoctorInfoBottomSheetState extends State<DoctorInfoBottomSheet> {
           children: [
             DragHandle(),
             DoctorInfoSection(doctorEntity: widget.doctorEntity),
+            const SizedBox(height: 12),
+            const DoctorWorkingHoursBlocBuilder(),
             const SizedBox(height: 24),
             Divider(color: AppColor.blueGrey),
             Expanded(
