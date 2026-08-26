@@ -15,19 +15,18 @@ class DoctorModel extends DoctorEntity {
     required super.categoryId,
   });
 
-  // The backend's `name` field bundles the title and specialty into one
-  // string, e.g. "DR. Bassem Raafat - Consultant Cardiology". Split it once
-  // here into a clean display name and a clean specialty.
-  static final _nameWithSpecialtyPattern = RegExp(
-    r'^dr\.?\s*(.+?)\s*-\s*consultant\s+(.+)$',
-    caseSensitive: false,
-  );
-
+  // The backend's `name` field bundles the display name and specialty into
+  // one string, e.g. "Moataz Salah, Cardiology". Split it once here on the
+  // first comma into a clean display name and a clean specialty.
   factory DoctorModel.fromJson(Map<String, dynamic> json) {
     final rawName = (json['name'] as String).trim();
-    final match = _nameWithSpecialtyPattern.firstMatch(rawName);
-    final name = match != null ? match.group(1)!.trim() : rawName;
-    final specialty = match != null ? match.group(2)!.trim() : '';
+    final commaIndex = rawName.indexOf(',');
+    final name = commaIndex == -1
+        ? rawName
+        : rawName.substring(0, commaIndex).trim();
+    final specialty = commaIndex == -1
+        ? ''
+        : rawName.substring(commaIndex + 1).trim();
 
     return DoctorModel(
       id: json['doctor_id'],

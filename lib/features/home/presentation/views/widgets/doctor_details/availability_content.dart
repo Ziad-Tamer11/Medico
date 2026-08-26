@@ -16,9 +16,10 @@ import 'package:medico/features/home/presentation/views/widgets/doctor_details/s
 // Pure UI: renders the loaded availability for one doctor as a strict
 // Month -> Day -> Time flow, plus the booking CTA. Selection state stays
 // owned by the parent (DoctorInfoBottomSheet) since it needs setState
-// across the whole bottom sheet, not just this part. Each step is only
-// rendered once the previous one is chosen, so it is structurally
-// impossible to pick a day before a month, or a time before a day.
+// across the whole bottom sheet, not just this part. Month and Day are
+// always shown stacked, but the Day field stays disabled (not hidden)
+// until a month is picked, and the Time grid only renders once a day is
+// picked - so it stays structurally impossible to pick out of order.
 class AvailabilityContent extends StatelessWidget {
   const AvailabilityContent({
     super.key,
@@ -75,14 +76,13 @@ class AvailabilityContent extends StatelessWidget {
               onMonthSelected: onMonthSelected,
             ),
             const SizedBox(height: 24),
-            if (selectedMonth != null) ...[
-              AvailableDateSection(
-                days: daysForSelectedMonth,
-                selectedDate: selectedDate,
-                onDateSelected: onDateSelected,
-              ),
-              const SizedBox(height: 24),
-            ],
+            AvailableDateSection(
+              days: daysForSelectedMonth,
+              enabled: selectedMonth != null,
+              selectedDate: selectedDate,
+              onDateSelected: onDateSelected,
+            ),
+            const SizedBox(height: 24),
             if (selectedDate != null)
               ScheduleSection(
                 slots: slotsForSelectedDate,
