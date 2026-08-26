@@ -8,7 +8,7 @@ import 'package:medico/features/home/domain/entities/appointment_selection.dart'
 import 'package:medico/features/home/domain/entities/doctor_availability_entity.dart';
 import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/availability_calendar.dart';
-import 'package:medico/features/home/presentation/views/widgets/doctor_details/availability_calendar_card.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_details/available_month_day_section.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_overview_list.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/schedule_section.dart';
 
@@ -105,7 +105,7 @@ class _AvailabilityContentState extends State<AvailabilityContent> {
           if (months.isEmpty)
             const Text('This doctor has no available slots right now.')
           else ...[
-            AvailabilityCalendarCard(
+            AvailableMonthDaySection(
               months: months,
               selectedMonth: widget.selectedMonth,
               onMonthSelected: _handleMonthSelected,
