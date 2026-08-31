@@ -1,3 +1,6 @@
+import 'package:medico/features/home/domain/entities/doctor_availability_entity.dart';
+import 'package:medico/features/home/domain/entities/doctor_working_hours_entity.dart';
+
 class DoctorEntity {
   final int id;
   final String name;
@@ -9,7 +12,9 @@ class DoctorEntity {
   final double hourlyRate;
   final double rating;
   final bool isActive;
-  final int categoryId;
+  final String categoryName;
+  final List<DoctorWorkingHoursEntity> workingHours;
+  final List<DoctorAvailabilityEntity> availability;
 
   const DoctorEntity({
     required this.id,
@@ -22,6 +27,8 @@ class DoctorEntity {
     required this.hourlyRate,
     required this.rating,
     required this.isActive,
-    required this.categoryId,
+    required this.categoryName,
+    this.workingHours = const [],
+    this.availability = const [],
   });
 }

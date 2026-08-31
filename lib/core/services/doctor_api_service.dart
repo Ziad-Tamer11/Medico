@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:medico/core/errors/exceptions.dart';
 import 'package:medico/core/services/api_service.dart';
 import 'package:medico/core/utils/backend_endpoints.dart';
-import 'package:medico/features/home/data/models/doctor_availability_model.dart';
 import 'package:medico/features/home/data/models/doctor_model.dart';
 
 class DoctorApiService {
@@ -19,6 +18,18 @@ class DoctorApiService {
           .toList();
     } on DioException catch (e) {
       log('Exception in DoctorApiService.getDoctors: ${e.toString()}');
+      throw CustomExceptions(errMessage: _extractMessage(e));
+    }
+  }
+
+  Future<DoctorModel> getDoctorById({required int doctorId}) async {
+    try {
+      final response = await apiService.get(
+        url: BackendEndpoints.doctorById(doctorId),
+      );
+      return DoctorModel.fromJson(response.data);
+    } on DioException catch (e) {
+      log('Exception in DoctorApiService.getDoctorById: ${e.toString()}');
       throw CustomExceptions(errMessage: _extractMessage(e));
     }
   }
@@ -50,22 +61,6 @@ class DoctorApiService {
           .toList();
     } on DioException catch (e) {
       log('Exception in DoctorApiService.searchDoctors: ${e.toString()}');
-      throw CustomExceptions(errMessage: _extractMessage(e));
-    }
-  }
-
-  Future<List<DoctorAvailabilityModel>> getDoctorAvailability({
-    required int doctorId,
-  }) async {
-    try {
-      final response = await apiService.get(
-        url: BackendEndpoints.doctorAvailability(doctorId),
-      );
-      return (response.data as List)
-          .map((json) => DoctorAvailabilityModel.fromJson(json))
-          .toList();
-    } on DioException catch (e) {
-      log('Exception in DoctorApiService.getDoctorAvailability: ${e.toString()}');
       throw CustomExceptions(errMessage: _extractMessage(e));
     }
   }

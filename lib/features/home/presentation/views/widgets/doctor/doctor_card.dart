@@ -9,6 +9,7 @@ import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/book_appointment_button.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_info.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_rating.dart';
+import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_working_hours.dart';
 
 class DoctorCard extends StatelessWidget {
   const DoctorCard({super.key, required this.doctorEntity});
@@ -40,6 +41,8 @@ class DoctorCard extends StatelessWidget {
                     DoctorInfo(doctorEntity: doctorEntity),
                     const SizedBox(height: 8),
                     DoctorRating(doctorEntity: doctorEntity),
+                    const SizedBox(height: 8),
+                    DoctorWorkingHours(workingHours: doctorEntity.workingHours),
                   ],
                 ),
               ),

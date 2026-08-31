@@ -6,7 +6,7 @@ import 'package:medico/core/widgets/drag_handle.dart';
 import 'package:medico/features/home/domain/entities/doctor_availability_entity.dart';
 import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/domain/usecases/doctor_usecase.dart';
-import 'package:medico/features/home/presentation/manager/doctor_availability_cubit/doctor_availability_cubit.dart';
+import 'package:medico/features/home/presentation/manager/doctor_details_cubit/doctor_details_cubit.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_availability_bloc_builder.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_info_section.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_working_hours_bloc_builder.dart';
@@ -28,8 +28,8 @@ class _DoctorInfoBottomSheetState extends State<DoctorInfoBottomSheet> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          DoctorAvailabilityCubit(doctorUsecase: getIt<DoctorUsecase>())
-            ..getDoctorAvailability(widget.doctorEntity.id),
+          DoctorDetailsCubit(doctorUsecase: getIt<DoctorUsecase>())
+            ..getDoctorById(widget.doctorEntity.id),
       child: Container(
         height: MediaQuery.of(context).size.height * .61,
         width: double.infinity,
@@ -49,7 +49,6 @@ class _DoctorInfoBottomSheetState extends State<DoctorInfoBottomSheet> {
             Divider(color: AppColor.blueGrey),
             Expanded(
               child: DoctorAvailabilityBlocBuilder(
-                doctorEntity: widget.doctorEntity,
                 selectedMonth: selectedMonth,
                 selectedDate: selectedDate,
                 selectedSlot: selectedSlot,

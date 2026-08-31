@@ -23,7 +23,6 @@ class AvailabilityContent extends StatefulWidget {
   const AvailabilityContent({
     super.key,
     required this.doctorEntity,
-    required this.availability,
     required this.selectedMonth,
     required this.selectedDate,
     required this.selectedSlot,
@@ -33,7 +32,6 @@ class AvailabilityContent extends StatefulWidget {
   });
 
   final DoctorEntity doctorEntity;
-  final List<DoctorAvailabilityEntity> availability;
   final DateTime? selectedMonth;
   final DateTime? selectedDate;
   final DoctorAvailabilityEntity? selectedSlot;
@@ -60,7 +58,7 @@ class _AvailabilityContentState extends State<AvailabilityContent> {
 
   @override
   Widget build(BuildContext context) {
-    final availableDates = _uniqueSortedDates(widget.availability);
+    final availableDates = _uniqueSortedDates(widget.doctorEntity.availability);
     final months = buildAvailableMonths(availableDates);
     final daysForSelectedMonth = widget.selectedMonth == null
         ? const <AvailabilityDay>[]
@@ -71,7 +69,7 @@ class _AvailabilityContentState extends State<AvailabilityContent> {
           );
     final slotsForSelectedDate = widget.selectedDate == null
         ? const <DoctorAvailabilityEntity>[]
-        : widget.availability
+        : widget.doctorEntity.availability
               .where((slot) => _isSameDay(slot.date, widget.selectedDate!))
               .toList();
 

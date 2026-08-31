@@ -21,7 +21,7 @@ DoctorEntity getDummyDoctor() {
     hourlyRate: 1,
     rating: 4.8,
     isActive: true,
-    categoryId: 0,
+    categoryName: 'Psychological',
   );
 }
 

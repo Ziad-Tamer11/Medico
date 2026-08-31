@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medico/features/home/domain/entities/doctor_availability_entity.dart';
-import 'package:medico/features/home/domain/entities/doctor_entity.dart';
-import 'package:medico/features/home/presentation/manager/doctor_availability_cubit/doctor_availability_cubit.dart';
+import 'package:medico/features/home/presentation/manager/doctor_details_cubit/doctor_details_cubit.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/availability_content.dart';
 
 class DoctorAvailabilityBlocBuilder extends StatelessWidget {
   const DoctorAvailabilityBlocBuilder({
     super.key,
-    required this.doctorEntity,
     required this.selectedMonth,
     required this.selectedDate,
     required this.selectedSlot,
@@ -17,7 +15,6 @@ class DoctorAvailabilityBlocBuilder extends StatelessWidget {
     required this.onSlotSelected,
   });
 
-  final DoctorEntity doctorEntity;
   final DateTime? selectedMonth;
   final DateTime? selectedDate;
   final DoctorAvailabilityEntity? selectedSlot;
@@ -27,18 +24,17 @@ class DoctorAvailabilityBlocBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DoctorAvailabilityCubit, DoctorAvailabilityState>(
+    return BlocBuilder<DoctorDetailsCubit, DoctorDetailsState>(
       builder: (context, state) {
-        if (state is DoctorAvailabilityLoading) {
+        if (state is DoctorDetailsLoading) {
           return const Center(child: CircularProgressIndicator());
         }
-        if (state is DoctorAvailabilityFailure) {
+        if (state is DoctorDetailsFailure) {
           return Center(child: Text(state.errMessage));
         }
-        if (state is DoctorAvailabilitySuccess) {
+        if (state is DoctorDetailsSuccess) {
           return AvailabilityContent(
-            doctorEntity: doctorEntity,
-            availability: state.availability,
+            doctorEntity: state.doctor,
             selectedMonth: selectedMonth,
             selectedDate: selectedDate,
             selectedSlot: selectedSlot,

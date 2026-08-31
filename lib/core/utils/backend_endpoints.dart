@@ -12,10 +12,9 @@ class BackendEndpoints {
 
   static const categories = 'categories/';
   static const doctors = 'doctors/';
+  static String doctorById(int doctorId) => 'doctors/$doctorId';
   static String doctorsByCategory(int categoryId) =>
       'doctors/category/$categoryId';
-  static String doctorAvailability(int doctorId) =>
-      'doctors/$doctorId/availability';
   static const doctorSearch = 'doctors/search';
   static const createAppointment = 'appointments';
   static const myAppointments = 'appointments/me';

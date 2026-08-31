@@ -4,25 +4,30 @@ import 'package:medico/core/helpers/format_time_12h.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
-import 'package:medico/features/home/domain/entities/doctor_availability_entity.dart';
+import 'package:medico/features/home/domain/entities/doctor_working_hours_entity.dart';
 
-// The backend has no "working hours" field on the doctor itself - only
-// individual availability slots. This derives a simple working-hours
-// summary (earliest start, latest end) from the doctor's own already-
-// fetched availability list, rather than inventing a backend contract
-// that doesn't exist. Renders nothing if there's no availability yet.
+// Shows today's working hours for this doctor, from the backend's real
+// per-weekday schedule (GET /doctors/{id}/working-hours) - not derived
+// from availability slots anymore. Renders a "closed today" message if
+// the doctor has no entry for today's day of week, rather than hiding
+// the row silently.
 class DoctorWorkingHours extends StatelessWidget {
-  const DoctorWorkingHours({super.key, required this.availability});
+  const DoctorWorkingHours({super.key, required this.workingHours});
 
-  final List<DoctorAvailabilityEntity> availability;
+  final List<DoctorWorkingHoursEntity> workingHours;
 
   @override
   Widget build(BuildContext context) {
-    if (availability.isEmpty) return const SizedBox.shrink();
-
-    final startTimes = availability.map((slot) => slot.startTime).toList()
-      ..sort();
-    final endTimes = availability.map((slot) => slot.endTime).toList()..sort();
+    // Backend uses 0 = Monday .. 6 = Sunday; DateTime.weekday is 1 = Monday
+    // .. 7 = Sunday.
+    final todayDayOfWeek = DateTime.now().weekday - 1;
+    DoctorWorkingHoursEntity? today;
+    for (final hours in workingHours) {
+      if (hours.dayOfWeek == todayDayOfWeek) {
+        today = hours;
+        break;
+      }
+    }
 
     return Align(
       alignment: Alignment.centerLeft,
@@ -32,7 +37,9 @@ class DoctorWorkingHours extends StatelessWidget {
           SvgPicture.asset(Assets.imagesTime, color: const Color(0xff7D8A95)),
           const SizedBox(width: 8),
           Text(
-            '${formatTime12h(startTimes.first)} - ${formatTime12h(endTimes.last)}',
+            today == null
+                ? 'Closed today'
+                : '${formatTime12h(today.startTime)} - ${formatTime12h(today.endTime)}',
             style: TextStyles.font14Medium.copyWith(color: AppColor.black),
           ),
         ],

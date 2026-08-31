@@ -1,3 +1,5 @@
+import 'package:medico/features/home/data/models/doctor_availability_model.dart';
+import 'package:medico/features/home/data/models/doctor_working_hours_model.dart';
 import 'package:medico/features/home/domain/entities/doctor_entity.dart';
 
 class DoctorModel extends DoctorEntity {
@@ -12,7 +14,9 @@ class DoctorModel extends DoctorEntity {
     required super.hourlyRate,
     required super.rating,
     required super.isActive,
-    required super.categoryId,
+    required super.categoryName,
+    super.workingHours,
+    super.availability,
   });
 
   // The backend's `name` field bundles the display name and specialty into
@@ -39,7 +43,13 @@ class DoctorModel extends DoctorEntity {
       hourlyRate: (json['price'] as num).toDouble(),
       rating: (json['average_rating'] as num).toDouble(),
       isActive: json['is_active'] ?? true,
-      categoryId: json['category_id'],
+      categoryName: json['category_name'] ?? '',
+      workingHours: (json['working_hours'] as List? ?? [])
+          .map((e) => DoctorWorkingHoursModel.fromJson(e))
+          .toList(),
+      availability: (json['availability'] as List? ?? [])
+          .map((e) => DoctorAvailabilityModel.fromJson(e))
+          .toList(),
     );
   }
 }

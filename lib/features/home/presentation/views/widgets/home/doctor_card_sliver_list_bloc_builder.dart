@@ -43,14 +43,14 @@ class DoctorCardSliverListBlocBuilder extends StatelessWidget {
   // the Home preview isn't dominated by whichever category has the most
   // doctors, capped at _homeDoctorsLimit overall.
   List<DoctorEntity> _pickHomePreview(List<DoctorEntity> doctors) {
-    final perCategoryCount = <int, int>{};
+    final perCategoryCount = <String, int>{};
     final preview = <DoctorEntity>[];
     for (final doctor in doctors) {
       if (preview.length >= _homeDoctorsLimit) break;
-      final countForCategory = perCategoryCount[doctor.categoryId] ?? 0;
+      final countForCategory = perCategoryCount[doctor.categoryName] ?? 0;
       if (countForCategory >= _homeDoctorsPerCategoryLimit) continue;
       preview.add(doctor);
-      perCategoryCount[doctor.categoryId] = countForCategory + 1;
+      perCategoryCount[doctor.categoryName] = countForCategory + 1;
     }
     return preview;
   }
