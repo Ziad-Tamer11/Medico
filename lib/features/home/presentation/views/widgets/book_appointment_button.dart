@@ -3,8 +3,13 @@ import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
 
 class BookAppointmentButton extends StatelessWidget {
-  const BookAppointmentButton({super.key, this.onTap});
+  const BookAppointmentButton({
+    super.key,
+    this.onTap,
+    this.text = 'Book Appointment',
+  });
   final void Function()? onTap;
+  final String text;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -26,7 +31,7 @@ class BookAppointmentButton extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: Text(
-                'Book Appointment',
+                text,
                 textAlign: TextAlign.center,
                 style: TextStyles.font14SemiBold.copyWith(
                   color: AppColor.primary,

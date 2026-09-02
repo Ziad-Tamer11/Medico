@@ -25,4 +25,10 @@ class AppointmentUseCase {
   Future<Either<Failure, List<AppointmentEntity>>> getMyAppointments() {
     return appointmentRepo.getMyAppointments();
   }
+
+  Future<Either<Failure, void>> cancelAppointment({
+    required int appointmentId,
+  }) {
+    return appointmentRepo.cancelAppointment(appointmentId: appointmentId);
+  }
 }

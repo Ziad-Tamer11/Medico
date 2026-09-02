@@ -53,6 +53,19 @@ class AppointmentApiService {
     }
   }
 
+  Future<void> cancelAppointment({required int appointmentId}) async {
+    final token = Prefs.getString(kAccessToken) ?? '';
+    try {
+      await apiService.delete(
+        url: BackendEndpoints.cancelAppointment(appointmentId),
+        token: token,
+      );
+    } on DioException catch (e) {
+      log('Exception in AppointmentApiService.cancelAppointment: ${e.toString()}');
+      throw CustomExceptions(errMessage: _extractMessage(e));
+    }
+  }
+
   String _formatDate(DateTime date) {
     final year = date.year.toString().padLeft(4, '0');
     final month = date.month.toString().padLeft(2, '0');

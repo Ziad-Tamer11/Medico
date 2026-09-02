@@ -12,8 +12,15 @@ import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_ra
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_working_hours.dart';
 
 class DoctorCard extends StatelessWidget {
-  const DoctorCard({super.key, required this.doctorEntity});
+  const DoctorCard({
+    super.key,
+    required this.doctorEntity,
+    this.buttonText = 'Book Appointment',
+    this.onButtonTap,
+  });
   final DoctorEntity doctorEntity;
+  final String buttonText;
+  final void Function()? onButtonTap;
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +58,15 @@ class DoctorCard extends StatelessWidget {
           ),
           SizedBox(height: 16),
           BookAppointmentButton(
-            onTap: () {
-              context.push(AppRoute.kDoctorDetailsView, extra: doctorEntity);
-            },
+            text: buttonText,
+            onTap:
+                onButtonTap ??
+                () {
+                  context.push(
+                    AppRoute.kDoctorDetailsView,
+                    extra: doctorEntity,
+                  );
+                },
           ),
         ],
       ),

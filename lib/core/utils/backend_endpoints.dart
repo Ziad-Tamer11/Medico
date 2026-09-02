@@ -18,6 +18,8 @@ class BackendEndpoints {
   static const doctorSearch = 'doctors/search';
   static const createAppointment = 'appointments';
   static const myAppointments = 'appointments/me';
+  static String cancelAppointment(int appointmentId) =>
+      'appointments/$appointmentId';
 
   static const favorites = 'favorites';
   static String favorite(int doctorId) => 'favorites/$doctorId';

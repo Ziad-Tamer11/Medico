@@ -50,4 +50,23 @@ class AppointmentRepoImpl implements AppointmentRepo {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, void>> cancelAppointment({
+    required int appointmentId,
+  }) async {
+    try {
+      await appointmentApiService.cancelAppointment(
+        appointmentId: appointmentId,
+      );
+      return right(null);
+    } on CustomExceptions catch (e) {
+      return left(ServerFailure(errMessage: e.errMessage));
+    } catch (e) {
+      log('Exception in AppointmentRepoImpl.cancelAppointment: ${e.toString()}');
+      return left(
+        ServerFailure(errMessage: 'Something went wrong. Please try again.'),
+      );
+    }
+  }
 }
