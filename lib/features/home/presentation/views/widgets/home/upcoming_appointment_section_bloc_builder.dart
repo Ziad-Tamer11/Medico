@@ -17,17 +17,7 @@ class UpcomingAppointmentSectionBlocBuilder extends StatelessWidget {
     >(
       builder: (context, appointmentState) {
         if (appointmentState is GetUpcomingAppointmentsLoading) {
-          return Skeletonizer(
-            enabled: true,
-            effect: const ShimmerEffect(
-              baseColor: Colors.white,
-              highlightColor: Colors.white70,
-            ),
-            child: UpcomingAppointmentSection(
-              appointments: getDummyAppointments(),
-              doctors: getDummyDoctors(),
-            ),
-          );
+          return _loadingSkeleton();
         }
         if (appointmentState is GetUpcomingAppointmentsFailure) {
           return Center(child: Text(appointmentState.errMessage));
@@ -44,12 +34,28 @@ class UpcomingAppointmentSectionBlocBuilder extends StatelessWidget {
                   doctors: doctorState.doctorEntity,
                 );
               }
-              return const SizedBox.shrink();
+              // appointments are ready but doctor details aren't yet -
+              // keep showing the skeleton instead of an empty gap
+              return _loadingSkeleton();
             },
           );
         }
         return const SizedBox.shrink();
       },
+    );
+  }
+
+  Widget _loadingSkeleton() {
+    return Skeletonizer(
+      enabled: true,
+      effect: const ShimmerEffect(
+        baseColor: Colors.white,
+        highlightColor: Colors.white70,
+      ),
+      child: UpcomingAppointmentSection(
+        appointments: getDummyAppointments(),
+        doctors: getDummyDoctors(),
+      ),
     );
   }
 }

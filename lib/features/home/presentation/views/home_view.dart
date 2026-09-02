@@ -21,7 +21,12 @@ class HomeView extends StatelessWidget {
     getIt<DoctorCubit>().getDoctor();
     if (getIt<AuthUsecase>().isLoggedIn()) {
       getIt<FavoriteCubit>().loadFavorites();
-      getIt<GetUpcomingAppointmentCubit>().getUpcomingAppointments();
+      // forced here (unlike the plain call at cold start/login) so every
+      // Home visit shows a real loading state and picks up anything
+      // booked/cancelled since the last visit, not just a cached list
+      getIt<GetUpcomingAppointmentCubit>().getUpcomingAppointments(
+        forceRefresh: true,
+      );
     }
     return Scaffold(
       body: MultiBlocProvider(
