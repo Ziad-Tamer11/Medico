@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medico/features/booking/presentation/view/booking_view.dart';
 import 'package:medico/features/home/presentation/views/home_view.dart';
 import 'package:medico/features/profile/presentation/views/profile_view.dart';
 import 'package:medico/features/search/presentation/views/search_view.dart';
@@ -12,7 +13,7 @@ class MainViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return IndexedStack(
       index: currentViewIndex,
-      children: const [HomeView(), Placeholder(), SearchView(), ProfileView()],
+      children: const [HomeView(), BookingView(), SearchView(), ProfileView()],
     );
   }
 }
