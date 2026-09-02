@@ -13,6 +13,7 @@ import 'package:medico/features/auth/domain/usecases/auth_usecase.dart';
 import 'package:medico/features/home/presentation/manager/category_cubit/category_cubit.dart';
 import 'package:medico/features/home/presentation/manager/doctor_cubit/doctor_cubit.dart';
 import 'package:medico/features/home/presentation/manager/favorite_cubit/favorite_cubit.dart';
+import 'package:medico/features/home/presentation/manager/get_upcomming_appointment_cubit/get_upcoming_appointment_cubit.dart';
 import 'package:medico/firebase_options.dart';
 
 void main() async {
@@ -29,10 +30,13 @@ void main() async {
   getIt<AppUserCubit>().refresh();
   if (getIt<AuthUsecase>().isLoggedIn()) {
     getIt<FavoriteCubit>().loadFavorites();
+    getIt<GetUpcomingAppointmentCubit>().getUpcomingAppointments();
   }
   // categories/doctors are public data — fetched once here and reused by
   // every screen via the shared singleton, instead of every screen
-  // re-fetching them from scratch each time it's visited
+  // re-fetching them from scratch each time it's visited. Upcoming
+  // appointments starts here too so its loading state lines up with
+  // theirs instead of only starting once HomeView happens to mount.
   getIt<CategoryCubit>().getCategories();
   getIt<DoctorCubit>().getDoctor();
   runApp(const Medico());

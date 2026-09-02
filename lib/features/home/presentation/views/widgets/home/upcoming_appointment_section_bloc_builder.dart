@@ -19,6 +19,10 @@ class UpcomingAppointmentSectionBlocBuilder extends StatelessWidget {
         if (appointmentState is GetUpcomingAppointmentsLoading) {
           return Skeletonizer(
             enabled: true,
+            effect: const ShimmerEffect(
+              baseColor: Colors.white,
+              highlightColor: Colors.white70,
+            ),
             child: UpcomingAppointmentSection(
               appointments: getDummyAppointments(),
               doctors: getDummyDoctors(),

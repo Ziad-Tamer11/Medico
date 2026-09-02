@@ -10,6 +10,7 @@ import 'package:medico/features/auth/presentation/manager/login_cubit/login_cubi
 import 'package:medico/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:medico/features/auth/presentation/views/widgets/sign_up_view_body.dart';
 import 'package:medico/features/home/presentation/manager/favorite_cubit/favorite_cubit.dart';
+import 'package:medico/features/home/presentation/manager/get_upcomming_appointment_cubit/get_upcoming_appointment_cubit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class SignUpViewBlocConsumer extends StatelessWidget {
@@ -24,6 +25,7 @@ class SignUpViewBlocConsumer extends StatelessWidget {
             if (state is SignUpSuccess) {
               getIt<AppUserCubit>().refresh();
               getIt<FavoriteCubit>().loadFavorites();
+              getIt<GetUpcomingAppointmentCubit>().getUpcomingAppointments();
               showMessageBar(
                 context,
                 'Account created successfully',
@@ -41,6 +43,7 @@ class SignUpViewBlocConsumer extends StatelessWidget {
             if (state is LoginSuccess) {
               getIt<AppUserCubit>().refresh();
               getIt<FavoriteCubit>().loadFavorites();
+              getIt<GetUpcomingAppointmentCubit>().getUpcomingAppointments();
               showMessageBar(context, 'Login Successful', Colors.green);
               GoRouter.of(context).pushReplacement(AppRoute.kHomeView);
             }

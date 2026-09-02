@@ -17,10 +17,18 @@ class GetUpcomingAppointmentCubit extends Cubit<GetUpcomingAppointmentState> {
 
   // the backend returns every appointment for the caller (past and future);
   // "upcoming" is a display concern, so the filter/sort happens here
-  Future<void> getUpcomingAppointments() async {
+  Future<void> getUpcomingAppointments({bool forceRefresh = false}) async {
     // /appointments/me needs a valid access token; skip the fetch otherwise
     // instead of letting it fail with a 401
     if (!authUsecase.isLoggedIn()) return;
+    // already loaded, or a request is already in flight — don't fire a
+    // redundant duplicate request, unless the caller explicitly needs
+    // fresh data (e.g. right after booking a new appointment)
+    if (!forceRefresh &&
+        (state is GetUpcomingAppointmentsSuccess ||
+            state is GetUpcomingAppointmentsLoading)) {
+      return;
+    }
 
     emit(GetUpcomingAppointmentsLoading());
 

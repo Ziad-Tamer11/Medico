@@ -31,6 +31,7 @@ import 'package:medico/features/home/domain/usecases/favorite_usecase.dart';
 import 'package:medico/features/home/presentation/manager/category_cubit/category_cubit.dart';
 import 'package:medico/features/home/presentation/manager/doctor_cubit/doctor_cubit.dart';
 import 'package:medico/features/home/presentation/manager/favorite_cubit/favorite_cubit.dart';
+import 'package:medico/features/home/presentation/manager/get_upcomming_appointment_cubit/get_upcoming_appointment_cubit.dart';
 import 'package:medico/features/payment/data/entities/usecase/payment_usecase.dart';
 import 'package:medico/features/payment/data/repos/payment_repo_impl.dart';
 import 'package:medico/features/payment/data/entities/repos/payment_repo.dart';
@@ -122,5 +123,11 @@ void setUpGetIt() {
   );
   getIt.registerLazySingleton<AppointmentUseCase>(
     () => AppointmentUseCase(appointmentRepo: getIt<AppointmentRepo>()),
+  );
+  getIt.registerSingleton<GetUpcomingAppointmentCubit>(
+    GetUpcomingAppointmentCubit(
+      appointmentUseCase: getIt<AppointmentUseCase>(),
+      authUsecase: getIt<AuthUsecase>(),
+    ),
   );
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medico/core/services/get_it_service.dart';
 import 'package:medico/features/auth/domain/usecases/auth_usecase.dart';
-import 'package:medico/features/home/domain/usecases/appointment_usecase.dart';
 import 'package:medico/features/home/presentation/manager/category_cubit/category_cubit.dart';
 import 'package:medico/features/home/presentation/manager/doctor_cubit/doctor_cubit.dart';
 import 'package:medico/features/home/presentation/manager/favorite_cubit/favorite_cubit.dart';
@@ -22,18 +21,15 @@ class HomeView extends StatelessWidget {
     getIt<DoctorCubit>().getDoctor();
     if (getIt<AuthUsecase>().isLoggedIn()) {
       getIt<FavoriteCubit>().loadFavorites();
+      getIt<GetUpcomingAppointmentCubit>().getUpcomingAppointments();
     }
     return Scaffold(
       body: MultiBlocProvider(
         providers: [
           BlocProvider<CategoryCubit>.value(value: getIt<CategoryCubit>()),
           BlocProvider<DoctorCubit>.value(value: getIt<DoctorCubit>()),
-          BlocProvider(
-            create: (context) =>
-                GetUpcomingAppointmentCubit(
-                  appointmentUseCase: getIt<AppointmentUseCase>(),
-                  authUsecase: getIt<AuthUsecase>(),
-                )..getUpcomingAppointments(),
+          BlocProvider<GetUpcomingAppointmentCubit>.value(
+            value: getIt<GetUpcomingAppointmentCubit>(),
           ),
         ],
         child: HomeViewBody(),
