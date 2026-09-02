@@ -28,6 +28,7 @@ import 'package:medico/features/home/domain/usecases/appointment_usecase.dart';
 import 'package:medico/features/home/domain/usecases/category_usecase.dart';
 import 'package:medico/features/home/domain/usecases/doctor_usecase.dart';
 import 'package:medico/features/home/domain/usecases/favorite_usecase.dart';
+import 'package:medico/features/home/presentation/manager/cancel_appointment_cubit/cancel_appointment_cubit.dart';
 import 'package:medico/features/home/presentation/manager/category_cubit/category_cubit.dart';
 import 'package:medico/features/home/presentation/manager/doctor_cubit/doctor_cubit.dart';
 import 'package:medico/features/home/presentation/manager/favorite_cubit/favorite_cubit.dart';
@@ -129,5 +130,8 @@ void setUpGetIt() {
       appointmentUseCase: getIt<AppointmentUseCase>(),
       authUsecase: getIt<AuthUsecase>(),
     ),
+  );
+  getIt.registerSingleton<CancelAppointmentCubit>(
+    CancelAppointmentCubit(appointmentUseCase: getIt<AppointmentUseCase>()),
   );
 }

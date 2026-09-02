@@ -259,6 +259,23 @@ class CustomDialog {
     );
   }
 
+  static Future<bool?> showCancelAppointmentDialog({
+    required BuildContext context,
+    required String doctorName,
+    VoidCallback? onConfirm,
+  }) {
+    return showConfirmationDialog(
+      context: context,
+      title: 'Cancel Appointment',
+      message:
+          'Are you sure you want to cancel your appointment with Dr. $doctorName?',
+      confirmText: 'Yes, Cancel',
+      cancelText: 'No',
+      confirmColor: AppColor.primary,
+      onConfirm: onConfirm,
+    );
+  }
+
   static Future<void> showLoadingDialog({
     required BuildContext context,
     String? message,

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
+import 'package:medico/core/widgets/custom_dialog.dart';
 import 'package:medico/core/widgets/doctor_image.dart';
 import 'package:medico/core/widgets/doctor_name.dart';
 import 'package:medico/core/widgets/doctor_specialist.dart';
 import 'package:medico/features/home/domain/entities/appointment_entity.dart';
 import 'package:medico/features/home/domain/entities/doctor_entity.dart';
+import 'package:medico/features/home/presentation/manager/cancel_appointment_cubit/cancel_appointment_cubit.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_rating.dart';
 
 class UpcomingAppointmentItem extends StatelessWidget {
@@ -68,9 +71,13 @@ class UpcomingAppointmentItem extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 10, left: 50),
                 child: InkWell(
-                  onTap: () {
-                    // _cancelAppointment(context);
-                  },
+                  onTap: () => CustomDialog.showCancelAppointmentDialog(
+                    context: context,
+                    doctorName: doctor.name,
+                    onConfirm: () => context
+                        .read<CancelAppointmentCubit>()
+                        .cancelAppointment(appointment.id),
+                  ),
                   child: const Icon(
                     Icons.more_vert,
                     color: AppColor.white,
