@@ -42,7 +42,7 @@ class GetUpcomingAppointmentCubit extends Cubit<GetUpcomingAppointmentState> {
             appointments.where((appointment) {
               return appointment.date.isAfter(now) ||
                   _isSameDay(appointment.date, now);
-            }).toList()..sort((a, b) => a.date.compareTo(b.date));
+            }).toList()..sort((a, b) => b.createdAt.compareTo(a.createdAt));
         emit(GetUpcomingAppointmentsSuccess(appointments: upcoming));
       },
     );
