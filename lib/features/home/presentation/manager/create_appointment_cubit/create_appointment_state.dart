@@ -7,7 +7,11 @@ final class CreateAppointmentInitial extends CreateAppointmentState {}
 
 final class CreateAppointmentLoading extends CreateAppointmentState {}
 
-final class CreateAppointmentSuccess extends CreateAppointmentState {}
+final class CreateAppointmentSuccess extends CreateAppointmentState {
+  final AppointmentEntity appointment;
+
+  CreateAppointmentSuccess({required this.appointment});
+}
 
 final class CreateAppointmentFailure extends CreateAppointmentState {
   final String errMessage;

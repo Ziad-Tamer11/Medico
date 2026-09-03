@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:medico/features/home/domain/entities/appointment_entity.dart';
 import 'package:medico/features/home/domain/usecases/appointment_usecase.dart';
 import 'package:meta/meta.dart';
 
@@ -26,7 +27,7 @@ class CreateAppointmentCubit extends Cubit<CreateAppointmentState> {
     result.fold(
       (failure) =>
           emit(CreateAppointmentFailure(errMessage: failure.errMessage)),
-      (_) => emit(CreateAppointmentSuccess()),
+      (appointment) => emit(CreateAppointmentSuccess(appointment: appointment)),
     );
   }
 }
