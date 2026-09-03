@@ -23,7 +23,6 @@ class HomeViewBody extends StatelessWidget {
               const CustomAppBarBlocBuilder(),
               const SizedBox(height: 40),
               UpcomingAppointmentSectionBlocBuilder(),
-              const SizedBox(height: 24),
               CustomHeader(
                 title1: 'Categories',
                 onTap: () {

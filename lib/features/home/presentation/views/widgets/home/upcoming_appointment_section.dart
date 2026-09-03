@@ -31,6 +31,7 @@ class UpcomingAppointmentSection extends StatelessWidget {
             appointments: appointments,
             doctors: doctors,
           ),
+          const SizedBox(height: 24),
         ],
       ),
     );
