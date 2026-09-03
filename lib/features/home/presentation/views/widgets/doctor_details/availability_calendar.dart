@@ -59,8 +59,17 @@ List<AvailabilityDay> buildDaysForMonth({
   required int year,
   required int month,
   required List<DateTime> availableDates,
+  List<DateTime> alreadyBookedDates = const [],
 }) {
   final availableDayNumbers = availableDates
+      .where((d) => d.year == year && d.month == month)
+      .map((d) => d.day)
+      .toSet();
+  // the backend allows only one appointment per doctor per day, so a day
+  // already booked with this doctor can never succeed even if slots on it
+  // still show as open - excluded here rather than letting the user hit
+  // that error after picking a time
+  final alreadyBookedDayNumbers = alreadyBookedDates
       .where((d) => d.year == year && d.month == month)
       .map((d) => d.day)
       .toSet();
@@ -74,7 +83,9 @@ List<AvailabilityDay> buildDaysForMonth({
     for (var day = startDay; day <= daysInMonth; day++)
       AvailabilityDay(
         date: DateTime(year, month, day),
-        hasAvailability: availableDayNumbers.contains(day),
+        hasAvailability:
+            availableDayNumbers.contains(day) &&
+            !alreadyBookedDayNumbers.contains(day),
       ),
   ];
 }

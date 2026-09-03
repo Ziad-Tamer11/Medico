@@ -54,6 +54,9 @@ class Medico extends StatelessWidget {
       providers: [
         BlocProvider<AppUserCubit>.value(value: getIt<AppUserCubit>()),
         BlocProvider<FavoriteCubit>.value(value: getIt<FavoriteCubit>()),
+        BlocProvider<GetUpcomingAppointmentCubit>.value(
+          value: getIt<GetUpcomingAppointmentCubit>(),
+        ),
         BlocProvider<CancelAppointmentCubit>.value(
           value: getIt<CancelAppointmentCubit>(),
         ),

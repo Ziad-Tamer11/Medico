@@ -27,9 +27,6 @@ class BookingView extends StatelessWidget {
       body: MultiBlocProvider(
         providers: [
           BlocProvider<DoctorCubit>.value(value: getIt<DoctorCubit>()),
-          BlocProvider<GetUpcomingAppointmentCubit>.value(
-            value: getIt<GetUpcomingAppointmentCubit>(),
-          ),
         ],
         child: BookingViewBody(),
       ),

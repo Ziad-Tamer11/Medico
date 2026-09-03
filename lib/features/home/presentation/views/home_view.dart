@@ -33,9 +33,6 @@ class HomeView extends StatelessWidget {
         providers: [
           BlocProvider<CategoryCubit>.value(value: getIt<CategoryCubit>()),
           BlocProvider<DoctorCubit>.value(value: getIt<DoctorCubit>()),
-          BlocProvider<GetUpcomingAppointmentCubit>.value(
-            value: getIt<GetUpcomingAppointmentCubit>(),
-          ),
         ],
         child: HomeViewBody(),
       ),

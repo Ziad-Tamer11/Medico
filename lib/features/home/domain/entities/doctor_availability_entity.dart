@@ -4,6 +4,7 @@ class DoctorAvailabilityEntity {
   final DateTime date;
   final String startTime;
   final String endTime;
+  final bool isAvailable;
 
   const DoctorAvailabilityEntity({
     required this.id,
@@ -11,5 +12,6 @@ class DoctorAvailabilityEntity {
     required this.date,
     required this.startTime,
     required this.endTime,
+    this.isAvailable = true,
   });
 }

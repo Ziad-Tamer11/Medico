@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medico/core/helpers/show_message_bar.dart';
 import 'package:medico/core/utils/app_colors.dart';
@@ -7,6 +8,7 @@ import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/features/home/domain/entities/appointment_selection.dart';
 import 'package:medico/features/home/domain/entities/doctor_availability_entity.dart';
 import 'package:medico/features/home/domain/entities/doctor_entity.dart';
+import 'package:medico/features/home/presentation/manager/get_upcomming_appointment_cubit/get_upcoming_appointment_cubit.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/availability_calendar.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/available_month_day_section.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/doctor_overview_list.dart';
@@ -60,18 +62,27 @@ class _AvailabilityContentState extends State<AvailabilityContent> {
   Widget build(BuildContext context) {
     final availableDates = _uniqueSortedDates(widget.doctorEntity.availability);
     final months = buildAvailableMonths(availableDates);
+    final upcomingState = context.watch<GetUpcomingAppointmentCubit>().state;
+    final alreadyBookedDates = upcomingState is GetUpcomingAppointmentsSuccess
+        ? upcomingState.appointments
+              .where((a) => a.doctorId == widget.doctorEntity.id)
+              .map((a) => a.date)
+              .toList()
+        : const <DateTime>[];
     final daysForSelectedMonth = widget.selectedMonth == null
         ? const <AvailabilityDay>[]
         : buildDaysForMonth(
             year: widget.selectedMonth!.year,
             month: widget.selectedMonth!.month,
             availableDates: availableDates,
+            alreadyBookedDates: alreadyBookedDates,
           );
     final slotsForSelectedDate = widget.selectedDate == null
         ? const <DoctorAvailabilityEntity>[]
-        : widget.doctorEntity.availability
+        : (widget.doctorEntity.availability
               .where((slot) => _isSameDay(slot.date, widget.selectedDate!))
-              .toList();
+              .toList()
+          ..sort((a, b) => a.startTime.compareTo(b.startTime)));
 
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),

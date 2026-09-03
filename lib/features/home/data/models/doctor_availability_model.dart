@@ -7,6 +7,7 @@ class DoctorAvailabilityModel extends DoctorAvailabilityEntity {
     required super.date,
     required super.startTime,
     required super.endTime,
+    super.isAvailable,
   });
 
   factory DoctorAvailabilityModel.fromJson(Map<String, dynamic> json) {
@@ -16,6 +17,7 @@ class DoctorAvailabilityModel extends DoctorAvailabilityEntity {
       date: DateTime.parse(json['date']),
       startTime: json['start_time'],
       endTime: json['end_time'],
+      isAvailable: json['is_available'] ?? true,
     );
   }
 }

@@ -39,6 +39,7 @@ class ScheduleItemGridView extends StatelessWidget {
           time:
               '${formatTime12h(slot.startTime)} - ${formatTime12h(slot.endTime)}',
           isSelected: selectedSlot == slot,
+          isDisabled: !slot.isAvailable,
           onTap: () => onSlotSelected(slot),
         );
       },
