@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:medico/core/helpers/show_message_bar.dart';
-import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/features/home/domain/entities/appointment_selection.dart';
@@ -47,6 +45,7 @@ class AvailabilityContent extends StatefulWidget {
 
 class _AvailabilityContentState extends State<AvailabilityContent> {
   bool _dateError = false;
+  bool _slotError = false;
 
   void _handleMonthSelected(DateTime month) {
     setState(() => _dateError = false);
@@ -56,6 +55,11 @@ class _AvailabilityContentState extends State<AvailabilityContent> {
   void _handleDateSelected(DateTime date) {
     setState(() => _dateError = false);
     widget.onDateSelected(date);
+  }
+
+  void _handleSlotSelected(DoctorAvailabilityEntity slot) {
+    setState(() => _slotError = false);
+    widget.onSlotSelected(slot);
   }
 
   @override
@@ -82,7 +86,7 @@ class _AvailabilityContentState extends State<AvailabilityContent> {
         : (widget.doctorEntity.availability
               .where((slot) => _isSameDay(slot.date, widget.selectedDate!))
               .toList()
-          ..sort((a, b) => a.startTime.compareTo(b.startTime)));
+            ..sort((a, b) => a.startTime.compareTo(b.startTime)));
 
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -109,7 +113,8 @@ class _AvailabilityContentState extends State<AvailabilityContent> {
               ScheduleSection(
                 slots: slotsForSelectedDate,
                 selectedSlot: widget.selectedSlot,
-                onSlotSelected: widget.onSlotSelected,
+                onSlotSelected: _handleSlotSelected,
+                hasError: _slotError,
               ),
           ],
           const SizedBox(height: 40),
@@ -126,11 +131,10 @@ class _AvailabilityContentState extends State<AvailabilityContent> {
   void _onBookAppointment(BuildContext context) {
     if (widget.selectedMonth == null || widget.selectedDate == null) {
       setState(() => _dateError = true);
-      showMessageBar(context, 'Please select a date', AppColor.red);
       return;
     }
     if (widget.selectedSlot == null) {
-      showMessageBar(context, 'Please select a time', AppColor.red);
+      setState(() => _slotError = true);
       return;
     }
     final appointmentSelection = AppointmentSelectionEntity(
