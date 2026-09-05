@@ -39,6 +39,10 @@ class Assets {
   /// assets/images/edit_profile.svg
   static const String imagesEditProfile = "assets/images/edit_profile.svg";
 
+  /// Assets for imagesEtisalat
+  /// assets/images/etisalat.svg
+  static const String imagesEtisalat = "assets/images/etisalat.svg";
+
   /// Assets for imagesFacebook
   /// assets/images/facebook.svg
   static const String imagesFacebook = "assets/images/facebook.svg";
@@ -93,6 +97,10 @@ class Assets {
   static const String imagesLottieNoResult =
       "assets/images/lottie/no_result.json";
 
+  /// Assets for imagesMastercard
+  /// assets/images/mastercard.svg
+  static const String imagesMastercard = "assets/images/mastercard.svg";
+
   /// Assets for imagesNotSelectedCheckBox
   /// assets/images/not_selected_check_box.svg
   static const String imagesNotSelectedCheckBox =
@@ -101,6 +109,14 @@ class Assets {
   /// Assets for imagesNotification
   /// assets/images/notification.svg
   static const String imagesNotification = "assets/images/notification.svg";
+
+  /// Assets for imagesOrange
+  /// assets/images/orange.svg
+  static const String imagesOrange = "assets/images/orange.svg";
+
+  /// Assets for imagesPayWithCash
+  /// assets/images/pay_with_cash.svg
+  static const String imagesPayWithCash = "assets/images/pay_with_cash.svg";
 
   /// Assets for imagesProfile
   /// assets/images/profile.svg
@@ -154,7 +170,15 @@ class Assets {
   /// assets/images/user.png
   static const String imagesUser = "assets/images/user.png";
 
+  /// Assets for imagesVisa
+  /// assets/images/visa.svg
+  static const String imagesVisa = "assets/images/visa.svg";
+
   /// Assets for imagesVisible
   /// assets/images/visible.svg
   static const String imagesVisible = "assets/images/visible.svg";
+
+  /// Assets for imagesVodafone
+  /// assets/images/vodafone.svg
+  static const String imagesVodafone = "assets/images/vodafone.svg";
 }
