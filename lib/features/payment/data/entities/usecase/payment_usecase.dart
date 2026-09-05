@@ -8,7 +8,7 @@ class PaymentUsecase {
 
   PaymentUsecase({required this.paymentRepo});
 
-  Future<Either<Failure, void>> makePayment({
+  Future<Either<Failure, String>> makePayment({
     required PaymentIntentInputModel paymentIntentInputModel,
   }) {
     return paymentRepo.makePayment(

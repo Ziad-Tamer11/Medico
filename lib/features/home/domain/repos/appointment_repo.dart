@@ -8,6 +8,7 @@ abstract class AppointmentRepo {
     required DateTime appointmentDate,
     required String startTime,
     required String endTime,
+    required String paymentIntentId,
   });
 
   Future<Either<Failure, List<AppointmentEntity>>> getMyAppointments();

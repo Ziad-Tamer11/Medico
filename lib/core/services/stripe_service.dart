@@ -1,29 +1,31 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:medico/core/services/api_service.dart';
-import 'package:medico/core/utils/api_keys.dart';
-import 'package:medico/features/payment/data/models/ephemeral_key_model/ephemeral_key_model.dart';
+import 'package:medico/core/services/shared_preferences.dart';
+import 'package:medico/core/utils/backend_endpoints.dart';
+import 'package:medico/constants.dart';
 import 'package:medico/features/payment/data/models/init_payment_sheet_input_model.dart';
 import 'package:medico/features/payment/data/models/payment_intent_input_model.dart';
-import 'package:medico/features/payment/data/models/payment_intent_model/payment_intent_model.dart';
+import 'package:medico/features/payment/data/models/payment_intent_response_model.dart';
 
 class StripeService {
   final ApiService apiService;
 
   StripeService({required this.apiService});
 
-  Future<PaymentIntentModel> createPaymentIntent(
+  // The backend computes the price and creates the PaymentIntent/Customer/
+  // EphemeralKey itself - the app never talks to Stripe's API directly
+  // and never sees a secret key.
+  Future<PaymentIntentResponseModel> createPaymentIntent(
     PaymentIntentInputModel paymentIntentInputModel,
   ) async {
-    var response = await apiService.post(
+    final token = Prefs.getString(kAccessToken) ?? '';
+    final response = await apiService.post(
       body: paymentIntentInputModel.toJson(),
-      url: 'https://api.stripe.com/v1/payment_intents',
-      contentType: Headers.formUrlEncodedContentType,
-      token: ApiKeys.secretKey,
+      url: BackendEndpoints.paymentIntent,
+      token: token,
     );
 
-    var paymentIntentModel = PaymentIntentModel.fromJson(response.data);
-    return paymentIntentModel;
+    return PaymentIntentResponseModel.fromJson(response.data);
   }
 
   Future<void> initPaymentSheet({
@@ -44,52 +46,22 @@ class StripeService {
     await Stripe.instance.presentPaymentSheet();
   }
 
-  Future makePayment({
+  // Returns the payment_intent_id once the payment sheet succeeds, so the
+  // caller can pass it to POST /appointments - the backend verifies that
+  // exact id actually succeeded before it will book anything.
+  Future<String> makePayment({
     required PaymentIntentInputModel paymentIntentInputModel,
   }) async {
-    var paymentIntentModel = await createPaymentIntent(paymentIntentInputModel);
-    var ephemeralKeyModel = await createEphemeralKey(
-      customerId: paymentIntentInputModel.customerId,
-    );
-    var initPaymentSheetInputModel = InitPaymentSheetInputModel(
-      clientSecret: paymentIntentModel.clientSecret!,
-      customerId: paymentIntentInputModel.customerId,
-      ephermeralKeySecret: ephemeralKeyModel.secret!,
+    final paymentIntent = await createPaymentIntent(paymentIntentInputModel);
+    final initPaymentSheetInputModel = InitPaymentSheetInputModel(
+      clientSecret: paymentIntent.clientSecret,
+      customerId: paymentIntent.customerId,
+      ephermeralKeySecret: paymentIntent.ephemeralKey,
     );
     await initPaymentSheet(
       initPaymentSheetInputModel: initPaymentSheetInputModel,
     );
     await displayPaymentSheet();
-  }
-
-  Future<EphemeralKeyModel> createEphemeralKey({
-    required String customerId,
-  }) async {
-    var response = await apiService.post(
-      body: {'customer': customerId},
-      url: 'https://api.stripe.com/v1/ephemeral_keys',
-      contentType: Headers.formUrlEncodedContentType,
-      token: ApiKeys.secretKey,
-      headers: {
-        'Authorization': "Bearer ${ApiKeys.secretKey}",
-        'Stripe-Version': '2026-07-29.dahlia',
-      },
-    );
-
-    var ephemeralKeyModel = EphemeralKeyModel.fromJson(response.data);
-    return ephemeralKeyModel;
+    return paymentIntent.paymentIntentId;
   }
 }
-
-//    Stripe Payment Flow (without saving customer info)
-// 1- create payment intent (paramters: amount,currency) => PaymentIntentModel
-// 2- init payment sheet (paramters: paymentIntentClientSecret,merchantDisplayName)
-// 3- present payment sheet
-// 4- collect all 3 methods in one method to call them one time
-//---------------------------------------------------------------------------------
-//    Stripe Payment Flow (with saving customer info)
-// 1- create payment intent (paramters: amount,currency,customerId) => PaymentIntentModel
-// 2- create ephemeral key (parameters: customerId)
-// 3- init payment sheet (paramters: paymentIntentClientSecret,merchantDisplayName,ephemeralKeySecret)
-// 4- present payment sheet
-// 5- collect all 3 methods in one method to call them one time

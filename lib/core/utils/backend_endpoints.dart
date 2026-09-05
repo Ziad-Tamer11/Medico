@@ -23,4 +23,6 @@ class BackendEndpoints {
 
   static const favorites = 'favorites';
   static String favorite(int doctorId) => 'favorites/$doctorId';
+
+  static const paymentIntent = 'payments/intent';
 }

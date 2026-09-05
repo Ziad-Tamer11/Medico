@@ -17,6 +17,7 @@ class AppointmentRepoImpl implements AppointmentRepo {
     required DateTime appointmentDate,
     required String startTime,
     required String endTime,
+    required String paymentIntentId,
   }) async {
     try {
       final appointment = await appointmentApiService.createAppointment(
@@ -24,6 +25,7 @@ class AppointmentRepoImpl implements AppointmentRepo {
         appointmentDate: appointmentDate,
         startTime: startTime,
         endTime: endTime,
+        paymentIntentId: paymentIntentId,
       );
       return right(appointment);
     } on CustomExceptions catch (e) {

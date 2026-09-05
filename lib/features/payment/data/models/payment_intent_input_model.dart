@@ -1,15 +1,25 @@
 class PaymentIntentInputModel {
-  final String amount;
-  final String currency;
-  final String customerId;
+  final int doctorId;
+  final DateTime appointmentDate;
+  final String startTime;
+  final String endTime;
 
   PaymentIntentInputModel({
-    required this.amount,
-    required this.currency,
-    required this.customerId,
+    required this.doctorId,
+    required this.appointmentDate,
+    required this.startTime,
+    required this.endTime,
   });
 
-  toJson() {
-    return {'amount': amount, 'currency': currency, 'customer': customerId};
+  Map<String, dynamic> toJson() {
+    final year = appointmentDate.year.toString().padLeft(4, '0');
+    final month = appointmentDate.month.toString().padLeft(2, '0');
+    final day = appointmentDate.day.toString().padLeft(2, '0');
+    return {
+      'doctor_id': doctorId,
+      'appointment_date': '$year-$month-$day',
+      'start_time': startTime,
+      'end_time': endTime,
+    };
   }
 }

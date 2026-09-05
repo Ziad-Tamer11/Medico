@@ -17,6 +17,7 @@ class AppointmentApiService {
     required DateTime appointmentDate,
     required String startTime,
     required String endTime,
+    required String paymentIntentId,
   }) async {
     final token = Prefs.getString(kAccessToken) ?? '';
     try {
@@ -28,6 +29,7 @@ class AppointmentApiService {
           'appointment_date': _formatDate(appointmentDate),
           'start_time': startTime,
           'end_time': endTime,
+          'payment_intent_id': paymentIntentId,
         },
       );
       return AppointmentModel.fromJson(response.data);

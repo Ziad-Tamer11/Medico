@@ -16,6 +16,7 @@ class CreateAppointmentCubit extends Cubit<CreateAppointmentState> {
     required DateTime appointmentDate,
     required String startTime,
     required String endTime,
+    required String paymentIntentId,
   }) async {
     emit(CreateAppointmentLoading());
     final result = await appointmentUseCase.createAppointment(
@@ -23,6 +24,7 @@ class CreateAppointmentCubit extends Cubit<CreateAppointmentState> {
       appointmentDate: appointmentDate,
       startTime: startTime,
       endTime: endTime,
+      paymentIntentId: paymentIntentId,
     );
     result.fold(
       (failure) =>

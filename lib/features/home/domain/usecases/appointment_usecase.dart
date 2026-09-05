@@ -13,12 +13,14 @@ class AppointmentUseCase {
     required DateTime appointmentDate,
     required String startTime,
     required String endTime,
+    required String paymentIntentId,
   }) {
     return appointmentRepo.createAppointment(
       doctorId: doctorId,
       appointmentDate: appointmentDate,
       startTime: startTime,
       endTime: endTime,
+      paymentIntentId: paymentIntentId,
     );
   }
 

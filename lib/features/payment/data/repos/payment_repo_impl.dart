@@ -9,14 +9,14 @@ class PaymentRepoImpl extends PaymentRepo {
 
   PaymentRepoImpl({required this.stripeService});
   @override
-  Future<Either<Failure, void>> makePayment({
+  Future<Either<Failure, String>> makePayment({
     required PaymentIntentInputModel paymentIntentInputModel,
   }) async {
     try {
-      await stripeService.makePayment(
+      final paymentIntentId = await stripeService.makePayment(
         paymentIntentInputModel: paymentIntentInputModel,
       );
-      return right(null);
+      return right(paymentIntentId);
     } catch (e) {
       return left(ServerFailure(errMessage: e.toString()));
     }

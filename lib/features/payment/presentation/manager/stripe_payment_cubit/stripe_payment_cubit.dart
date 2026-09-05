@@ -11,12 +11,11 @@ class StripePaymentCubit extends Cubit<StripePaymentState> {
   StripePaymentCubit({required this.paymentUsecase})
     : super(StripePaymentInitial());
   final PaymentUsecase paymentUsecase;
-  Future makePayment({
+  Future<void> makePayment({
     required PaymentIntentInputModel paymentIntentInputModel,
   }) async {
     log(
-      'Starting payment with amount=${paymentIntentInputModel.amount}, '
-      'currency=${paymentIntentInputModel.currency}',
+      'Starting payment for doctorId=${paymentIntentInputModel.doctorId}',
       name: 'StripePaymentCubit',
     );
     emit(StripePaymentLoading());
@@ -32,10 +31,10 @@ class StripePaymentCubit extends Cubit<StripePaymentState> {
 
         emit(StripePaymentFailure(errMessage: failure.errMessage));
       },
-      (_) {
+      (paymentIntentId) {
         log('Payment Success', name: 'StripePaymentCubit');
 
-        emit(StripePaymentSuccess());
+        emit(StripePaymentSuccess(paymentIntentId: paymentIntentId));
       },
     );
   }
