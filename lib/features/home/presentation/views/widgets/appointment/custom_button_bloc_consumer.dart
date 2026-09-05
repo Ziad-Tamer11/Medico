@@ -8,9 +8,9 @@ import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/custom_dialog.dart';
-import 'package:medico/features/home/domain/entities/appointment_selection.dart';
-import 'package:medico/features/home/presentation/manager/create_appointment_cubit/create_appointment_cubit.dart';
-import 'package:medico/features/home/presentation/manager/get_upcomming_appointment_cubit/get_upcoming_appointment_cubit.dart';
+import 'package:medico/features/doctors/domain/entities/appointment_selection.dart';
+import 'package:medico/features/doctors/presentation/manager/create_appointment_cubit/create_appointment_cubit.dart';
+import 'package:medico/features/doctors/presentation/manager/get_upcomming_appointment_cubit/get_upcoming_appointment_cubit.dart';
 import 'package:medico/features/payment/data/models/payment_intent_input_model.dart';
 import 'package:medico/features/payment/presentation/manager/stripe_payment_cubit/stripe_payment_cubit.dart';
 

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:medico/features/home/domain/entities/appointment_entity.dart';
-import 'package:medico/features/home/domain/usecases/appointment_usecase.dart';
+import 'package:medico/features/doctors/domain/entities/appointment_entity.dart';
+import 'package:medico/features/doctors/domain/usecases/appointment_usecase.dart';
 import 'package:meta/meta.dart';
 
 part 'notification_state.dart';

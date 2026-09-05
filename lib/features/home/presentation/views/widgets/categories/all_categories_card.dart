@@ -6,7 +6,7 @@ import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
 import 'package:medico/core/widgets/category_image.dart';
-import 'package:medico/features/home/domain/entities/category_entity.dart';
+import 'package:medico/features/doctors/domain/entities/category_entity.dart';
 
 class AllCategoriesCard extends StatelessWidget {
   const AllCategoriesCard({super.key, required this.categoryEntity});

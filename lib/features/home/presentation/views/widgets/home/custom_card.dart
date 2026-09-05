@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
 import 'package:medico/core/widgets/category_image.dart';
-import 'package:medico/features/home/domain/entities/category_entity.dart';
+import 'package:medico/features/doctors/domain/entities/category_entity.dart';
 
 class CustomCard extends StatelessWidget {
   const CustomCard({super.key, this.onTap, required this.categoryEntity});

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:medico/constants.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
-import 'package:medico/features/home/domain/entities/appointment_entity.dart';
-import 'package:medico/features/home/domain/entities/doctor_entity.dart';
+import 'package:medico/features/doctors/domain/entities/appointment_entity.dart';
+import 'package:medico/features/doctors/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/home/upcoming_appointment_list_view.dart';
 
 class UpcomingAppointmentSection extends StatelessWidget {

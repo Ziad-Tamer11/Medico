@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medico/core/helpers/format_time_12h.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
-import 'package:medico/features/home/domain/entities/doctor_availability_entity.dart';
+import 'package:medico/features/doctors/domain/entities/doctor_availability_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/schedule_available_item.dart';
 
 class ScheduleItemGridView extends StatelessWidget {

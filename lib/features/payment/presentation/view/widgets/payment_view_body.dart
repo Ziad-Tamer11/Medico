@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medico/constants.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
-import 'package:medico/features/home/domain/entities/appointment_selection.dart';
+import 'package:medico/features/doctors/domain/entities/appointment_selection.dart';
 import 'package:medico/features/home/presentation/views/widgets/appointment/custom_button_bloc_consumer.dart';
 import 'package:medico/features/payment/domain/entities/payment_method.dart';
 import 'package:medico/features/payment/presentation/view/widgets/payment_card.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medico/features/booking/presentation/view/widgets/booking_appointment_item.dart';
-import 'package:medico/features/home/domain/entities/doctor_entity.dart';
-import 'package:medico/features/home/presentation/manager/doctor_cubit/doctor_cubit.dart';
-import 'package:medico/features/home/presentation/manager/get_upcomming_appointment_cubit/get_upcoming_appointment_cubit.dart';
+import 'package:medico/features/doctors/domain/entities/doctor_entity.dart';
+import 'package:medico/features/doctors/presentation/manager/doctor_cubit/doctor_cubit.dart';
+import 'package:medico/features/doctors/presentation/manager/get_upcomming_appointment_cubit/get_upcoming_appointment_cubit.dart';
 import 'package:medico/features/home/presentation/views/widgets/no_result.dart';
 
 class UpcomingAppointmentsTab extends StatelessWidget {

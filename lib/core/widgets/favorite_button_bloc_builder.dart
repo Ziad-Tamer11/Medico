@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medico/core/widgets/favorite_button.dart';
-import 'package:medico/features/home/presentation/manager/favorite_cubit/favorite_cubit.dart';
+import 'package:medico/features/doctors/presentation/manager/favorite_cubit/favorite_cubit.dart';
 
 class FavoriteButtonBlocBuilder extends StatelessWidget {
   const FavoriteButtonBlocBuilder({

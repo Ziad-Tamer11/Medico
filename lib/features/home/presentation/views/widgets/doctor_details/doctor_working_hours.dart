@@ -4,7 +4,7 @@ import 'package:medico/core/helpers/format_time_12h.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
-import 'package:medico/features/home/domain/entities/doctor_working_hours_entity.dart';
+import 'package:medico/features/doctors/domain/entities/doctor_working_hours_entity.dart';
 
 // Shows today's working hours for this doctor, from the backend's real
 // per-weekday schedule (GET /doctors/{id}/working-hours) - not derived

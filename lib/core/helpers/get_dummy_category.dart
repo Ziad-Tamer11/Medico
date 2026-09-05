@@ -1,6 +1,6 @@
-import 'package:medico/features/home/domain/entities/appointment_entity.dart';
-import 'package:medico/features/home/domain/entities/category_entity.dart';
-import 'package:medico/features/home/domain/entities/doctor_entity.dart';
+import 'package:medico/features/doctors/domain/entities/appointment_entity.dart';
+import 'package:medico/features/doctors/domain/entities/category_entity.dart';
+import 'package:medico/features/doctors/domain/entities/doctor_entity.dart';
 
 CategoryEntity getDummyCategory() {
   return CategoryEntity(id: 0, name: 'Psychological');

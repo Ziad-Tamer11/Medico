@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medico/constants.dart';
 import 'package:medico/core/widgets/result_header.dart';
-import 'package:medico/features/home/presentation/manager/doctor_cubit/doctor_cubit.dart';
+import 'package:medico/features/doctors/presentation/manager/doctor_cubit/doctor_cubit.dart';
 import 'package:medico/features/search/presentation/views/widgets/search_results_bloc_builder.dart';
 import 'package:medico/features/search/presentation/views/widgets/search_text_field.dart';
 

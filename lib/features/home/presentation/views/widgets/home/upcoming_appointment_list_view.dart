@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:medico/features/home/domain/entities/appointment_entity.dart';
-import 'package:medico/features/home/domain/entities/doctor_entity.dart';
+import 'package:medico/features/doctors/domain/entities/appointment_entity.dart';
+import 'package:medico/features/doctors/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/home/upcoming_appointment_item.dart';
 
 class UpcomingAppointmentListView extends StatelessWidget {

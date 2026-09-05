@@ -4,8 +4,8 @@ import 'package:medico/core/services/get_it_service.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
 import 'package:medico/features/booking/presentation/view/widgets/booking_view_body.dart';
-import 'package:medico/features/home/presentation/manager/doctor_cubit/doctor_cubit.dart';
-import 'package:medico/features/home/presentation/manager/get_upcomming_appointment_cubit/get_upcoming_appointment_cubit.dart';
+import 'package:medico/features/doctors/presentation/manager/doctor_cubit/doctor_cubit.dart';
+import 'package:medico/features/doctors/presentation/manager/get_upcomming_appointment_cubit/get_upcoming_appointment_cubit.dart';
 
 class BookingView extends StatelessWidget {
   const BookingView({super.key});

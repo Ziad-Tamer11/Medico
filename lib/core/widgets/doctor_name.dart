@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
-import 'package:medico/features/home/domain/entities/doctor_entity.dart';
+import 'package:medico/features/doctors/domain/entities/doctor_entity.dart';
 
 class DoctorName extends StatelessWidget {
   const DoctorName({super.key, this.textStyle, required this.doctorEntity});

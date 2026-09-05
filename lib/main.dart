@@ -13,11 +13,11 @@ import 'package:medico/core/utils/api_keys.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/features/auth/domain/usecases/auth_usecase.dart';
-import 'package:medico/features/home/presentation/manager/cancel_appointment_cubit/cancel_appointment_cubit.dart';
-import 'package:medico/features/home/presentation/manager/category_cubit/category_cubit.dart';
-import 'package:medico/features/home/presentation/manager/doctor_cubit/doctor_cubit.dart';
-import 'package:medico/features/home/presentation/manager/favorite_cubit/favorite_cubit.dart';
-import 'package:medico/features/home/presentation/manager/get_upcomming_appointment_cubit/get_upcoming_appointment_cubit.dart';
+import 'package:medico/features/doctors/presentation/manager/cancel_appointment_cubit/cancel_appointment_cubit.dart';
+import 'package:medico/features/doctors/presentation/manager/category_cubit/category_cubit.dart';
+import 'package:medico/features/doctors/presentation/manager/doctor_cubit/doctor_cubit.dart';
+import 'package:medico/features/doctors/presentation/manager/favorite_cubit/favorite_cubit.dart';
+import 'package:medico/features/doctors/presentation/manager/get_upcomming_appointment_cubit/get_upcoming_appointment_cubit.dart';
 import 'package:medico/firebase_options.dart';
 
 void main() async {
@@ -82,6 +82,12 @@ class Medico extends StatelessWidget {
                 showMessageBar(context, 'Appointment cancelled', Colors.green);
                 getIt<GetUpcomingAppointmentCubit>().getUpcomingAppointments(
                   forceRefresh: true,
+                );
+                getIt<LocalNotificationService>().showNotification(
+                  title: 'Appointment Cancelled',
+                  body:
+                      'Your appointment with Dr. ${state.doctorName} has '
+                      'been cancelled successfully!',
                 );
               }
               if (state is CancelAppointmentFailure) {

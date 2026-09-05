@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
 import 'package:medico/core/widgets/doctor_name.dart';
 import 'package:medico/core/widgets/doctor_specialist.dart';
-import 'package:medico/features/home/domain/entities/doctor_entity.dart';
+import 'package:medico/features/doctors/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_rating.dart';
 
 class DoctorInfoSection extends StatelessWidget {

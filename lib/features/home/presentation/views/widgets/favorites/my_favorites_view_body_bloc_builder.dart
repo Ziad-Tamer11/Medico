@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/widgets/custom_dialog.dart';
-import 'package:medico/features/home/presentation/manager/doctor_cubit/doctor_cubit.dart';
-import 'package:medico/features/home/presentation/manager/favorite_cubit/favorite_cubit.dart';
+import 'package:medico/features/doctors/presentation/manager/doctor_cubit/doctor_cubit.dart';
+import 'package:medico/features/doctors/presentation/manager/favorite_cubit/favorite_cubit.dart';
 import 'package:medico/features/home/presentation/views/widgets/favorites/my_favorites_view_body.dart';
 
 class MyFavoritesViewBodyBlocBuilder extends StatefulWidget {

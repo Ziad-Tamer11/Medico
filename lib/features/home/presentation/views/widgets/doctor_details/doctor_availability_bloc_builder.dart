@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medico/features/home/domain/entities/doctor_availability_entity.dart';
+import 'package:medico/features/doctors/domain/entities/doctor_availability_entity.dart';
 import 'package:medico/features/home/presentation/manager/doctor_details_cubit/doctor_details_cubit.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor_details/availability_content.dart';
 

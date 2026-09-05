@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
 import 'package:medico/core/widgets/custom_dialog.dart';
-import 'package:medico/features/home/domain/entities/appointment_entity.dart';
-import 'package:medico/features/home/domain/entities/doctor_entity.dart';
-import 'package:medico/features/home/presentation/manager/cancel_appointment_cubit/cancel_appointment_cubit.dart';
+import 'package:medico/features/doctors/domain/entities/appointment_entity.dart';
+import 'package:medico/features/doctors/domain/entities/doctor_entity.dart';
+import 'package:medico/features/doctors/presentation/manager/cancel_appointment_cubit/cancel_appointment_cubit.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_card.dart';
 
 class BookingAppointmentItem extends StatelessWidget {
@@ -39,6 +39,7 @@ class BookingAppointmentItem extends StatelessWidget {
             doctorName: doctor.name,
             onConfirm: () => context.read<CancelAppointmentCubit>().cancelAppointment(
               appointment.id,
+              doctorName: doctor.name,
             ),
           ),
         ),

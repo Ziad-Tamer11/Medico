@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:medico/core/errors/exceptions.dart';
 import 'package:medico/core/services/api_service.dart';
 import 'package:medico/core/utils/backend_endpoints.dart';
-import 'package:medico/features/home/data/models/category_model.dart';
+import 'package:medico/features/doctors/data/models/category_model.dart';
 
 class CategoryApiService {
   final ApiService apiService;

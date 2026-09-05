@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medico/features/home/domain/entities/appointment_entity.dart';
+import 'package:medico/features/doctors/domain/entities/appointment_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/no_result.dart';
 import 'package:medico/features/home/presentation/views/widgets/notification/notification_item.dart';
 

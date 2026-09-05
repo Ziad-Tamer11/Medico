@@ -4,7 +4,7 @@ import 'package:medico/constants.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
-import 'package:medico/features/home/domain/entities/doctor_entity.dart';
+import 'package:medico/features/doctors/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/favorites/favorite_doctors_content.dart';
 
 // Pure UI: renders whatever state MyFavoritesViewBodyBlocBuilder resolved.

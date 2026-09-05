@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:medico/features/home/domain/entities/doctor_entity.dart';
-import 'package:medico/features/home/domain/usecases/doctor_usecase.dart';
+import 'package:medico/features/doctors/domain/entities/doctor_entity.dart';
+import 'package:medico/features/doctors/domain/usecases/doctor_usecase.dart';
 import 'package:meta/meta.dart';
 
 part 'doctor_details_state.dart';

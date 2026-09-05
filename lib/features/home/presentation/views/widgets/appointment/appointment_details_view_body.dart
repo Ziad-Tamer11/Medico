@@ -8,7 +8,7 @@ import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/doctor_image.dart';
 import 'package:medico/core/widgets/doctor_name.dart';
 import 'package:medico/core/widgets/doctor_specialist.dart';
-import 'package:medico/features/home/domain/entities/appointment_selection.dart';
+import 'package:medico/features/doctors/domain/entities/appointment_selection.dart';
 import 'package:medico/features/home/presentation/views/widgets/appointment/appointment_schedule_section.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_rating.dart';
 

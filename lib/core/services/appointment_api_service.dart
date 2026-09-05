@@ -5,7 +5,7 @@ import 'package:medico/core/errors/exceptions.dart';
 import 'package:medico/core/services/api_service.dart';
 import 'package:medico/core/services/shared_preferences.dart';
 import 'package:medico/core/utils/backend_endpoints.dart';
-import 'package:medico/features/home/data/models/appointment_model.dart';
+import 'package:medico/features/doctors/data/models/appointment_model.dart';
 
 class AppointmentApiService {
   final ApiService apiService;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medico/features/home/domain/entities/doctor_entity.dart';
+import 'package:medico/features/doctors/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_card.dart';
 
 class DoctorCardSliverList extends StatelessWidget {

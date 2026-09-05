@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medico/core/helpers/get_dummy_category.dart';
-import 'package:medico/features/home/presentation/manager/category_cubit/category_cubit.dart';
+import 'package:medico/features/doctors/presentation/manager/category_cubit/category_cubit.dart';
 import 'package:medico/features/home/presentation/views/widgets/home/custom_card_grid_view.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medico/features/home/domain/entities/category_entity.dart';
+import 'package:medico/features/doctors/domain/entities/category_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/categories/all_categories_card.dart';
 
 class AllCategoriesListView extends StatelessWidget {

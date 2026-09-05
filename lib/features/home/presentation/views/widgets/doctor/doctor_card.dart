@@ -5,7 +5,7 @@ import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/core/widgets/doctor_image.dart';
 import 'package:medico/core/widgets/favorite_button_bloc_builder.dart';
-import 'package:medico/features/home/domain/entities/doctor_entity.dart';
+import 'package:medico/features/doctors/domain/entities/doctor_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/book_appointment_button.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_info.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_rating.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medico/constants.dart';
 import 'package:medico/core/utils/app_route.dart';
-import 'package:medico/features/home/domain/entities/category_entity.dart';
+import 'package:medico/features/doctors/domain/entities/category_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/home/custom_card.dart';
 
 class CustomCardGridview extends StatelessWidget {

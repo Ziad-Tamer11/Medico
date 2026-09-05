@@ -8,9 +8,9 @@ import 'package:medico/core/widgets/custom_dialog.dart';
 import 'package:medico/core/widgets/doctor_image.dart';
 import 'package:medico/core/widgets/doctor_name.dart';
 import 'package:medico/core/widgets/doctor_specialist.dart';
-import 'package:medico/features/home/domain/entities/appointment_entity.dart';
-import 'package:medico/features/home/domain/entities/doctor_entity.dart';
-import 'package:medico/features/home/presentation/manager/cancel_appointment_cubit/cancel_appointment_cubit.dart';
+import 'package:medico/features/doctors/domain/entities/appointment_entity.dart';
+import 'package:medico/features/doctors/domain/entities/doctor_entity.dart';
+import 'package:medico/features/doctors/presentation/manager/cancel_appointment_cubit/cancel_appointment_cubit.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_rating.dart';
 
 class UpcomingAppointmentItem extends StatelessWidget {
@@ -76,7 +76,10 @@ class UpcomingAppointmentItem extends StatelessWidget {
                     doctorName: doctor.name,
                     onConfirm: () => context
                         .read<CancelAppointmentCubit>()
-                        .cancelAppointment(appointment.id),
+                        .cancelAppointment(
+                          appointment.id,
+                          doctorName: doctor.name,
+                        ),
                   ),
                   child: const Icon(
                     Icons.more_vert,

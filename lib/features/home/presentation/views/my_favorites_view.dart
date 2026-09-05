@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medico/core/services/get_it_service.dart';
 import 'package:medico/core/widgets/build_custom_app_bar.dart';
 import 'package:medico/features/auth/domain/usecases/auth_usecase.dart';
-import 'package:medico/features/home/presentation/manager/doctor_cubit/doctor_cubit.dart';
-import 'package:medico/features/home/presentation/manager/favorite_cubit/favorite_cubit.dart';
+import 'package:medico/features/doctors/presentation/manager/doctor_cubit/doctor_cubit.dart';
+import 'package:medico/features/doctors/presentation/manager/favorite_cubit/favorite_cubit.dart';
 import 'package:medico/features/home/presentation/views/widgets/favorites/my_favorites_view_body_bloc_builder.dart';
 
 class MyFavoritesView extends StatelessWidget {
