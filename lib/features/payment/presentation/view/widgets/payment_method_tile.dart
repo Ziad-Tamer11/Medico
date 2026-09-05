@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
 import 'package:medico/features/payment/domain/entities/payment_method.dart';
+import 'package:medico/features/payment/presentation/view/widgets/radio_circle.dart';
 
 class PaymentMethodTile extends StatelessWidget {
   const PaymentMethodTile({
@@ -37,7 +38,7 @@ class PaymentMethodTile extends StatelessWidget {
           ),
           child: Row(
             children: [
-              _RadioCircle(isActive: isActive),
+              RadioCircle(isActive: isActive),
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
@@ -52,31 +53,6 @@ class PaymentMethodTile extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _RadioCircle extends StatelessWidget {
-  const _RadioCircle({required this.isActive});
-  final bool isActive;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 22,
-      height: 22,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: isActive ? AppColor.primary : Colors.transparent,
-        border: Border.all(
-          color: isActive ? AppColor.primary : AppColor.grey,
-          width: 1.4,
-        ),
-      ),
-      child: isActive
-          ? const Icon(Icons.check, size: 14, color: AppColor.white)
-          : null,
     );
   }
 }
