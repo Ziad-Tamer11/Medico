@@ -15,6 +15,7 @@ import 'package:medico/features/home/presentation/views/main_view.dart';
 import 'package:medico/features/home/presentation/views/all_categories_view.dart';
 import 'package:medico/features/home/presentation/views/my_favorites_view.dart';
 import 'package:medico/features/home/presentation/views/notifications_view.dart';
+import 'package:medico/features/payment/presentation/view/payment_view.dart';
 import 'package:medico/features/profile/presentation/views/edit_profile_view.dart';
 import 'package:medico/features/profile/presentation/views/widgets/profile_view_body.dart';
 import 'package:medico/features/splash/presentation/view/splash_view.dart';
@@ -35,6 +36,7 @@ class AppRoute {
   static const kEditProfileView = '/editProfileView';
   static const kDoctorDetailsView = '/doctorDetailsView';
   static const kAppointmentDetailsView = '/appointmentDetailsView';
+  static const kPaymentView = '/paymentView';
 
   static final router = GoRouter(
     routes: [
@@ -106,6 +108,14 @@ class AppRoute {
           return AppointmentDetailsView(
             appointmentSelection: appointmentSelection,
           );
+        },
+      ),
+      GoRoute(
+        path: kPaymentView,
+        builder: (context, state) {
+          final appointmentSelection =
+              state.extra as AppointmentSelectionEntity;
+          return PaymentView(appointmentSelection: appointmentSelection);
         },
       ),
     ],

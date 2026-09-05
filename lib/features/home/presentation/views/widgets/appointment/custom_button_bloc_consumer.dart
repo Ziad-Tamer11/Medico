@@ -24,9 +24,11 @@ class CustomButtonBlocConsumer extends StatelessWidget {
   const CustomButtonBlocConsumer({
     super.key,
     required this.appointmentSelectionEntity,
+    this.buttonText = 'Next',
   });
 
   final AppointmentSelectionEntity appointmentSelectionEntity;
+  final String buttonText;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +90,7 @@ class CustomButtonBlocConsumer extends StatelessWidget {
                   appointmentState is CreateAppointmentLoading;
               return CustomButton(
                 isLoading: isLoading,
-                text: 'Next',
+                text: buttonText,
                 onPressed: isLoading
                     ? null
                     : () {

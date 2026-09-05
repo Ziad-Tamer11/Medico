@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:medico/constants.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
+import 'package:medico/features/home/domain/entities/appointment_selection.dart';
+import 'package:medico/features/home/presentation/views/widgets/appointment/custom_button_bloc_consumer.dart';
 import 'package:medico/features/payment/domain/entities/payment_method.dart';
 import 'package:medico/features/payment/presentation/view/widgets/payment_card.dart';
 
 class PaymentViewBody extends StatefulWidget {
-  const PaymentViewBody({super.key});
+  const PaymentViewBody({super.key, required this.appointmentSelectionEntity});
+
+  final AppointmentSelectionEntity appointmentSelectionEntity;
 
   @override
   State<PaymentViewBody> createState() => _PaymentViewBodyState();
@@ -34,6 +38,16 @@ class _PaymentViewBodyState extends State<PaymentViewBody> {
                 setState(() => selectedMethod = method);
               },
             ),
+            const SizedBox(height: 40),
+            // Only Visa/Mastercard are ever selectable right now (the rest
+            // are disabled), and both route through the same Stripe flow
+            // already wired here - so Continue always means "pay with
+            // Stripe" until Paymob/cash exist.
+            CustomButtonBlocConsumer(
+              appointmentSelectionEntity: widget.appointmentSelectionEntity,
+              buttonText: 'Continue',
+            ),
+            const SizedBox(height: 40),
           ],
         ),
       ),

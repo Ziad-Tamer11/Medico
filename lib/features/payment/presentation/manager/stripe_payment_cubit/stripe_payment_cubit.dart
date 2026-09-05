@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:medico/core/errors/failure.dart';
 import 'package:medico/features/payment/data/entities/usecase/payment_usecase.dart';
 import 'package:medico/features/payment/data/models/payment_intent_input_model.dart';
 import 'package:meta/meta.dart';
@@ -24,6 +25,11 @@ class StripePaymentCubit extends Cubit<StripePaymentState> {
     );
     result.fold(
       (failure) {
+        if (failure is PaymentCancelledFailure) {
+          log('Payment Cancelled by user', name: 'StripePaymentCubit');
+          emit(StripePaymentCancelled());
+          return;
+        }
         log(
           'Payment Failure: ${failure.errMessage}',
           name: 'StripePaymentCubit',

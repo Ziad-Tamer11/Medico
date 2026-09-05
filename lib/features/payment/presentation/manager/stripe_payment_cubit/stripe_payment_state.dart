@@ -18,3 +18,7 @@ final class StripePaymentFailure extends StripePaymentState {
 
   StripePaymentFailure({required this.errMessage});
 }
+
+// The user backed out of the payment sheet themselves - not an error, so it
+// gets its own state instead of StripePaymentFailure to keep the UI silent.
+final class StripePaymentCancelled extends StripePaymentState {}

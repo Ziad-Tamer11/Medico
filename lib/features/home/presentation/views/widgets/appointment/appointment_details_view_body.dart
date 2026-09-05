@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:medico/constants.dart';
 import 'package:medico/core/utils/app_colors.dart';
+import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
+import 'package:medico/core/widgets/custom_button.dart';
 import 'package:medico/core/widgets/doctor_image.dart';
 import 'package:medico/core/widgets/doctor_name.dart';
 import 'package:medico/core/widgets/doctor_specialist.dart';
 import 'package:medico/features/home/domain/entities/appointment_selection.dart';
 import 'package:medico/features/home/presentation/views/widgets/appointment/appointment_schedule_section.dart';
-import 'package:medico/features/home/presentation/views/widgets/appointment/custom_button_bloc_consumer.dart';
 import 'package:medico/features/home/presentation/views/widgets/doctor/doctor_rating.dart';
 
 class AppointmentDetailsViewBody extends StatelessWidget {
@@ -66,8 +68,14 @@ class AppointmentDetailsViewBody extends StatelessWidget {
             endTime: appointmentSelectionEntity.endTime,
           ),
           const SizedBox(height: 100),
-          CustomButtonBlocConsumer(
-            appointmentSelectionEntity: appointmentSelectionEntity,
+          CustomButton(
+            text: 'Next',
+            onPressed: () {
+              context.push(
+                AppRoute.kPaymentView,
+                extra: appointmentSelectionEntity,
+              );
+            },
           ),
         ],
       ),
