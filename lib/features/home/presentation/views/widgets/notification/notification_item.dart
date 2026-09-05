@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:medico/core/helpers/format_time_ago.dart';
 import 'package:medico/core/utils/app_images.dart';
 import 'package:medico/core/utils/app_text_styles.dart';
+import 'package:medico/features/home/domain/entities/appointment_entity.dart';
 
 class NotificationItem extends StatelessWidget {
-  const NotificationItem({super.key});
+  const NotificationItem({super.key, required this.appointment});
+
+  final AppointmentEntity appointment;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,7 @@ class NotificationItem extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Appointment with Dr Jennifer Miller',
+                  'Appointment with Dr ${appointment.doctorName}',
                   style: TextStyles.font16Bold,
                 ),
                 SizedBox(height: 4),
@@ -30,7 +34,7 @@ class NotificationItem extends StatelessWidget {
             ),
           ),
           SizedBox(width: 16),
-          Text('Just now', style: TextStyles.font14Regular),
+          Text(formatTimeAgo(appointment.createdAt), style: TextStyles.font14Regular),
         ],
       ),
     );

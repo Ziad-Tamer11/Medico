@@ -9,6 +9,7 @@ import 'package:medico/core/services/category_api_service.dart';
 import 'package:medico/core/services/dio_client.dart';
 import 'package:medico/core/services/doctor_api_service.dart';
 import 'package:medico/core/services/favorite_api_service.dart';
+import 'package:medico/core/services/local_notification_service.dart';
 import 'package:medico/core/services/shared_preferences.dart';
 import 'package:medico/core/services/stripe_service.dart';
 import 'package:medico/core/services/token_provider.dart';
@@ -40,6 +41,8 @@ import 'package:medico/features/payment/data/entities/repos/payment_repo.dart';
 final getIt = GetIt.instance;
 
 void setUpGetIt() {
+  getIt.registerSingleton<LocalNotificationService>(LocalNotificationService());
+
   getIt.registerLazySingleton<Dio>(() {
     return buildDio(
       baseUrl: kBaseUrl,

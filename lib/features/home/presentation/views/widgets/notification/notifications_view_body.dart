@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:medico/features/home/domain/entities/appointment_entity.dart';
 import 'package:medico/features/home/presentation/views/widgets/no_result.dart';
+import 'package:medico/features/home/presentation/views/widgets/notification/notification_item.dart';
 
 class NotificationsViewBody extends StatelessWidget {
-  const NotificationsViewBody({super.key});
+  const NotificationsViewBody({super.key, required this.appointments});
+
+  final List<AppointmentEntity> appointments;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // emptyState
-        const NoResult(text: 'No notifications found'),
-      ],
+    if (appointments.isEmpty) {
+      return const Center(child: NoResult(text: 'No notifications found'));
+    }
+    return ListView.builder(
+      padding: const EdgeInsets.only(bottom: 24),
+      itemCount: appointments.length,
+      itemBuilder: (context, index) {
+        return NotificationItem(appointment: appointments[index]);
+      },
     );
   }
 }
-
-//    resultState
-//    const NotificationItem()

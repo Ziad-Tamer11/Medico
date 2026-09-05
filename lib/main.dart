@@ -7,6 +7,7 @@ import 'package:medico/core/helpers/show_message_bar.dart';
 import 'package:medico/core/manager/app_user_cubit/app_user_cubit.dart';
 import 'package:medico/core/services/custom_bloc_observer.dart';
 import 'package:medico/core/services/get_it_service.dart';
+import 'package:medico/core/services/local_notification_service.dart';
 import 'package:medico/core/services/shared_preferences.dart';
 import 'package:medico/core/utils/api_keys.dart';
 import 'package:medico/core/utils/app_colors.dart';
@@ -30,6 +31,7 @@ void main() async {
         '883391731424-afmt194hmpgjpn5qr1lur7dd4h4itfac.apps.googleusercontent.com',
   );
   setUpGetIt();
+  await getIt<LocalNotificationService>().init();
   getIt<AppUserCubit>().refresh();
   if (getIt<AuthUsecase>().isLoggedIn()) {
     getIt<FavoriteCubit>().loadFavorites();

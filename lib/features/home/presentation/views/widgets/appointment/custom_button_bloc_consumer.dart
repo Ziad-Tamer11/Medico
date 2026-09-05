@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medico/core/helpers/show_message_bar.dart';
 import 'package:medico/core/services/get_it_service.dart';
+import 'package:medico/core/services/local_notification_service.dart';
 import 'package:medico/core/utils/app_colors.dart';
 import 'package:medico/core/utils/app_route.dart';
 import 'package:medico/core/widgets/custom_button.dart';
@@ -57,6 +58,12 @@ class CustomButtonBlocConsumer extends StatelessWidget {
             if (state is CreateAppointmentSuccess) {
               getIt<GetUpcomingAppointmentCubit>().getUpcomingAppointments(
                 forceRefresh: true,
+              );
+              getIt<LocalNotificationService>().showNotification(
+                title: 'Appointment Confirmed',
+                body:
+                    'Your appointment with Dr. ${doctor.name} has been '
+                    'confirmed successfully!',
               );
               CustomDialog.showSuccessDialog(
                 context: context,
